@@ -48,12 +48,7 @@ class DashboardViewModel : ViewModel() {
         }
 
         override fun onResponse(call: Call<List<Message>?>, response: Response<List<Message>?>) {
-            messages.value = mutableListOf()
-
-            response.body()?.forEach { message ->
-                if (message.text == null) return@forEach
-                messages.value!!.add(message.text!!)
-            }
+            messages.value = response.body()?.mapNotNull { it.text }?.toMutableList()
         }
     }
 }
