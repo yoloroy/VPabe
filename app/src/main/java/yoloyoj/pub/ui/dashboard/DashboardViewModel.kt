@@ -28,12 +28,18 @@ class DashboardViewModel : ViewModel() {
     }
 
     inner class ActionGetter : Callback<String?> {
-        override fun onFailure(call: Call<String?>, t: Throwable) {
+        override fun onFailure(
+            call: Call<String?>,
+            t: Throwable
+        ) {
             t.printStackTrace()
             runGetter()
         }
 
-        override fun onResponse(call: Call<String?>, response: Response<String?>) {
+        override fun onResponse(
+            call: Call<String?>,
+            response: Response<String?>
+        ) {
             when(response.body()) {
                 "message" -> loadMessages()
             }
@@ -43,12 +49,21 @@ class DashboardViewModel : ViewModel() {
     }
 
     inner class MessageGetter : Callback<List<Message>?> {
-        override fun onFailure(call: Call<List<Message>?>, t: Throwable) {
+        override fun onFailure(
+            call: Call<List<Message>?>,
+            t: Throwable
+        ) {
             Log.i("response", t.message)
         }
 
-        override fun onResponse(call: Call<List<Message>?>, response: Response<List<Message>?>) {
-            messages.value = response.body()?.mapNotNull { it.text }?.toMutableList()
+        override fun onResponse(
+            call: Call<List<Message>?>,
+            response: Response<List<Message>?>
+        ) {
+            messages.value = response
+                .body()
+                ?.mapNotNull { it.text }
+                ?.toMutableList()
         }
     }
 }
