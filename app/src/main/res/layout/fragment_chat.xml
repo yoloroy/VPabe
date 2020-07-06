@@ -26,6 +26,8 @@
             android:id="@+id/messageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="start|top"
@@ -39,8 +41,9 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="#0000"
-            android:scaleType="fitXY"
-            android:src="@android:drawable/ic_menu_send" />
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_send_black_24dp"
+            android:tint="@color/colorPrimaryDark" />
 
     </LinearLayout>
 
