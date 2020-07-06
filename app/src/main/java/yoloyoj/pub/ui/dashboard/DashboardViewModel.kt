@@ -28,11 +28,9 @@ class DashboardViewModel : ViewModel() {
         }
 
         actionGetter = ActionGetter().apply {
-            actionListener = { action ->
-                when (action) {
+            actionListener = { action -> when (action) {
                     Action.MESSAGE -> messageGetter.start()
-                }
-            }
+            }}
         }
     }
 }
