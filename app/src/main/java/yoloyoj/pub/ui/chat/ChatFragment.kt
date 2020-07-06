@@ -35,7 +35,7 @@ class ChatFragment : Fragment() {
         messageSender = MessageSender(view!!)
 
         messages.observeForever {
-            messagesView.adapter = ArrayAdapter<String>(context!!,
+            messagesView?.adapter = ArrayAdapter<String>(context!!,
                 android.R.layout.simple_list_item_1, viewModel.messages.texts!!
             )
         }
