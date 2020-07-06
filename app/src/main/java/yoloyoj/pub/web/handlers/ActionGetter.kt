@@ -13,12 +13,12 @@ class ActionGetter : Callback<String?> {
     override fun onFailure(call: Call<String?>, t: Throwable) {
         t.printStackTrace()
 
-        call.enqueue(this)
+        start()
     }
 
     override fun onResponse(call: Call<String?>, response: Response<String?>) {
         actionListener?.let { it(response.body()!!) }
 
-        call.enqueue(this)
+        start()
     }
 }
