@@ -1,4 +1,4 @@
-package yoloyoj.pub.ui.dashboard
+package yoloyoj.pub.ui.chat
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_chat.*
 import yoloyoj.pub.R
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.MessageSender
 
-class DashboardFragment : Fragment() {
+class ChatFragment : Fragment() {
 
-    private lateinit var viewModel: DashboardViewModel
+    private lateinit var viewModel: ChatViewModel
     private lateinit var messages: MessagesData
 
     private lateinit var messageSender: MessageSender
@@ -24,11 +24,11 @@ class DashboardFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
 
         messages = viewModel.messages
 
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+        return inflater.inflate(R.layout.fragment_chat, container, false)
     }
 
     override fun onStart() {

@@ -1,4 +1,4 @@
-package yoloyoj.pub.ui.dashboard
+package yoloyoj.pub.ui.chat
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,7 @@ import yoloyoj.pub.models.Message
 import yoloyoj.pub.web.handlers.ActionGetter
 import yoloyoj.pub.web.handlers.MessageGetter
 
-class DashboardViewModel : ViewModel() {
+class ChatViewModel : ViewModel() {
     private lateinit var messageGetter: MessageGetter
     private lateinit var actionGetter: ActionGetter
 
