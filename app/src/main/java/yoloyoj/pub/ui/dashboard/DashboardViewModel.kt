@@ -1,69 +1,42 @@
 package yoloyoj.pub.ui.dashboard
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import yoloyoj.pub.models.Action
 import yoloyoj.pub.models.Message
-import yoloyoj.pub.web.apiClient
+import yoloyoj.pub.web.handlers.ActionGetter
+import yoloyoj.pub.web.handlers.MessageGetter
 
 class DashboardViewModel : ViewModel() {
-    var messages = MutableLiveData<MutableList<String>>().apply {
-        value = mutableListOf()
-    }
+    private lateinit var messageGetter: MessageGetter
+    private lateinit var actionGetter: ActionGetter
+
+    var messages = MessagesData()
 
     init {
-        runGetter()
-        loadMessages()
+        loadHandlers()
+
+        actionGetter.start()
+        messageGetter.start()
     }
 
-    fun loadMessages() {
-        apiClient.getMessages()?.enqueue(MessageGetter())
-    }
-
-    fun runGetter() {
-        apiClient.getAction()?.enqueue(ActionGetter())
-    }
-
-    inner class ActionGetter : Callback<String?> {
-        override fun onFailure(
-            call: Call<String?>,
-            t: Throwable
-        ) {
-            t.printStackTrace()
-            runGetter()
-        }
-
-        override fun onResponse(
-            call: Call<String?>,
-            response: Response<String?>
-        ) {
-            when(response.body()) {
-                "message" -> loadMessages()
+    private fun loadHandlers() {
+        messageGetter = MessageGetter().apply {
+            messageUpdater = { updMessages ->
+                messages.value = updMessages
             }
+        }
 
-            runGetter()
+        actionGetter = ActionGetter().apply {
+            actionListener = { action ->
+                when (action) {
+                    Action.MESSAGE -> messageGetter.start()
+                }
+            }
         }
     }
+}
 
-    inner class MessageGetter : Callback<List<Message>?> {
-        override fun onFailure(
-            call: Call<List<Message>?>,
-            t: Throwable
-        ) {
-            Log.i("response", t.message)
-        }
-
-        override fun onResponse(
-            call: Call<List<Message>?>,
-            response: Response<List<Message>?>
-        ) {
-            messages.value = response
-                .body()
-                ?.mapNotNull { it.text }
-                ?.toMutableList()
-        }
-    }
+class MessagesData: MutableLiveData<List<Message>>() {
+    val texts get() = value?.map { it.text!! }
 }

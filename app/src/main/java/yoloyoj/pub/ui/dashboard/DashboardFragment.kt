@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import yoloyoj.pub.R
@@ -16,7 +15,7 @@ import yoloyoj.pub.web.handlers.MessageSender
 class DashboardFragment : Fragment() {
 
     private lateinit var viewModel: DashboardViewModel
-    private lateinit var messages: LiveData<MutableList<String>>
+    private lateinit var messages: MessagesData
 
     private lateinit var messageSender: MessageSender
 
@@ -37,7 +36,8 @@ class DashboardFragment : Fragment() {
 
         messages.observeForever {
             messagesView.adapter = ArrayAdapter<String>(context!!,
-                android.R.layout.simple_list_item_1, viewModel.messages.value!!)
+                android.R.layout.simple_list_item_1, viewModel.messages.texts!!
+            )
         }
 
         loadOnClicks()
