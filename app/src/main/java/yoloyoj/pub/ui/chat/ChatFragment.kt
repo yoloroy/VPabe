@@ -11,6 +11,9 @@ import kotlinx.android.synthetic.main.fragment_chat.*
 import yoloyoj.pub.R
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.MessageSender
+import kotlin.Exception
+
+const val MY_USER_ID = 1
 
 class ChatFragment : Fragment() {
 
@@ -34,15 +37,21 @@ class ChatFragment : Fragment() {
     override fun onStart() {
         messageSender = MessageSender(view!!)
 
-        messages.observeForever {
-            messagesView?.adapter = ArrayAdapter<String>(context!!,
-                android.R.layout.simple_list_item_1, viewModel.messages.texts!!
-            )
-        }
+        messages.observeForever { loadAdapter() }
+        viewModel.users.observeForever { loadAdapter() }
 
         loadOnClicks()
 
         super.onStart()
+    }
+
+    private fun loadAdapter() {
+        try {
+            messagesView?.adapter = ArrayAdapter<String>(
+                context!!,
+                android.R.layout.simple_list_item_1, viewModel.texts!!
+            )
+        } catch (e: Exception) {}
     }
 
     private fun loadOnClicks() {
@@ -50,7 +59,7 @@ class ChatFragment : Fragment() {
     }
 
     private fun sendMessage() {
-        apiClient.putMessage(messageView.text.toString())?.enqueue(messageSender)
+        apiClient.putMessage(messageView.text.toString(), MY_USER_ID)?.enqueue(messageSender)
         messageView.text.clear()
     }
 }
