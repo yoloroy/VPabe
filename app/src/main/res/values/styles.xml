@@ -10,4 +10,9 @@
         <item name="android:colorPrimaryDark">@android:color/holo_orange_light</item>
         <item name="android:windowBackground">@drawable/ic_launcher_background</item>
     </style>
+
+    <style name="rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
