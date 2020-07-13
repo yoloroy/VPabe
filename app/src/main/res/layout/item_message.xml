@@ -21,7 +21,7 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_gravity="top"
         android:layout_margin="4dp">
 
         <ImageView
@@ -29,6 +29,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="bottom|start"
+            android:layout_marginBottom="16dp"
             android:tint="@color/colorPrimaryLight"
             app:srcCompat="@drawable/ic_corner" />
 
@@ -36,29 +37,30 @@
             android:id="@+id/messageBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
+            android:layout_gravity="start|top"
             android:minHeight="32dp"
-            android:paddingStart="16dp"
-            android:paddingBottom="16dp">
+            android:paddingStart="16dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimaryLight"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/senderView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_margin="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:minWidth="72dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="8dp"
                     android:minWidth="72dp"
