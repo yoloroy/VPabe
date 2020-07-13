@@ -17,7 +17,10 @@ public interface Link {
     ): Call<ResponseBody?>?
 
     @GET("getmessages")
-    fun getMessages(): Call<List<Message>?>?
+    fun getMessages(
+        @Query("chatid") chatid: Int,
+        @Query("after") after: Int
+    ): Call<List<Message>?>?
 
     @GET("getuser")
     fun getUser(

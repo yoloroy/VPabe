@@ -39,7 +39,6 @@ class ChatFragment : Fragment() {
         messageSender = MessageSender(view!!)
 
         messages.observeForever { loadAdapter() }
-        viewModel.users.observeForever { loadAdapter() }
 
         messagesView.layoutManager = LinearLayoutManager(context)
 

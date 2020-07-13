@@ -10,12 +10,17 @@ import yoloyoj.pub.web.apiClient
 class MessageGetter : Callback<List<Message>?> {
     var messageUpdater: ((List<Message>) -> Unit)? = null
 
-    fun start() {
-        apiClient.getMessages()?.enqueue(this)
+    fun start(
+        chatid: Int, after: Int
+    ) {
+        apiClient.getMessages(
+            chatid, after
+        )?.enqueue(this)
     }
 
     override fun onFailure(call: Call<List<Message>?>, t: Throwable) {
-        Log.i("response", t.message)
+        Log.i("onFailure", t.localizedMessage)
+        messageUpdater?.let { it(emptyList()) }
     }
 
     override fun onResponse(call: Call<List<Message>?>, response: Response<List<Message>?>) {

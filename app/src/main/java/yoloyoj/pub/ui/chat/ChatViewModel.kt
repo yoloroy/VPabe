@@ -2,40 +2,36 @@ package yoloyoj.pub.ui.chat
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import yoloyoj.pub.models.Action
 import yoloyoj.pub.models.Message
-import yoloyoj.pub.models.User
-import yoloyoj.pub.web.handlers.ActionGetter
 import yoloyoj.pub.web.handlers.MessageGetter
-import yoloyoj.pub.web.handlers.UserGetter
 
 class ChatViewModel : ViewModel() {
     private lateinit var messageGetter: MessageGetter
-    private lateinit var actionGetter: ActionGetter
 
-    var messages = MessagesData()
-    var users = MutableLiveData<MutableMap<Int, User>>().apply {
-        value = mutableMapOf()
+    var messages = MessagesData().apply {
+        value = emptyList()
     }
 
     init {
         loadHandlers()
 
-        actionGetter.start()
-        messageGetter.start()
+        messageGetter.start(
+            MY_CHAT_ID,
+            0
+        )
     }
 
     private fun loadHandlers() {
         messageGetter = MessageGetter().apply {
             messageUpdater = { updMessages ->
-                messages.value = updMessages
-            }
-        }
+                messages.value = messages.value!! + updMessages
 
-        actionGetter = ActionGetter().apply {
-            actionListener = { action -> when (action) {
-                    Action.MESSAGE -> messageGetter.start()
-            }}
+                if (updMessages.isNotEmpty())
+                    messageGetter.start(
+                        updMessages.last().chatid!!,
+                        updMessages.last()._rowid_!!
+                    )
+            }
         }
     }
 }
