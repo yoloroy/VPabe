@@ -2,7 +2,9 @@ package yoloyoj.pub.ui.chat
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_message.view.*
+import yoloyoj.pub.R
 import yoloyoj.pub.models.Message
 import yoloyoj.pub.utils.toDp
 
@@ -19,6 +21,10 @@ class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) 
 
         if (showUserAvatar) {
             view.showAvatar()
+            Picasso.get()
+                .load(message.avatar)
+                .placeholder(R.drawable.ic_person)
+                .into(view.userView)
         } else {
             view.hideAvatar()
         }

@@ -14,7 +14,6 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:background="@color/colorPrimaryLL"
-        android:tint="@color/colorPrimary"
         app:shapeAppearanceOverlay="@style/rounded"
         app:srcCompat="@drawable/ic_person" />
 
