@@ -13,9 +13,9 @@ class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) 
         if (showUserName) {
             view.senderView.visibility = View.VISIBLE
             view.senderView.text = message.sender
-        }
-        else
+        } else {
             view.senderView.visibility = View.GONE
+        }
 
         if (showUserAvatar) {
             view.showAvatar()
