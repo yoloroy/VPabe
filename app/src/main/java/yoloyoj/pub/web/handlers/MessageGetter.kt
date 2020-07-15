@@ -7,9 +7,9 @@ import retrofit2.Response
 import yoloyoj.pub.models.Message
 import yoloyoj.pub.web.apiClient
 
-class MessageGetter : Callback<List<Message>?> {
+class MessageGetter(
     var messageUpdater: ((List<Message>) -> Unit)? = null
-
+) : Callback<List<Message>?> {
     fun start(
         chatid: Int, after: Int
     ) {

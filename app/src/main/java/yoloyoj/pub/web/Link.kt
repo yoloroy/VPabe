@@ -33,5 +33,7 @@ public interface Link {
     fun getAction(): Call<String?>?
 
     @GET("getevents")
-    fun getEvents(): Call<List<Event>?>?
+    fun getEvents(
+        @Query("userid") userid: Int = 0
+    ): Call<List<Event>?>?
 }

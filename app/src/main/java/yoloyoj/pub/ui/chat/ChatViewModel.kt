@@ -22,16 +22,14 @@ class ChatViewModel : ViewModel() {
     }
 
     private fun loadHandlers() {
-        messageGetter = MessageGetter().apply {
-            messageUpdater = { updMessages ->
-                messages.value = messages.value!! + updMessages
+        messageGetter = MessageGetter { updMessages ->
+            messages.value = messages.value!! + updMessages
 
-                if (updMessages.isNotEmpty())
-                    messageGetter.start(
-                        updMessages.last().chatid!!,
-                        updMessages.last()._rowid_!!
-                    )
-            }
+            if (updMessages.isNotEmpty())
+                messageGetter.start(
+                    updMessages.last().chatid!!,
+                    updMessages.last()._rowid_!!
+                )
         }
     }
 }
