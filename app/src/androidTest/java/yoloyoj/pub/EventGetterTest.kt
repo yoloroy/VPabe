@@ -20,10 +20,7 @@ class EventGetterTest {
         EventGetter { events ->
             Log.i(
                 "list of events",
-                events.joinToString(
-                    ",\n",
-                    "[\n",
-                    "\n]") { event ->
+                events.joinToString(",\n", "[\n", "\n]") { event ->
                     event.toString()
                 }
             )
