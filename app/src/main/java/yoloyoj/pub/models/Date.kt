@@ -9,4 +9,13 @@ class Date(
 ) {
     val time: String
         get() = "$hour:$minute"
+
+    override fun toString(): String {
+        return "{ \n" +
+                "dateid=${this.dateid},\n" +
+                "month=${this.month},\n" +
+                "day=${this.day},\n" +
+                "time=${this.time}\n" +
+                " }"
+    }
 }

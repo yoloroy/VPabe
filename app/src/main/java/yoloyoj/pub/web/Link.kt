@@ -4,6 +4,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
+import yoloyoj.pub.models.Event
 import yoloyoj.pub.models.Message
 import yoloyoj.pub.models.User
 
@@ -30,4 +31,7 @@ public interface Link {
 
     @GET("getaction")
     fun getAction(): Call<String?>?
+
+    @GET("getevents")
+    fun getEvents(): Call<List<Event>?>?
 }
