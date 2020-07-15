@@ -6,6 +6,7 @@ class Message {
     var chatid: Int? = null
     var sender: String? = null
     var avatar: String? = null
+    var attachments: List<Attachment>? = null
 
     fun hasNulls(): Boolean {
         return (text == null) or (sender == null)
