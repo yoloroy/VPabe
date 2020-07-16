@@ -4,6 +4,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
+import yoloyoj.pub.models.ChatView
 import yoloyoj.pub.models.Event
 import yoloyoj.pub.models.Message
 import yoloyoj.pub.models.User
@@ -36,4 +37,9 @@ public interface Link {
     fun getEvents(
         @Query("userid") userid: Int = 0
     ): Call<List<Event>?>?
+
+    @GET("getchats")
+    fun getChats(
+        @Query("userid") userid: Int = 0
+    ): Call<List<ChatView>?>?
 }

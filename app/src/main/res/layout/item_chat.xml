@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="4dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/chatAvatar"
+        android:layout_width="48dp"
+        android:layout_height="49dp"
+        android:layout_gravity="top"
+        android:layout_margin="4dp"
+        android:background="@color/colorPrimaryLL"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/rounded" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/chatName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:text="chatName" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lastSender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="15"
+                android:maxLines="1"
+                android:textColor="@color/colorAccent"
+                tools:text="lastSender: " />
+
+            <TextView
+                android:id="@+id/lastMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                tools:text="lastMessage" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
