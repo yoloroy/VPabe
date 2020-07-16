@@ -2,4 +2,6 @@
     <string name="app_name">IPab</string>
     <string name="title_chat">Chat</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_attachments">Attachments</string>
+    <string name="download">Download</string>
 </resources>

@@ -14,7 +14,7 @@ val apiClient: Link
             .baseUrl(BASE_URL)
             .client(OkHttpClient.Builder()
                 .readTimeout(1, TimeUnit.MINUTES)
-                .connectTimeout(1, TimeUnit.MINUTES)
+                .connectTimeout(20, TimeUnit.SECONDS)
                 .build()
             )
             .addConverterFactory(GsonConverterFactory.create(

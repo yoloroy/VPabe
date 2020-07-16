@@ -3,4 +3,6 @@
     <string name="app_name">ВПабе</string>
     <string name="title_chat">Чат</string>
     <string name="title_notifications">Уведомления</string>
+    <string name="title_attachments">Вложения</string>
+    <string name="download">Скачать</string>
 </resources>
