@@ -36,6 +36,6 @@ class ChatListFragment : Fragment() {
     }
 
     private fun loadAdapter() {
-        chatList.adapter = ChatListAdapter(chats.value!!)
+        chatList?.adapter = ChatListAdapter(chats.value!!)
     }
 }

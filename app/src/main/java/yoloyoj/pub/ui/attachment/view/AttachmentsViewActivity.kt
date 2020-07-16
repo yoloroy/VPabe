@@ -1,9 +1,8 @@
 package yoloyoj.pub.ui.attachment.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_attachments_view.*
 import yoloyoj.pub.R
 import yoloyoj.pub.models.Attachment

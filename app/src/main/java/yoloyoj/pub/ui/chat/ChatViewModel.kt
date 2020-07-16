@@ -6,7 +6,8 @@ import yoloyoj.pub.models.Message
 import yoloyoj.pub.web.handlers.MessageGetter
 
 class ChatViewModel : ViewModel() {
-    private lateinit var messageGetter: MessageGetter
+    lateinit var messageGetter: MessageGetter
+    var chatid: Int? = null
 
     var messages = MessagesData().apply {
         value = emptyList()
@@ -14,11 +15,6 @@ class ChatViewModel : ViewModel() {
 
     init {
         loadHandlers()
-
-        messageGetter.start(
-            MY_CHAT_ID,
-            0
-        )
     }
 
     private fun loadHandlers() {
@@ -32,7 +28,7 @@ class ChatViewModel : ViewModel() {
                 )
             else
                 messageGetter.start(
-                    MY_CHAT_ID,
+                    chatid!!,
                     when (messages.value) {
                         null -> 0
                         else -> messages.value!!.last()._rowid_!!

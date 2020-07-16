@@ -1,5 +1,6 @@
 package yoloyoj.pub.ui.chatlist
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_chat.view.*
 import yoloyoj.pub.R
 import yoloyoj.pub.models.ChatView
+import yoloyoj.pub.ui.chat.ChatActivity
+import yoloyoj.pub.ui.chat.EXTRA_CHATID
 
 class ChatListAdapter(
     private val items: List<ChatView>
@@ -38,6 +41,16 @@ class ChatViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
             lastSender.text = chatView.sender
             lastMessage.text = chatView.text
+
+            setOnClickListener {
+                val intent = Intent(context, ChatActivity::class.java)
+                intent.putExtra(
+                    EXTRA_CHATID,
+                    chatView.chatid
+                )
+
+                context.startActivity(intent)
+            }
         }
     }
 }

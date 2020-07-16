@@ -1,45 +1,50 @@
 package yoloyoj.pub.ui.chat
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_chat.*
+import kotlinx.android.synthetic.main.activity_chat.*
 import yoloyoj.pub.R
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.MessageSender
 
 const val MY_USER_ID = 1
-const val MY_CHAT_ID = 1
 
-class ChatFragment : Fragment() {
+const val EXTRA_CHATID = "chatid"
+
+class ChatActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ChatViewModel
     private lateinit var messages: MessagesData
 
     private lateinit var messageSender: MessageSender
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    private var chatid: Int? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_chat)
+
+        chatid = intent.getIntExtra(EXTRA_CHATID, 0)
+
         viewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
+        viewModel.chatid = chatid
 
         messages = viewModel.messages
-
-        return inflater.inflate(R.layout.fragment_chat, container, false)
     }
 
     override fun onStart() {
-        messageSender = MessageSender(view!!)
+        viewModel.messageGetter.start(
+            chatid!!,
+            0
+        )
+
+        messageSender = MessageSender(sendButton)
 
         messages.observeForever { loadAdapter() }
 
-        messagesView.layoutManager = LinearLayoutManager(context)
+        messagesView.layoutManager = LinearLayoutManager(this)
 
         loadOnClicks()
 
@@ -65,7 +70,7 @@ class ChatFragment : Fragment() {
         apiClient.putMessage(
             messageView.text.toString(),
             MY_USER_ID,
-            MY_CHAT_ID
+            chatid!!
         )?.enqueue(messageSender)
         messageView.text.clear()
     }
