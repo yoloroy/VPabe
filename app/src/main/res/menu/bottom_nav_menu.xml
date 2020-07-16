@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/navigation_chats"
-        android:icon="@drawable/ic_chat_black_24dp"
-        android:title="@string/title_chats" />
+        android:id="@+id/navigation_profile"
+        android:enabled="true"
+        android:icon="@drawable/personprofile"
+        android:title="@string/icon_profile"
+        />
+
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_notifications" />
+
+
+    <item
+        android:id="@+id/navigation_list"
+        android:enabled="true"
+        android:icon="@drawable/dehaze"
+        android:title="@string/icon_list"
+        />
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@drawable/ic_chat_black_24dp"
+        android:title="@string/title_chat" />
+    <item
+        android:id="@+id/navigation_map"
+        android:enabled="true"
+        android:icon="@drawable/mappoint"
+        android:title="@string/icon_map"
+        />
 
 </menu>

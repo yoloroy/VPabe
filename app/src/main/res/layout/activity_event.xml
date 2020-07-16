@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:allowBackup="true"
+    android:background="@color/design_default_color_background">
+
+    <androidx.cardview.widget.CardView
+
+        android:id="@+id/event_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="6sp"
+        app:contentPadding="6dp"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="-16dp">
+
+
+
+        <LinearLayout
+            android:id="@+id/event_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/event_name_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="@string/event_text"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="80dp"
+                tools:layout_editor_absoluteY="49dp" />
+
+            <TextView
+                android:id="@+id/event_date_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="0dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:text="22.03.2020" />
+
+            <TextView
+                android:id="@+id/event_place_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="0dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:text="Pushkina str." />
+
+            <ImageView
+                android:id="@+id/event_image"
+                android:layout_width="wrap_content"
+                android:layout_height="213dp"
+                android:contentDescription="TODO"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp"
+                app:srcCompat="@drawable/example"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <TextView
+                android:id="@+id/event_describe_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="0dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:text="Остановочная сходка - для тех, кто на остановке останавливается для остановки." />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/event_chat_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="470dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="8dp"
+            android:text="Войти в чат" />
+
+
+    </androidx.cardview.widget.CardView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#651FFF"
+        android:elevation="8dp"
+        android:visibility="visible"
+        app:labelVisibilityMode="auto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/bottom_navigation_menu"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
