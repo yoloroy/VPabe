@@ -31,7 +31,13 @@ class ChatViewModel : ViewModel() {
                     updMessages.last()._rowid_!!
                 )
             else
-                messageGetter.start(MY_CHAT_ID, 0)
+                messageGetter.start(
+                    MY_CHAT_ID,
+                    when (messages.value) {
+                        null -> 0
+                        else -> messages.value!!.last()._rowid_!!
+                    }
+                )
         }
     }
 }
