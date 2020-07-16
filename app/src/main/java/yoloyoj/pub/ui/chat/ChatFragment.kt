@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.fragment_chat.*
 import yoloyoj.pub.R
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.MessageSender
-import kotlin.Exception
 
 const val MY_USER_ID = 1
 const val MY_CHAT_ID = 1
@@ -63,7 +62,11 @@ class ChatFragment : Fragment() {
     }
 
     private fun sendMessage() {
-        apiClient.putMessage(messageView.text.toString(), MY_USER_ID, MY_CHAT_ID)?.enqueue(messageSender)
+        apiClient.putMessage(
+            messageView.text.toString(),
+            MY_USER_ID,
+            MY_CHAT_ID
+        )?.enqueue(messageSender)
         messageView.text.clear()
     }
 }
