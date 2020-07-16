@@ -5,4 +5,31 @@
     <string name="title_attachments">Attachments</string>
     <string name="download">Download</string>
     <string name="title_chats">Chats</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_map">Map</string>
+    <string name="title_list">List</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">Welcome!</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="user_name_hint">Ivan</string>
+    <string name="button_start">Let`s go!</string>
+    <string name="user_number_hint">+12345678900</string>
+    <string name="user_number_text">My number</string>
+    <string name="user_name_text">My name</string>
+    <string name="start_text">Enter</string>
+    <string name="icon_profile">profile</string>
+    <string name="icon_friends">friends</string>
+    <string name="icon_list">list</string>
+    <string name="icon_chat">chat</string>
+    <string name="icon_map">map</string>
+    <string name="event_text">per aspera ad astra. vene vidi vici. o tempora,  o mores!</string>
+    <string name="hint">Memento mori</string>
+    <string name="label_profile_upcoming_events">Upcoming events</string>
+    <string name="label_profile_visited_events">Visited events</string>
 </resources>
