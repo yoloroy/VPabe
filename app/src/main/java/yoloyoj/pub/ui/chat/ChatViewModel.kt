@@ -19,14 +19,13 @@ class ChatViewModel : ViewModel() {
 
     private fun loadHandlers() {
         messageGetter = MessageGetter { updMessages ->
-            messages.value = messages.value!! + updMessages
-
-            if (updMessages.isNotEmpty())
+            if (updMessages.isNotEmpty()) {
+                messages.value = messages.value!! + updMessages
                 messageGetter.start(
                     updMessages.last().chatid!!,
                     updMessages.last()._rowid_!!
                 )
-            else
+            } else
                 messageGetter.start(
                     chatid!!,
                     when (messages.value) {
