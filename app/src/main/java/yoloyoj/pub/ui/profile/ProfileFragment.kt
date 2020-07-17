@@ -15,11 +15,9 @@ import yoloyoj.pub.models.Event
 import yoloyoj.pub.web.handlers.EventGetter
 import yoloyoj.pub.web.handlers.UserGetter
 
-
 class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_profile, container, false)
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerUpcomingEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -62,6 +60,7 @@ class ProfileFragment : Fragment() {
                 visitedEvents
             )
         }.start(userId)
+
         super.onViewCreated(view, savedInstanceState)
     }
 }
