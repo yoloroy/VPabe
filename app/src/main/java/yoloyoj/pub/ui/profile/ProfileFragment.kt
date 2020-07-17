@@ -25,7 +25,12 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerUpcomingEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerVisitedEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val userId = arguments?.getInt("userId")
+
+        var userId = (context as MainActivity).getUserId()
+        if (arguments?.getInt("userId") != null){
+            userId = arguments!!.getInt("userId")
+        }
+
         UserGetter { user ->
             Picasso.get().load(user.avatar).into(userImage)
             userName.text = user.username
@@ -56,7 +61,7 @@ class ProfileFragment : Fragment() {
             recyclerVisitedEvents.adapter = ProfileEventsAdapter(
                 visitedEvents
             )
-        }
+        }.start(userId)
         super.onViewCreated(view, savedInstanceState)
     }
 }
