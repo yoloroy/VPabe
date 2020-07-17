@@ -13,7 +13,19 @@ class ChatListViewModel : ViewModel() {
 
     init {
         chatListGetter = ChatListGetter(MY_USER_ID) {
-            chats.value = it
+            // TODO: Convert to long-pull
+            if (it != null) {
+                if (
+                    chats.value?.joinToString { chat ->
+                        "${chat.chatid}${chat.lastMessage?.text}" }
+                    !=
+                    it.joinToString { chat ->
+                        "${chat.chatid}${chat.lastMessage?.text}" }
+                )
+                    chats.value = it
+                else
+                    Thread.sleep(500)
+            }
 
             chatListGetter!!.start()
         }
