@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soywiz.klock.DateTime
 import com.squareup.picasso.Picasso
@@ -37,13 +36,14 @@ class ProfileFragment : Fragment() {
             userStatus.text = user.status
         }.start(userId!!)
 
+        val currentYear = 2020
         EventGetter { events ->
             val upcomingEvents = emptyList<Event>().toMutableList()
             val visitedEvents = emptyList<Event>().toMutableList()
             val curDate = DateTime.now().unixMillisLong
             for (e in events){
                 val eventDate = DateTime.createAdjusted(
-                    2020,
+                    currentYear,
                     e.date!!.month!!,
                     e.date!!.day!!,
                     e.date!!.hour!!,
