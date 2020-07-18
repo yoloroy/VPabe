@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-private const val BASE_URL = "http://192.168.0.194:5000/"
+private const val BASE_URL = "http://94.181.174.12:20202/"
 
 val apiClient: Link
     get() {

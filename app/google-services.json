@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "178849323302",
+    "firebase_url": "https://vpabe-75c05.firebaseio.com",
+    "project_id": "vpabe-75c05",
+    "storage_bucket": "vpabe-75c05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178849323302:android:aa5734ee23f259f475c9e7",
+        "android_client_info": {
+          "package_name": "yoloyoj.pub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178849323302-f5jachj1ldbbmr0g7c23k2ehm2c7mgfi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkxAPvdkhP1XWgZA5JAj6kmMhcolE2-gk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178849323302-f5jachj1ldbbmr0g7c23k2ehm2c7mgfi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
