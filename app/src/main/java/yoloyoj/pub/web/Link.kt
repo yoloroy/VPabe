@@ -31,6 +31,13 @@ public interface Link {
         @Query("telephone") telephone: String = ""
     ): Call<User?>
 
+    @GET("putuser")
+    fun regUser(
+        @Query("username") name: String,
+        @Query("telephone") telephone: String,
+        @Query("avatar") avatar: String
+    ): Call<Boolean>
+
     @GET("getaction")
     fun getAction(): Call<String?>?
 
