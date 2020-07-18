@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import yoloyoj.pub.ui.login.LoginActivity
 
 class LoadingActivity : AppCompatActivity() {
 
@@ -29,7 +30,7 @@ class LoadingActivity : AppCompatActivity() {
             finish()
             * */
 
-            startActivity(Intent(this@LoadingActivity, MainActivity::class.java))
+            startActivity(Intent(this@LoadingActivity, LoginActivity::class.java))
             finish()
         }, 1000)
     }
