@@ -10,10 +10,10 @@
         android:name="yoloyoj.pub.ui.chatlist.ChatListFragment"
         android:label="@string/title_chats"
         tools:layout="@layout/fragment_chat_list" />
-
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="yoloyoj.pub.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_profile"
+        android:name="yoloyoj.pub.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile"/>
+
 </navigation>
