@@ -1,9 +1,7 @@
 package yoloyoj.pub.ui.profile
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soywiz.klock.DateTime
@@ -18,6 +16,11 @@ import yoloyoj.pub.web.handlers.UserGetter
 class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_profile, container, false)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerUpcomingEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -36,8 +39,8 @@ class ProfileFragment : Fragment() {
 
         val currentYear = 2020
         EventGetter { events ->
-            val upcomingEvents = emptyList<Event>().toMutableList()
-            val visitedEvents = emptyList<Event>().toMutableList()
+            val upcomingEvents = emptyList<ProfileEventItem>().toMutableList()
+            val visitedEvents = emptyList<ProfileEventItem>().toMutableList()
             val curDate = DateTime.now().unixMillisLong
             for (e in events){
                 val eventDate = DateTime.createAdjusted(
@@ -48,9 +51,9 @@ class ProfileFragment : Fragment() {
                     e.date!!.minute!!
                 ).unixMillisLong
                 if (eventDate >= curDate){
-                    upcomingEvents.add(e)
+                    upcomingEvents.add(ProfileEventItem(eventDescription = e.description!!, eventId = e.eventid!!))
                 } else {
-                    visitedEvents.add(e)
+                    visitedEvents.add(ProfileEventItem(eventDescription = e.description!!, eventId = e.eventid!!))
                 }
             }
             recyclerUpcomingEvents.adapter = ProfileEventsAdapter(
@@ -63,4 +66,9 @@ class ProfileFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.profile_edit_menu, menu)
+    }
+
 }
