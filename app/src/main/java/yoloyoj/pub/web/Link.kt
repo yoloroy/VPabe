@@ -41,6 +41,8 @@ public interface Link {
 
     @GET("getchats")
     fun getChats(
-        @Query("userid") userid: Int = 0
+        @Query("userid") userid: Int = 0,
+        @Query("chatscount") chatsCount: Int = 0,
+        @Query("lms") lastMessageSum: Int = 0
     ): Call<List<ChatView>?>?
 }

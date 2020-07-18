@@ -30,7 +30,7 @@ class ChatActivity : AppCompatActivity() {
 
     private var chatid: Int? = null
 
-    private var attachmentLink: String = ""
+    private var attachmentLinks: MutableList<String> = mutableListOf()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -87,7 +87,7 @@ class ChatActivity : AppCompatActivity() {
             editMessage.text.toString(),
             MY_USER_ID,
             chatid!!,
-            attachmentLink
+            attachmentLinks.joinToString(";")
         )?.enqueue(messageSender)
         editMessage.text.clear()
 
@@ -124,12 +124,12 @@ class ChatActivity : AppCompatActivity() {
     private fun onImagePutted(link: String) {
         addAttachment.drawable.setTint(resources.getColor(R.color.colorAccent))
 
-        attachmentLink = "https://firebasestorage.googleapis.com$link?alt=media&token=c96a3b42-447c-43c8-a12b-14f5a5f9635c"
+        attachmentLinks.add("https://firebasestorage.googleapis.com$link?alt=media")
     }
 
     private fun onImageSent() {
         addAttachment.drawable.setTint(resources.getColor(R.color.colorAccentBored))
 
-        attachmentLink = ""
+        attachmentLinks.clear()
     }
 }
