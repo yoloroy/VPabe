@@ -15,7 +15,8 @@ public interface Link {
     fun putMessage(
         @Query("text") text: String,
         @Query("sender") sender: Int,
-        @Query("chatid") chatid: Int
+        @Query("chatid") chatid: Int,
+        @Query("attachment_link") attachmentLink: String
     ): Call<ResponseBody?>?
 
     @GET("getmessages")
