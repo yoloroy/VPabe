@@ -9,13 +9,25 @@ import yoloyoj.pub.web.handlers.ChatListGetter
 class ChatListViewModel : ViewModel() {
     private var chatListGetter: ChatListGetter? = null
 
-    var chats = MutableLiveData<List<ChatView>>()
+    var chats = MutableLiveData<List<ChatView>>().apply {
+        value = emptyList()
+    }
 
     init {
-        chatListGetter = ChatListGetter(MY_USER_ID) {
-            chats.value = it
+        chatListGetter = ChatListGetter(MY_USER_ID) { updChats ->
+            if (
+                chats.value?.joinToString { chat ->
+                    "${chat.chatid}${chat.lastMessage?.text}" }
+                !=
+                updChats.joinToString { chat ->
+                    "${chat.chatid}${chat.lastMessage?.text}" }
+            )
+                chats.value = updChats
 
-            chatListGetter!!.start()
+            chatListGetter!!.start(
+                chats.value!!.count(),
+                chats.value!!.map { it.lastMessage?._rowid_ }.sumBy { it!! }
+            )
         }
 
         chatListGetter!!.start()

@@ -2,6 +2,7 @@
   <dictionary name="pmart">
     <words>
       <w>chatid</w>
+      <w>chatscount</w>
       <w>userid</w>
     </words>
   </dictionary>

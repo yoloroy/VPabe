@@ -20,7 +20,7 @@
         <activity
             android:name=".ui.imageview.ImageViewActivity"
             android:parentActivityName=".ui.attachment.view.AttachmentsViewActivity"
-            android:theme="@style/ImageViewTheme"></activity>
+            android:theme="@style/ImageViewTheme" />
         <activity
             android:name=".ui.attachment.view.AttachmentsViewActivity"
             android:label="@string/title_attachments"

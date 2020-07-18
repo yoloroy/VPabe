@@ -5,6 +5,7 @@
     <color name="colorPrimary">@android:color/holo_orange_light</color>
     <color name="colorPrimaryDark">#DE9220</color>
     <color name="colorAccent">#206cde</color>
+    <color name="colorAccentBored">#555</color>
 
     <color name="colorBackgroundFace">#fff</color>
     <color name="colorBackgroundBack">#fffcf7</color>
