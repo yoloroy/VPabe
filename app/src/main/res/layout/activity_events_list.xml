@@ -30,7 +30,9 @@
             android:paddingStart="2dp"
             android:paddingTop="5dp"
             android:paddingEnd="8dp"
-            />
+            >
+
+        </SearchView>
 
         <TextView
             android:id="@+id/events_list_header"

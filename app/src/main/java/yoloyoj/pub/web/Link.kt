@@ -4,19 +4,27 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-import yoloyoj.pub.models.ChatView
-import yoloyoj.pub.models.Event
-import yoloyoj.pub.models.Message
-import yoloyoj.pub.models.User
+import yoloyoj.pub.models.*
 
 @Suppress("unused")
-public interface Link {
+ interface Link {
     @GET("putmessage")
     fun putMessage(
         @Query("text") text: String,
         @Query("sender") sender: Int,
         @Query("chatid") chatid: Int
     ): Call<ResponseBody?>?
+
+    @GET("putevent")
+    fun putEvent(
+        @Query("name") name: String,
+        @Query("description") description: String,
+        @Query("month") month: String,
+        @Query("day") day: String,
+        @Query("place") place: String
+
+    ): Call<ResponseBody?>?
+
 
     @GET("getmessages")
     fun getMessages(

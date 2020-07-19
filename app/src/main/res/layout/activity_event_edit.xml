@@ -49,20 +49,11 @@
                 android:textStyle="bold" />
 
 
-            <EditText
-                android:id="@+id/event_date_header_edit"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/pickDateBtn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingTop="5dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="5dp"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                />
+                android:text="Pick Date" />
 
 
 
@@ -109,7 +100,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/event_chat_btn"
+            android:id="@+id/event_set_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"

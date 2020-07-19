@@ -1,10 +1,13 @@
 package yoloyoj.pub.ui.event
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import kotlinx.android.synthetic.main.activity_event.*
+import kotlinx.android.synthetic.main.fragment_notifications.*
 import yoloyoj.pub.R
 
 class EventActivity : AppCompatActivity() {
@@ -18,6 +21,14 @@ class EventActivity : AppCompatActivity() {
         eventViewModel = ViewModelProviders.of(this).get(EventViewModel::class.java)
         events = eventViewModel.events
         eventGetInfo()
+
+        add_btn.setOnClickListener() {
+            val intent = Intent(this, EventEditActivity::class.java)
+            this.startActivity(intent)
+
+        }
+
+
     }
 
     private fun eventGetInfo() {
@@ -38,6 +49,9 @@ class EventActivity : AppCompatActivity() {
         eventPlace.text = eventPlaceGet
     }
 }
+
+
+
 
 
 
