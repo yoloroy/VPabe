@@ -36,7 +36,7 @@ class ChatActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            1 -> putImage(data!!.data!!)
+            CODE_GET_PICTURE -> putImage(data!!.data!!)
         }
     }
 

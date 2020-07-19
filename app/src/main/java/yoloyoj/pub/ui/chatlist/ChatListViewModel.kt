@@ -16,11 +16,9 @@ class ChatListViewModel : ViewModel() {
     init {
         chatListGetter = ChatListGetter(MY_USER_ID) { updChats ->
             if (
-                chats.value?.joinToString { chat ->
-                    "${chat.chatid}${chat.lastMessage?.text}" }
-                !=
-                updChats.joinToString { chat ->
-                    "${chat.chatid}${chat.lastMessage?.text}" }
+                (chats.value?.messagesSum() != updChats.messagesSum())
+                and
+                (updChats.isNotEmpty())
             )
                 chats.value = updChats
 
@@ -32,4 +30,7 @@ class ChatListViewModel : ViewModel() {
 
         chatListGetter!!.start()
     }
+
+    fun List<ChatView>.messagesSum(): String = joinToString { chat ->
+        "${chat.chatid}${chat.lastMessage?.text}" }
 }

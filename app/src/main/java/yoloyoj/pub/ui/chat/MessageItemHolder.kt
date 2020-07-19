@@ -32,10 +32,12 @@ class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) 
 
         if (showUserAvatar) {
             view.showAvatar()
-            Picasso.get()
-                .load(message.avatar)
-                .placeholder(R.drawable.ic_person)
-                .into(view.userView)
+
+            if (message.avatar!!.isNotEmpty())
+                Picasso.get()
+                    .load(message.avatar)
+                    .placeholder(R.drawable.ic_person)
+                    .into(view.userView)
         } else {
             view.hideAvatar()
         }
