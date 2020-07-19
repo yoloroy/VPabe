@@ -42,4 +42,12 @@ public interface Link {
     fun getChats(
         @Query("userid") userid: Int = 0
     ): Call<List<ChatView>?>?
+
+    @GET("upduser")
+    fun updateUser(
+        @Query("userid") userid: Int,
+        @Query("username") username: String,
+        @Query("status") status: String,
+        @Query("avatar") avatar: String
+    ): Call<ResponseBody?>?
 }

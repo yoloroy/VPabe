@@ -32,4 +32,10 @@
     <string name="hint">Memento mori</string>
     <string name="label_profile_upcoming_events">Upcoming events</string>
     <string name="label_profile_visited_events">Visited events</string>
+    <string name="title_edit_profile">Edit Profile</string>
+    <string name="hint_edit_profile_name">Ivan Ivanov</string>
+    <string name="label_edit_profile_name">Fisrt name last name</string>
+    <string name="label_edit_profile_status">Status</string>
+    <string name="hint_edit_profile_status">Few words about you</string>
+    <string name="button_save_edit_profile">Save</string>
 </resources>

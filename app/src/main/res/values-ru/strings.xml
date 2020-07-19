@@ -33,4 +33,10 @@
     <string name="hint">Остановочное событие</string>
     <string name="label_profile_upcoming_events">Ближайшие мероприятия</string>
     <string name="label_profile_visited_events">Посещенные мероприятия</string>
+    <string name="title_edit_profile">Редактировать профиль</string>
+    <string name="hint_edit_profile_name">Иван Иванов</string>
+    <string name="label_edit_profile_name">Имя Фамилия</string>
+    <string name="label_edit_profile_status">Статус</string>
+    <string name="hint_edit_profile_status">Несколько слов о себе</string>
+    <string name="button_save_edit_profile">Сохранить</string>
 </resources>

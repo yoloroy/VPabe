@@ -9,7 +9,7 @@ class ProfileEventItemHolder(private val view: View) : RecyclerView.ViewHolder(v
     lateinit var eventItem: ProfileEventItem
     fun bind(eventItem: ProfileEventItem) {
         Picasso.get().load(eventItem.eventImageLink).into(view.eventImage)
-        view.eventDescription.text = eventItem.eventDescription
+        view.eventName.text = eventItem.eventName
         this.eventItem = eventItem
     }
 }
