@@ -45,4 +45,12 @@ public interface Link {
         @Query("chatscount") chatsCount: Int = 0,
         @Query("lms") lastMessageSum: Int = 0
     ): Call<List<ChatView>?>?
+
+    @GET("upduser")
+    fun updateUser(
+        @Query("userid") userid: Int,
+        @Query("username") username: String,
+        @Query("status") status: String,
+        @Query("avatar") avatar: String
+    ): Call<ResponseBody?>?
 }

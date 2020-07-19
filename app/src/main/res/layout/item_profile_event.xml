@@ -13,12 +13,13 @@
         app:shapeAppearanceOverlay="@style/rounded" />
 
     <TextView
-        android:id="@+id/eventDescription"
+        android:id="@+id/eventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:maxWidth="100dp"
         android:maxLength="200"
-        android:layout_gravity="center"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@android:color/black" />
 
 </LinearLayout>
