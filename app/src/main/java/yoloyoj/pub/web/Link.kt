@@ -35,7 +35,8 @@ public interface Link {
 
     @GET("getevents")
     fun getEvents(
-        @Query("userid") userid: Int = 0
+        @Query("userid") userid: Int = 0,
+        @Query("eventid") eventid: Int = 0
     ): Call<List<Event>?>?
 
     @GET("getchats")

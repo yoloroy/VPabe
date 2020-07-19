@@ -6,11 +6,13 @@ class Event(
     var description: String? = null,
     var date: Date? = null,
     var like: Like? = null,
-    var authorid: Int? = null
+    var authorid: Int? = null,
+    var place: String? = null
 ) {
     override fun toString(): String {
         return "{ \n" +
                 "eventid=${this.eventid},\n" +
+                "place=${this.place},\n" +
                 "name=${this.name},\n" +
                 "description=${this.description},\n" +
                 "date=${this.date.toString().replace("\n", "\n\t")},\n" +

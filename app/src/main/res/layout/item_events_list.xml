@@ -12,8 +12,8 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="375dp"
         android:orientation="vertical">
 
         <TextView
@@ -32,6 +32,27 @@
             tools:layout_editor_absoluteY="49dp" />
 
         <TextView
+            android:id="@+id/event_date_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="0dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="date is here" />
+
+        <TextView
+            android:id="@+id/event_place_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="5dp"
+            android:text="place is here" />
+
+        <TextView
             android:id="@+id/event_describe_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +61,7 @@
             android:paddingTop="0dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="Остановочная сходка - для тех, кто на остановке останавливается для остановки." />
+            android:text="description is here" />
 
         <ImageView
             android:id="@+id/event_image"
@@ -53,17 +74,6 @@
             app:srcCompat="@drawable/example"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="16dp" />
-
-        <TextView
-            android:id="@+id/event_date_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="0dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:text="22.03.2020" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
