@@ -75,11 +75,11 @@
                 android:layout_height="168dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/back_message_box"
-                android:backgroundTint="#eee"
+                android:background="@drawable/ic_person"
+                android:backgroundTint="#aaa"
                 android:onClick="onAvatarChoose"
-                android:tint="#aaa"
-                app:srcCompat="@drawable/ic_person" />
+                android:scaleType="centerCrop"
+                android:theme="@style/rounded" />
 
         </LinearLayout>
 

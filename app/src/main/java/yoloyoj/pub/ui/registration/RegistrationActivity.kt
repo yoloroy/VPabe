@@ -99,11 +99,11 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun onImagePutted(link: String) {
+        avatar = "https://firebasestorage.googleapis.com$link?alt=media"
+
         Picasso.get()
-            .load(link)
+            .load(avatar)
             .placeholder(R.drawable.ic_person)
             .into(avatarEdit)
-
-        avatar = "https://firebasestorage.googleapis.com$link?alt=media"
     }
 }
