@@ -7,11 +7,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_chat.*
 import yoloyoj.pub.R
+import yoloyoj.pub.models.Attachment
+import yoloyoj.pub.ui.attachment.preview.AttachmentPreviewAdapter
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.MessageSender
 import java.io.File
@@ -27,18 +30,18 @@ class ChatActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ChatViewModel
     private lateinit var messages: MessagesData
+    private lateinit var attachments: MutableLiveData<MutableList<Attachment>>
 
     private lateinit var messageSender: MessageSender
 
     private var chatid: Int? = null
 
-    private var attachmentLinks: MutableList<String> = mutableListOf()
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        if (data != null)
         when (requestCode) {
-            CODE_GET_PICTURE -> putImage(data!!.data!!)
+            CODE_GET_PICTURE -> putImage(data.data!!)
         }
     }
 
@@ -52,6 +55,7 @@ class ChatActivity : AppCompatActivity() {
         viewModel.chatid = chatid
 
         messages = viewModel.messages
+        attachments = viewModel.attachments
     }
 
     override fun onStart() {
@@ -62,6 +66,26 @@ class ChatActivity : AppCompatActivity() {
         messages.observeForever { loadAdapter() }
 
         messagesView.layoutManager = LinearLayoutManager(this)
+
+        attachmentsPreView.adapter = AttachmentPreviewAdapter(
+            attachmentsPreView,
+            attachments
+        )
+
+        attachments.observeForever {
+            (attachmentsPreView.adapter as AttachmentPreviewAdapter).apply {
+                items = attachments
+                notifyDataSetChanged()
+
+                if (items.value!!.isEmpty()) {
+                    attachmentsPreView.visibility = View.GONE
+                    addAttachment.drawable.setTint(resources.getColor(R.color.colorAccentBored))
+                } else if (attachmentsPreView.visibility == View.GONE) {
+                    attachmentsPreView.visibility = View.VISIBLE
+                    addAttachment.drawable.setTint(resources.getColor(R.color.colorAccent))
+                }
+            }
+        }
 
         loadWriteWatcher()
 
@@ -107,7 +131,7 @@ class ChatActivity : AppCompatActivity() {
             editMessage.text.toString(),
             MY_USER_ID,
             chatid!!,
-            attachmentLinks.joinToString(";")
+            attachments.value!!.map{ it.attachment_link }.joinToString(";")
         )?.enqueue(messageSender)
         editMessage.text.clear()
 
@@ -142,14 +166,19 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun onImagePutted(link: String) {
-        addAttachment.drawable.setTint(resources.getColor(R.color.colorAccent))
+        attachments.value = (attachments.value!! + Attachment("image", "https://firebasestorage.googleapis.com$link?alt=media")).toMutableList()
 
-        attachmentLinks.add("https://firebasestorage.googleapis.com$link?alt=media")
+        (attachmentsPreView.adapter as AttachmentPreviewAdapter).apply {
+            items = attachments // temporary
+
+            if (recyclerView.visibility == View.GONE)
+                recyclerView.visibility = View.VISIBLE
+        }
     }
 
     private fun onImageSent() {
         addAttachment.drawable.setTint(resources.getColor(R.color.colorAccentBored))
 
-        attachmentLinks.clear()
+        attachments.value = mutableListOf()
     }
 }
