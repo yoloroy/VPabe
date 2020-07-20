@@ -39,7 +39,7 @@
                 android:paddingTop="10dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="5dp"
-                android:text="@string/event_text"
+                tools:text="@string/event_text"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -55,7 +55,7 @@
                 android:paddingTop="0dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp"
-                android:text="date is here" />
+                tools:text="date is here" />
 
             <TextView
                 android:id="@+id/event_place_header"
@@ -66,7 +66,7 @@
                 android:paddingTop="0dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp"
-                android:text="place is here" />
+                tools:text="place is here" />
 
             <ImageView
                 android:id="@+id/event_image"
@@ -89,7 +89,7 @@
                 android:paddingTop="0dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp"
-                android:text="description is here" />
+                tools:text="description is here" />
 
         </LinearLayout>
 

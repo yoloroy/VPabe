@@ -69,4 +69,9 @@ import yoloyoj.pub.models.*
         @Query("status") status: String,
         @Query("avatar") avatar: String
     ): Call<ResponseBody?>?
+
+    @GET("getevent")
+    fun getSingleEvent(
+        @Query("eventid") eventid: Int = 1
+    ): Call<Event?>?
 }

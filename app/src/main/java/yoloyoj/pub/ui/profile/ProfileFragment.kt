@@ -74,8 +74,8 @@ class ProfileFragment : Fragment() {
             isOtherUser = true
         }
 
-        UserGetter { user ->
-            if (user!!.avatar!!.isNotBlank())
+        UserGetter (activity!!.applicationContext) { user ->
+            if (user?.avatar!!.isNotBlank())
                 Picasso.get().load(user.avatar).into(userImage)
             userName.text = user.username
             userStatus.text = user.status
