@@ -73,4 +73,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.2'
     implementation 'com.firebaseui:firebase-ui-database:2.1.0'
     implementation "com.soywiz.korlibs.klock:klock:1.7.3"
+    implementation "com.android.support:design:28.0.0"
 }

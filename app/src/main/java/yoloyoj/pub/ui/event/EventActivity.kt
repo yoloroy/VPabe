@@ -21,10 +21,8 @@ class EventActivity : AppCompatActivity() {
         events = eventViewModel.events
         eventGetInfo()
 
-        add_btn.setOnClickListener {
-            val intent = Intent(this, EventEditActivity::class.java)
-            this.startActivity(intent)
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(false);
+        supportActionBar?.setHomeButtonEnabled(false);
     }
 
     private fun eventGetInfo() {

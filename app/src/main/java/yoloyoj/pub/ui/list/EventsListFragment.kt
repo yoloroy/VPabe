@@ -1,5 +1,6 @@
 package yoloyoj.pub.ui.list
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_events_list.*
 import yoloyoj.pub.R
+import yoloyoj.pub.ui.event.EventEditActivity
 
 class EventsListFragment : Fragment() {
 
@@ -25,6 +27,13 @@ class EventsListFragment : Fragment() {
             events = eventsListViewModel.events
             return root
         }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        fab.setOnClickListener {
+            startActivity(Intent(activity!!.applicationContext, EventEditActivity::class.java))
+        }
+        super.onViewCreated(view, savedInstanceState)
+    }
 
     override fun onStart() {
         events_container.layoutManager = LinearLayoutManager(context)
