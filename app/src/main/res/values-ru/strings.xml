@@ -3,15 +3,16 @@
     <string name="app_name">ВПабе</string>
     <string name="title_chat">Чат</string>
     <string name="title_notifications">Уведомления</string>
+    <string name="title_list">События</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
     <string name="title_attachments">Вложения</string>
     <string name="download">Скачать</string>
     <string name="title_chats">Чаты</string>
     <string name="title_profile">Профиль</string>
     <string name="title_map">Карта</string>
-    <string name="title_list">Список</string>
 
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Пароль</string>
     <string name="action_sign_in">Войти или зарегистрироваться</string>
     <string name="action_sign_in_short">Войти</string>
     <string name="welcome">Добро пожаловать!</string>
