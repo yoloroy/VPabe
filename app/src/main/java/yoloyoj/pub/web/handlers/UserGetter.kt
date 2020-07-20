@@ -1,6 +1,5 @@
 package yoloyoj.pub.web.handlers
 
-import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -8,7 +7,7 @@ import yoloyoj.pub.models.User
 import yoloyoj.pub.web.apiClient
 
 class UserGetter(
-    var userUpdater: (User) -> Unit
+    var userUpdater: (User?) -> Unit
 ) : Callback<User?> {
 
     fun start(
@@ -20,7 +19,7 @@ class UserGetter(
     }
 
     override fun onFailure(call: Call<User?>, t: Throwable) {
-        Log.i("response", t.message)
+        userUpdater(null)
     }
 
     override fun onResponse(call: Call<User?>, response: Response<User?>) {

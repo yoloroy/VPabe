@@ -16,6 +16,11 @@ const val ATTACHMENTS_LINKS = "al"
 
 class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(message: Message, showUserName: Boolean, showUserAvatar: Boolean) {
+        if (!showUserName and message.text.isNullOrBlank())
+            view.messageView.visibility = View.GONE
+        else
+            view.messageView.visibility = View.VISIBLE
+
         view.textView.text = message.text
 
         if (showUserName) {
@@ -27,10 +32,12 @@ class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) 
 
         if (showUserAvatar) {
             view.showAvatar()
-            Picasso.get()
-                .load(message.avatar)
-                .placeholder(R.drawable.ic_person)
-                .into(view.userView)
+
+            if (message.avatar!!.isNotEmpty())
+                Picasso.get()
+                    .load(message.avatar)
+                    .placeholder(R.drawable.ic_person)
+                    .into(view.userView)
         } else {
             view.hideAvatar()
         }

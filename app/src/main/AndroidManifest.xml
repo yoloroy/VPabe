@@ -18,11 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".ui.registration.RegistrationActivity"
+            android:parentActivityName=".ui.login.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.imageview.ImageViewActivity"
             android:parentActivityName=".ui.attachment.view.AttachmentsViewActivity"
-            android:theme="@style/ImageViewTheme"></activity>
+            android:theme="@style/ImageViewTheme" />
         <activity
             android:name=".ui.attachment.view.AttachmentsViewActivity"
             android:label="@string/title_attachments"
@@ -52,8 +55,7 @@
             android:name=".ui.event.EventEditActivity"
             android:label="Edit event"
             android:parentActivityName=".MainActivity" />
-
-
+        <activity android:name=".ui.login.LoginActivity" />
     </application>
 
 </manifest>

@@ -13,6 +13,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        const val PREFERENCES_USER = "pu"
+        const val PREFERENCES_USERID = "ui"
+    }
+
     public var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +28,13 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_chats, R.id.navigation_notifications)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_profile,
+                R.id.navigation_list,
+                R.id.navigation_chats,
+                R.id.navigation_map
+            )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
@@ -39,7 +49,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
+        when (item!!.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+            }
+        }
         return true
     }
 }

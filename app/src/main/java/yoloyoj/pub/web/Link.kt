@@ -12,7 +12,8 @@ import yoloyoj.pub.models.*
     fun putMessage(
         @Query("text") text: String,
         @Query("sender") sender: Int,
-        @Query("chatid") chatid: Int
+        @Query("chatid") chatid: Int,
+        @Query("attachment_link") attachmentLink: String
     ): Call<ResponseBody?>?
 
     @GET("putevent")
@@ -38,6 +39,13 @@ import yoloyoj.pub.models.*
         @Query("telephone") telephone: String = ""
     ): Call<User?>
 
+    @GET("putuser")
+    fun regUser(
+        @Query("username") name: String,
+        @Query("telephone") telephone: String,
+        @Query("avatar") avatar: String
+    ): Call<Int>
+
     @GET("getaction")
     fun getAction(): Call<String?>?
 
@@ -49,6 +57,16 @@ import yoloyoj.pub.models.*
 
     @GET("getchats")
     fun getChats(
-        @Query("userid") userid: Int = 0
+        @Query("userid") userid: Int = 0,
+        @Query("chatscount") chatsCount: Int = 0,
+        @Query("lms") lastMessageSum: Int = 0
     ): Call<List<ChatView>?>?
+
+    @GET("upduser")
+    fun updateUser(
+        @Query("userid") userid: Int,
+        @Query("username") username: String,
+        @Query("status") status: String,
+        @Query("avatar") avatar: String
+    ): Call<ResponseBody?>?
 }

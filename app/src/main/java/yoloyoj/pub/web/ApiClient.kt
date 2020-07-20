@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "http://94.181.174.12:20202/"
 
-
 val apiClient: Link
     get() {
         return Retrofit.Builder()
