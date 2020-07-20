@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.soywiz.klock.DateTime
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
+import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.R
 import yoloyoj.pub.ui.login.LoginActivity
 import yoloyoj.pub.web.handlers.EventGetter
@@ -40,7 +41,7 @@ class ProfileFragment : Fragment() {
         recyclerUpcomingEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerVisitedEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        var userId = activity?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)?.getInt("USER_ID", 0)
+        var userId = activity?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)?.getInt("USER_ID", 1)
         if (userId == null || userId == 0){
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()

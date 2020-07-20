@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
+import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.R
 import yoloyoj.pub.ui.chat.CODE_GET_PICTURE
 import yoloyoj.pub.ui.login.LoginActivity
@@ -25,7 +26,7 @@ class EditProfileFragment: Fragment() {
         inflater.inflate(R.layout.fragment_edit_profile, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val userId = activity?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)?.getInt("USER_ID", 0)
+        val userId = activity?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)?.getInt("USER_ID", 1)
         if (userId == null || userId == 0){
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
@@ -86,7 +87,7 @@ class EditProfileFragment: Fragment() {
 
         storageReference.putFile(uri)
         storageReference.downloadUrl.addOnSuccessListener {
-            onImagePutted(it.path!!)
+            onImagePutted(it.toString())
         }
     }
 
