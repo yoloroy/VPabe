@@ -23,6 +23,6 @@ class UserGetter(
     }
 
     override fun onResponse(call: Call<User?>, response: Response<User?>) {
-        userUpdater(response.body()!!)
+        userUpdater(response.body())
     }
 }
