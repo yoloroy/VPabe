@@ -48,6 +48,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     public fun onClickLogin(view: View) {
-
+        userGetter.start(telephone = editTextPhone.text.toString())
     }
 }
