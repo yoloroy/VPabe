@@ -30,7 +30,7 @@
     <string name="icon_chat">Час</string>
     <string name="icon_map">Карта</string>
     <string name="event_text">Супер крутая сходка на остановке</string>
-    <string name="hint_event_name">Playing boardgames!</string>
+    <string name="hint_event_name">Event name</string>
     <string name="label_profile_upcoming_events">Ближайшие мероприятия</string>
     <string name="label_profile_visited_events">Посещенные мероприятия</string>
     <string name="title_edit_profile">Редактировать профиль</string>
@@ -43,4 +43,7 @@
     <string name="button_add_event_description">Create event</string>
     <string name="button_pick_date">Pick date</string>
     <string name="button_pick_time">Pick time</string>
+    <string name="hint_event_place">Adress</string>
+    <string name="hint_event_description">Event description</string>
+    <string name="button_event_create">Create event</string>
 </resources>

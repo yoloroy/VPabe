@@ -21,8 +21,8 @@ class EventActivity : AppCompatActivity() {
         events = eventViewModel.events
         eventGetInfo()
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(false);
-        supportActionBar?.setHomeButtonEnabled(false);
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setHomeButtonEnabled(false)
     }
 
     private fun eventGetInfo() {
