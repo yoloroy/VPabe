@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.soywiz.klock.DateTime
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
+import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
+import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
 import yoloyoj.pub.ui.login.LoginActivity
 import yoloyoj.pub.web.handlers.EventGetter
@@ -25,10 +27,24 @@ class ProfileFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         inflater.inflate(R.menu.profile_edit_menu, menu)
+
         menu.getItem(0).setOnMenuItemClickListener {
             findNavController().navigate(R.id.editProfileFragment)
             true
         }
+
+        menu.getItem(1).setOnMenuItemClickListener {
+            activity!!.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
+                .edit().apply {
+                    putInt(PREFERENCES_USERID, 0)
+                    apply()
+                }
+
+            startActivity(Intent(context, LoginActivity::class.java))
+
+            true
+        }
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -40,7 +56,9 @@ class ProfileFragment : Fragment() {
         recyclerUpcomingEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerVisitedEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        var userId = activity?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)?.getInt("USER_ID", 0)
+        var userId = activity
+            ?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
+            ?.getInt(PREFERENCES_USERID, 1)
         if (userId == null || userId == 0){
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
@@ -51,7 +69,8 @@ class ProfileFragment : Fragment() {
         }
 
         UserGetter { user ->
-            Picasso.get().load(user.avatar).into(userImage)
+            if (user!!.avatar!!.isNotBlank())
+                Picasso.get().load(user.avatar).into(userImage)
             userName.text = user.username
             userStatus.text = user.status
         }.start(userId!!)

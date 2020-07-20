@@ -1,5 +1,7 @@
 package yoloyoj.pub.ui.registration
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +12,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_registration.*
 import yoloyoj.pub.MainActivity
+import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
+import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
 import yoloyoj.pub.ui.chat.CODE_GET_PICTURE
 import yoloyoj.pub.web.handlers.REGISTERED_FAIL
@@ -34,10 +38,10 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-        userSender = UserSender {
-            when(it) {
+        userSender = UserSender { result, userid ->
+            when(result) {
                 REGISTERED_TRUE ->
-                    startActivity(Intent(this,  MainActivity::class.java))
+                    register(userid!!)
 
                 REGISTERED_FALSE ->
                     registerFailBanner.visibility = View.VISIBLE
@@ -47,6 +51,16 @@ class RegistrationActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    @SuppressLint("ApplySharedPref")
+    private fun register(userid: Int) {
+        getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE).edit().apply {
+            putInt(PREFERENCES_USERID, userid)
+            commit()
+        }
+
+        startActivity(Intent(this,  MainActivity::class.java))
     }
 
     public fun onClickRegister(view: View) {

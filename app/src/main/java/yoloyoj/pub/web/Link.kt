@@ -36,7 +36,7 @@ public interface Link {
         @Query("username") name: String,
         @Query("telephone") telephone: String,
         @Query("avatar") avatar: String
-    ): Call<Boolean>
+    ): Call<Int>
 
     @GET("getaction")
     fun getAction(): Call<String?>?

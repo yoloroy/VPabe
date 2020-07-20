@@ -10,8 +10,8 @@ const val REGISTERED_FALSE = false
 val REGISTERED_FAIL = null
 
 class UserSender(
-    var userUpdater: (Boolean?) -> Unit
-) : Callback<Boolean?> {
+    var userUpdater: (Boolean?, Int?) -> Unit
+) : Callback<Int?> {
 
     fun start(
         name: String,
@@ -19,11 +19,11 @@ class UserSender(
         avatar: String
     ) = apiClient.regUser(name, telephone, avatar).enqueue(this)
 
-    override fun onFailure(call: Call<Boolean?>, t: Throwable) {
-        userUpdater(REGISTERED_FAIL)
+    override fun onFailure(call: Call<Int?>, t: Throwable) {
+        userUpdater(REGISTERED_FAIL, null)
     }
 
-    override fun onResponse(call: Call<Boolean?>, response: Response<Boolean?>) {
-        userUpdater(response.body())
+    override fun onResponse(call: Call<Int?>, response: Response<Int?>) {
+        userUpdater(response.body()!! != 0, response.body()!!)
     }
 }

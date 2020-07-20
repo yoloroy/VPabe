@@ -18,6 +18,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.registration.RegistrationActivity"
+            android:parentActivityName=".ui.login.LoginActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.imageview.ImageViewActivity"

@@ -1,5 +1,6 @@
 package yoloyoj.pub.ui.chatlist
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_chat_list.*
+import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
+import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
 import yoloyoj.pub.models.ChatView
 
@@ -23,6 +26,10 @@ class ChatListFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ChatListViewModel::class.java)
 
         chats = viewModel.chats
+        viewModel.start(
+            activity!!.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
+                .getInt(PREFERENCES_USERID, 0)
+        )
 
         return inflater.inflate(R.layout.fragment_chat_list, container, false)
     }
