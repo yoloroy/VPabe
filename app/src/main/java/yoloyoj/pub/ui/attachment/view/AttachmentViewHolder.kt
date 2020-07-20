@@ -16,9 +16,9 @@ import yoloyoj.pub.models.TYPE_IMAGE
 import yoloyoj.pub.ui.imageview.EXTRA_IMAGE_LINK
 import yoloyoj.pub.ui.imageview.ImageViewActivity
 
-class AttachmentViewHolder(val view: ImageView) : RecyclerView.ViewHolder(view) {
+open class AttachmentViewHolder(open val view: ImageView) : RecyclerView.ViewHolder(view) {
 
-    fun bind(attachment: Attachment) {
+    open fun bind(attachment: Attachment) {
         when(attachment.attachment_type) {
             TYPE_IMAGE -> bindImage(attachment)
             else -> {

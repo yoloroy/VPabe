@@ -2,6 +2,7 @@ package yoloyoj.pub.ui.chat
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import yoloyoj.pub.models.Attachment
 import yoloyoj.pub.models.Message
 import yoloyoj.pub.web.handlers.MessageGetter
 
@@ -11,6 +12,10 @@ class ChatViewModel : ViewModel() {
 
     var messages = MessagesData().apply {
         value = emptyList()
+    }
+
+    var attachments = MutableLiveData<MutableList<Attachment>>().apply {
+        value = mutableListOf()
     }
 
     init {

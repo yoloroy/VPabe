@@ -20,6 +20,7 @@
         android:layout_width="334dp"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
+        android:background="@color/colorPrimaryLL"
         app:layout_constraintBottom_toTopOf="@+id/recyclerVisitedEvents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
@@ -31,6 +32,7 @@
         android:id="@+id/userImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:background="@color/colorPrimaryLL"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerVisitedEvents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,10 +69,11 @@
         android:id="@+id/recyclerVisitedEvents"
         android:layout_width="330dp"
         android:layout_height="100dp"
+        android:layout_marginBottom="40dp"
+        android:background="@color/colorPrimaryLL"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="40dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/headerVisitedEvents"

@@ -5,5 +5,10 @@
         android:id="@+id/editProfileItem"
         android:icon="@drawable/ic_baseline_edit_24"
         android:title="@string/title_edit_profile"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/exitUser"
+        android:icon="@drawable/ic_exit_to_app"
+        android:title="Exit"
+        app:showAsAction="ifRoom" />
 </menu>

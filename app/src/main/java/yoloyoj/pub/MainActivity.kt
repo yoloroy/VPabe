@@ -13,6 +13,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        const val PREFERENCES_USER = "pu"
+        const val PREFERENCES_USERID = "ui"
+    }
+
     public var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
