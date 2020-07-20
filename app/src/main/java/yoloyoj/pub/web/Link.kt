@@ -21,8 +21,8 @@ import yoloyoj.pub.models.*
         @Query("description") description: String,
         @Query("month") month: String,
         @Query("day") day: String,
-        @Query("place") place: String
-
+        @Query("place") place: String,
+        @Query("authorid") authorid: Int
     ): Call<ResponseBody?>?
 
 

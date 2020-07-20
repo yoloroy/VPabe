@@ -31,16 +31,6 @@
             android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/add_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="48dp"
-                android:text="Button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/event_name_header"
                 android:layout_width="wrap_content"
@@ -112,6 +102,18 @@
             android:layout_marginEnd="70dp"
             android:layout_marginBottom="8dp"
             android:text="Войти в чат" />
+
+        <Button
+            android:id="@+id/add_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="510dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="8dp"
+            android:text="add event"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.cardview.widget.CardView>

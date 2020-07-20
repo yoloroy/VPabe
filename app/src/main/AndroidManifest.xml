@@ -48,6 +48,11 @@
             android:name=".ui.event.EventActivity"
             android:label="@string/title_list"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ui.event.EventEditActivity"
+            android:label="Edit event"
+            android:parentActivityName=".MainActivity" />
+
 
     </application>
 

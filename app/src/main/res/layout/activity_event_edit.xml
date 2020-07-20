@@ -40,36 +40,48 @@
                 android:hint="@string/hint"
                 android:inputType="textPersonName"
                 android:paddingLeft="20dp"
-                android:paddingTop="5dp"
+                android:paddingTop="10dp"
                 android:paddingRight="20dp"
-                android:paddingBottom="5dp"
-                android:textColor="#0C0202"
-                android:textColorHint="#130E14"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:paddingBottom="10dp"
+                android:textColor="@color/design_default_color_on_secondary"
+                android:textSize="14sp" />
 
 
-            <Button
-                android:id="@+id/pickDateBtn"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pick Date" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/pickDateBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=".." />
+
+                <TextView
+                    android:id="@+id/text_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="date pic" />
+            </LinearLayout>
 
 
             <EditText
                 android:id="@+id/event_place_header_edit"
-                android:ems="10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="place"
                 android:paddingLeft="20dp"
-                android:paddingTop="5dp"
+                android:paddingTop="10dp"
                 android:paddingRight="20dp"
-                android:paddingBottom="5dp"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                />
+                android:paddingBottom="10dp"
+                android:textColor="@color/design_default_color_on_secondary"
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/event_image"
@@ -85,18 +97,16 @@
 
             <EditText
                 android:id="@+id/event_describe_header_edit"
-                android:ems="10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="description"
                 android:paddingLeft="20dp"
-                android:paddingTop="5dp"
+                android:paddingTop="10dp"
                 android:paddingRight="20dp"
-                android:paddingBottom="5dp"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                />
-
+                android:paddingBottom="10dp"
+                android:textColor="@color/design_default_color_on_secondary"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <Button
