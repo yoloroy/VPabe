@@ -18,8 +18,9 @@
 
         <TextView
             android:id="@+id/event_name_header"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingTop="5dp"
             android:paddingRight="20dp"
@@ -28,10 +29,27 @@
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:theme="@style/bigFont"
             tools:layout_editor_absoluteX="80dp"
             tools:layout_editor_absoluteY="49dp" />
 
         <TextView
+            android:id="@+id/event_describe_header"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingTop="0dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="description is here"
+            android:theme="@style/regularFont" />
+
+        <TextView
+            android:theme="@style/regularFont"
+
             android:id="@+id/event_date_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,17 +69,6 @@
             android:paddingRight="20dp"
             android:paddingBottom="5dp"
             android:text="place is here" />
-
-        <TextView
-            android:id="@+id/event_describe_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="0dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:text="description is here" />
 
         <ImageView
             android:id="@+id/event_image"

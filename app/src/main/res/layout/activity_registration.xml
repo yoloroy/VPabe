@@ -20,10 +20,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/please"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/regularFont"
+
             android:layout_margin="8dp"
-            android:text="Пожалуйста, проверьте введённые данные"
+            android:text="@string/please_check"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="16sp" />
 
@@ -38,6 +41,8 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:gravity="center"
+                android:theme="@style/regularFont"
+
                 android:onClick="onClickBannerClose"
                 android:text="@android:string/ok"
                 android:textAlignment="center"
@@ -66,7 +71,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Что вы хотите показать?"
+                android:text="@string/avatar_text"
                 android:textAlignment="center" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -94,7 +99,8 @@
                 android:id="@+id/nameEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Как будете зваться?"
+                android:autofillHints=""
+                android:hint="@string/hint_edit_profile_name"
                 android:inputType="textPersonName"
                 android:minEms="12"
                 android:textAlignment="center"
@@ -104,11 +110,12 @@
                 android:id="@+id/phoneEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Можно номерок?"
+                android:hint="@string/user_number_hint"
                 android:inputType="textPersonName"
                 android:minEms="12"
                 android:textAlignment="center"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:importantForAutofill="no" />
 
         </LinearLayout>
 
@@ -126,9 +133,11 @@
                 android:onClick="onClickRegister"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
-                android:text="Начать"
+                android:text="@string/button_start"
+
                 android:textAllCaps="false"
                 android:textSize="18sp"
+                android:theme="@style/regularFont"
                 app:strokeColor="@color/colorAccent" />
         </FrameLayout>
 

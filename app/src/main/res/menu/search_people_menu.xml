@@ -3,6 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:icon="@drawable/ic_tune"
-        android:title="backdrop_open"
+        android:title="@string/backdrop_open"
         app:showAsAction="always" />
 </menu>

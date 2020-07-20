@@ -13,7 +13,7 @@
         android:layout_height="49dp"
         android:layout_gravity="top"
         android:layout_margin="4dp"
-        android:background="@color/colorPrimaryLL"
+        android:background="@color/colorPrimary"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/rounded" />
 
@@ -28,6 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
+            android:theme="@style/bigFont"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             tools:text="chatName" />
 
@@ -42,6 +44,8 @@
                 android:layout_height="wrap_content"
                 android:maxLength="15"
                 android:maxLines="1"
+                android:theme="@style/regularFont"
+
                 android:textColor="@color/colorAccent"
                 tools:text="lastSender: " />
 
@@ -50,6 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLength="30"
+                android:theme="@style/regularFont"
+
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 tools:text="lastMessage" />

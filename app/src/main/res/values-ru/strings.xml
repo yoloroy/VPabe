@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ВПабе</string>
+    <string name="app_name">вПабе</string>
     <string name="title_chat">Чат</string>
+    <string name="title_chats">Чаты</string>
+
     <string name="title_notifications">Уведомления</string>
     <string name="title_list">События</string>
 
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_password">Пароль</string>
     <string name="title_attachments">Вложения</string>
     <string name="download">Скачать</string>
-    <string name="title_chats">Чаты</string>
+
     <string name="title_profile">Профиль</string>
     <string name="title_map">Карта</string>
 
     <string name="action_sign_in">Войти или зарегистрироваться</string>
     <string name="action_sign_in_short">Войти</string>
-    <string name="welcome">Добро пожаловать!</string>
     <string name="invalid_username">Некорректное имя пользователя</string>
     <string name="invalid_password">Пароль должен содержать не менее 6-ти символов</string>
     <string name="login_failed">Ошибка авторизации</string>
@@ -24,7 +25,7 @@
     <string name="user_number_hint">+12345678900</string>
     <string name="user_number_text">Телефончик</string>
     <string name="user_name_text">Имя</string>
-    <string name="start_text">Вход</string>
+
     <string name="icon_profile">Профиль</string>
     <string name="icon_friends">Друзья</string>
     <string name="icon_list">Список</string>
@@ -40,4 +41,7 @@
     <string name="label_edit_profile_status">Статус</string>
     <string name="hint_edit_profile_status">Несколько слов о себе</string>
     <string name="button_save_edit_profile">Сохранить</string>
+    <string name="todo">TODO</string>
+    <string name="please_check">Пожалуйста, проверьте введённые данные</string>
+    <string name="avatar_text">Что вы хотите показать?</string>
 </resources>

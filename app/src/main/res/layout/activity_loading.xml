@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ic_launcher_background"
+    android:background="@color/colorAccent"
     android:orientation="vertical"
     tools:context=".LoadingActivity">
 
@@ -23,8 +23,10 @@
         android:gravity="center"
         android:text="@string/app_name"
         android:textAlignment="gravity"
+
         android:textAllCaps="false"
         android:textColor="#fff"
+        android:theme="@style/bigFont"
         app:autoSizeTextType="uniform" />
 
 </LinearLayout>

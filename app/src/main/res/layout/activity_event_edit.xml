@@ -44,7 +44,9 @@
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/design_default_color_on_secondary"
-                android:textSize="14sp" />
+                android:theme="@style/bigFont"
+                android:textSize="18sp"
+            />
 
 
             <LinearLayout
@@ -56,10 +58,13 @@
                     android:id="@+id/pickDateBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:theme="@style/regularFont"
                     android:text=".." />
 
                 <TextView
                     android:id="@+id/text_date"
+                    android:theme="@style/regularFont"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
@@ -72,6 +77,8 @@
 
             <EditText
                 android:id="@+id/event_place_header_edit"
+                android:theme="@style/regularFont"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -98,6 +105,8 @@
             <EditText
                 android:id="@+id/event_describe_header_edit"
                 android:layout_width="wrap_content"
+                android:theme="@style/regularFont"
+
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="description"
@@ -114,10 +123,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
+
             android:layout_marginTop="470dp"
             android:layout_marginEnd="70dp"
             android:layout_marginBottom="8dp"
-            android:text="Создать мероприятие"/>
+            android:text="Создать мероприятие"
+            android:textColor="@color/colorAccent"
+            android:theme="@style/regularFont" />
 
 
     </androidx.cardview.widget.CardView>
