@@ -3,12 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_chats">
+    app:startDestination="@id/navigation_list">
+
+    <fragment
+        android:id="@+id/navigation_list"
+        android:name="yoloyoj.pub.ui.list.EventsListFragment"
+        android:label="@string/title_list"
+        tools:layout="@layout/activity_events_list" />
 
     <fragment
         android:id="@+id/navigation_chats"
         android:name="yoloyoj.pub.ui.chatlist.ChatListFragment"
-        android:label="@string/title_chats"
+        android:label="@string/title_chat"
         tools:layout="@layout/fragment_chat_list" />
     <fragment
         android:id="@+id/navigation_profile"
