@@ -43,7 +43,7 @@
     <string name="button_add_event_description">Create event</string>
     <string name="button_pick_date">Pick date</string>
     <string name="button_pick_time">Pick time</string>
-    <string name="hint_event_place">Adress</string>
+    <string name="hint_event_place">Address</string>
     <string name="hint_event_description">Event description</string>
     <string name="button_event_create">Create event</string>
 </resources>

@@ -28,7 +28,7 @@ class SingleEventGetter(
 
     override fun onResponse(call: Call<Event?>, response: Response<Event?>) {
         eventHandler?.let {
-            it(response.body()!!)
+            it(response.body())
         }
     }
 }
