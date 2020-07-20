@@ -17,6 +17,9 @@ import yoloyoj.pub.web.handlers.UserGetter
 
 class ProfileFragment : Fragment() {
 
+    private var menuItem: MenuItem? = null
+    private var isOtherUser = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
@@ -29,6 +32,8 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.editProfileFragment)
             true
         }
+        menuItem = menu.getItem(0)
+        menuItem!!.isVisible = false
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -48,6 +53,7 @@ class ProfileFragment : Fragment() {
 
         if (arguments?.getInt("userId") != null){
             userId = arguments!!.getInt("userId")
+            isOtherUser = true
         }
 
         UserGetter { user ->
@@ -81,6 +87,11 @@ class ProfileFragment : Fragment() {
             recyclerVisitedEvents.adapter = ProfileEventsAdapter(
                 visitedEvents
             )
+
+            if (!isOtherUser) {
+                menuItem!!.isVisible = true
+            }
+
         }.start(userId)
 
         super.onViewCreated(view, savedInstanceState)
