@@ -67,6 +67,16 @@ class ChatActivity : AppCompatActivity() {
 
         messagesView.layoutManager = LinearLayoutManager(this)
 
+        loadAttachmentPreview()
+
+        loadWriteWatcher()
+
+        loadOnClicks()
+
+        super.onStart()
+    }
+
+    private fun loadAttachmentPreview() {
         attachmentsPreView.adapter = AttachmentPreviewAdapter(
             attachmentsPreView,
             attachments
@@ -86,12 +96,6 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
         }
-
-        loadWriteWatcher()
-
-        loadOnClicks()
-
-        super.onStart()
     }
 
     private fun loadWriteWatcher() {
