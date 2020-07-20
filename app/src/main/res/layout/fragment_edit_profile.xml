@@ -10,13 +10,13 @@
         android:id="@+id/editUserImage"
         android:layout_width="125dp"
         android:layout_height="125dp"
+        android:background="@color/colorPrimaryLL"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1"
-        app:shapeAppearanceOverlay="@style/rounded"
-        tools:background="@color/colorPrimaryDark"/>
+        app:shapeAppearanceOverlay="@style/rounded" />
 
 
     <com.google.android.material.button.MaterialButton

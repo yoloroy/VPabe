@@ -1,5 +1,6 @@
 package yoloyoj.pub.ui.chat
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_chat.*
+import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
 import yoloyoj.pub.models.Attachment
 import yoloyoj.pub.ui.attachment.preview.AttachmentPreviewAdapter
@@ -36,6 +38,8 @@ class ChatActivity : AppCompatActivity() {
 
     private var chatid: Int? = null
 
+    private var userid: Int = 0
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -50,6 +54,9 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
 
         chatid = intent.getIntExtra(EXTRA_CHATID, 0)
+
+        userid = getSharedPreferences(MainActivity.PREFERENCES_USER, Context.MODE_PRIVATE)
+            .getInt(MainActivity.PREFERENCES_USERID, 0)
 
         viewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
         viewModel.chatid = chatid
@@ -133,7 +140,7 @@ class ChatActivity : AppCompatActivity() {
     private fun sendMessage() {
         apiClient.putMessage(
             editMessage.text.toString(),
-            MY_USER_ID,
+            userid,
             chatid!!,
             attachments.value!!.map{ it.attachment_link }.joinToString(";")
         )?.enqueue(messageSender)

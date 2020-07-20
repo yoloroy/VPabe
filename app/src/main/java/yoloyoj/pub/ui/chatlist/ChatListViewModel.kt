@@ -13,8 +13,8 @@ class ChatListViewModel : ViewModel() {
         value = emptyList()
     }
 
-    init {
-        chatListGetter = ChatListGetter(MY_USER_ID) { updChats ->
+    fun start(userid: Int) {
+        chatListGetter = ChatListGetter(userid) { updChats ->
             if (
                 (chats.value?.messagesSum() != updChats.messagesSum())
                 and
