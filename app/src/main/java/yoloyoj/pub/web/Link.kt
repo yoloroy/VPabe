@@ -72,6 +72,11 @@ import yoloyoj.pub.models.*
         @Query("avatar") avatar: String
     ): Call<ResponseBody?>?
 
+    @GET("searchevents")
+    fun getSearchedEvents(
+        @Query("searchtext") searchtext: String
+    ): Call<List<Event>?>?
+
     @GET("getevent")
     fun getSingleEvent(
         @Query("eventid") eventid: Int = 1
