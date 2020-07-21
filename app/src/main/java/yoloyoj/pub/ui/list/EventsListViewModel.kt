@@ -15,20 +15,21 @@ class EventsListViewModel : ViewModel() {
 
     init {
         loadHandlers()
+
         eventGetter.start(
-            MY_USER_ID)
+            eventid = 0
+        )
     }
 
     private fun loadHandlers() {
         eventGetter = EventGetter().apply {
             eventListener = { updEvents ->
-                events.value = events.value!! + updEvents
-
                 if (updEvents.isNotEmpty()) {
-                    eventGetter.start(
-                        events.value?.maxBy{it.eventid!!}?.eventid!!
-                    )
+                    events.value = updEvents
                 }
+                eventGetter.start(
+                    eventid = events.value?.map { it.eventid!! }?.maxBy { it }!!
+                )
             }
         }
     }
