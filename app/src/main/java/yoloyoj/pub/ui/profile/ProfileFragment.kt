@@ -99,15 +99,14 @@ class ProfileFragment : Fragment() {
         }
 
         userGetter.start(userId!!)
-
-        val currentYear = 2020
+        
         EventGetter { events ->
             val upcomingEvents = emptyList<ProfileEventItem>().toMutableList()
             val visitedEvents = emptyList<ProfileEventItem>().toMutableList()
             val curDate = DateTime.now().unixMillisLong
             for (e in events){
                 val eventDate = DateTime.createAdjusted(
-                    currentYear,
+                    e.date!!.year!!,
                     e.date!!.month!!,
                     e.date!!.day!!,
                     e.date!!.hour!!,

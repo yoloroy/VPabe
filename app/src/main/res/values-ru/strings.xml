@@ -32,7 +32,7 @@
     <string name="icon_chat">Чат</string>
     <string name="icon_map">Карта</string>
     <string name="event_text">Супер крутая сходка на остановке</string>
-    <string name="hint_event_name">Название мероприятия</string>
+    <string name="label_event_name">Название мероприятия</string>
     <string name="label_profile_upcoming_events">Ближайшие мероприятия</string>
     <string name="label_profile_visited_events">Посещенные мероприятия</string>
     <string name="title_edit_profile">Редактировать профиль</string>
@@ -48,9 +48,15 @@
     <string name="button_add_event_description">Создать событие</string>
     <string name="button_pick_date">Выбрать дату</string>
     <string name="button_pick_time">Выбрать время</string>
-    <string name="hint_event_place">Адрес</string>
-    <string name="hint_event_description">Описание события</string>
+    <string name="label_event_place">Адрес</string>
+    <string name="label_event_description">Описание события</string>
     <string name="button_event_create">Создать событие</string>
-    <string name="title_edit_event">Редактировать событие</string>
+    <string name="title_edit_event">Редактирование события</string>
     <string name="exit_item">Выйти</string>
+    <string name="exit">Выход</string>
+    <string name="title_create_event">Создание события</string>
+    <string name="event_author_name">Создатель: %s</string>
+    <string name="hint_event_name">Играем в UNO</string>
+    <string name="hint_event_place">Кремль</string>
+    <string name="hint_event_description">Приносите печенье!</string>
 </resources>
