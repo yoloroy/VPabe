@@ -4,8 +4,12 @@
         <item name="colorPrimary">@color/colorBackgroundBack</item>
         <item name="colorPrimaryDark">@color/colorBackgroundFaceDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor"
+            tools:targetApi="lollipop">@color/colorPrimaryDark</item>
+
     </style>
+
+
 
     <style name="lightFont" >
         <item name="android:fontFamily">@font/light</item>
