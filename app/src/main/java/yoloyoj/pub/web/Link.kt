@@ -25,7 +25,8 @@ import yoloyoj.pub.models.*
         @Query("hour") hour: Int,
         @Query("minute") minute: Int,
         @Query("place") place: String,
-        @Query("authorid") authorid: Int
+        @Query("authorid") authorid: Int,
+        @Query("avatar") avatar: String
     ): Call<Int?>?
 
 
@@ -91,6 +92,7 @@ import yoloyoj.pub.models.*
         @Query("day") day: Int,
         @Query("hour") hour: Int,
         @Query("minute") minute: Int,
-        @Query("place") place: String
+        @Query("place") place: String,
+        @Query("avatar") avatar: String
     ): Call<ResponseBody?>?
 }

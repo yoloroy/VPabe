@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event_edit.*
 import kotlinx.android.synthetic.main.activity_event_edit.event_image
 import kotlinx.android.synthetic.main.activity_event_edit.event_set_btn
-import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
 import yoloyoj.pub.ui.chat.CODE_GET_PICTURE
@@ -167,11 +166,13 @@ class EventEditActivity: AppCompatActivity() {
            hour = eHour,
            minute = eMinute,
            place = event_place_header_edit.text.toString(),
-           authorid = userId!!
+           authorid = userId!!,
+           avatar = eventImageLink
         )?.enqueue(EventSender(applicationContext) {
            val intent = Intent(this, EventActivity::class.java)
            intent.putExtra("eventid", it)
            startActivity(intent)
+           finish()
        })
     }
 
@@ -184,7 +185,8 @@ class EventEditActivity: AppCompatActivity() {
             day = eDay,
             hour = eHour,
             minute = eMinute,
-            place = event_place_header_edit.text.toString()
+            place = event_place_header_edit.text.toString(),
+            avatar = eventImageLink
         )?.enqueue(EventUpdater(applicationContext) {
             val intent = Intent(this, EventActivity::class.java)
             intent.putExtra("eventid", eventId!!)
