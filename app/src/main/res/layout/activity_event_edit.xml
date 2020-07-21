@@ -126,7 +126,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingBottom="5dp"
-                app:srcCompat="@drawable/example"
+                tools:srcCompat="@drawable/example"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="16dp"
                 tools:ignore="ContentDescription" />

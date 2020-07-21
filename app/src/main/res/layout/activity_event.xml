@@ -25,7 +25,7 @@
             android:paddingTop="10dp"
             android:paddingRight="20dp"
             android:paddingBottom="5dp"
-            android:text="@string/event_text"
+            tools:text="@string/event_text"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -41,7 +41,7 @@
             android:paddingTop="0dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="date is here" />
+            tools:text="date is here" />
 
         <TextView
             android:id="@+id/event_place_header"
@@ -52,17 +52,16 @@
             android:paddingTop="0dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="place is here" />
+            tools:text="place is here" />
 
         <ImageView
             android:id="@+id/event_image"
             android:layout_width="wrap_content"
             android:layout_height="213dp"
-            android:contentDescription="TODO"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingBottom="5dp"
-            app:srcCompat="@drawable/example"
+            tools:srcCompat="@drawable/example"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="16dp" />
 
@@ -75,7 +74,7 @@
             android:paddingTop="0dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="description is here" />
+            tools:text="description is here" />
 
         <Button
             android:id="@+id/event_set_btn"
@@ -85,18 +84,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="70dp"
             android:text="Войти в чат" />
-
-        <Button
-            android:id="@+id/add_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="70dp"
-            android:layout_marginBottom="8dp"
-            android:text="add event"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 

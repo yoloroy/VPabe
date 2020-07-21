@@ -8,12 +8,16 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event.*
+import kotlinx.android.synthetic.main.item_events_list.view.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
 import yoloyoj.pub.ui.login.LoginActivity
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.SingleEventGetter
+
+const val STADNARD_EVENT_IMAGE = "https://static.tildacdn.com/tild3630-6536-4534-a235-346239306632/45-459030_download-s.png"
 
 class EventActivity : AppCompatActivity() {
 
@@ -54,8 +58,11 @@ class EventActivity : AppCompatActivity() {
                 event_describe_header.text = it?.description
                 event_date_header.text = "${it?.date?.day}.${it?.date?.month} ${it?.date?.hour}:${it?.date?.minute}"
                 event_place_header.text = it?.place
-                // Picasso.get().load(it.photo).into(event_image)
-
+                if (it?.avatar.isNullOrEmpty()) {
+                    Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
+                } else {
+                    Picasso.get().load(it?.avatar).into(event_image)
+                }
                 if (userId == it?.authorid) {
                     editMenu?.setGroupVisible(0, true)
                 }
