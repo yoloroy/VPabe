@@ -46,11 +46,15 @@
     <string name="button_add_event_description">Create event</string>
     <string name="button_pick_date">Pick date</string>
     <string name="button_pick_time">Pick time</string>
-    <string name="hint_event_place">Address</string>
-    <string name="hint_event_description">Event description</string>
+    <string name="label_event_place">Address</string>
+    <string name="label_event_description">Event description</string>
     <string name="button_event_create">Create event</string>
     <string name="title_edit_event">Edit event</string>
     <string name="exit_item">Sign out</string>
-    <string name="hint_event_name">Event name</string>
+    <string name="label_event_name">Event name</string>
     <string name="title_create_event">Create event</string>
+    <string name="event_author_name">Author: %s</string>
+    <string name="hint_event_name">Playing UNO</string>
+    <string name="hint_event_place">Kremlin</string>
+    <string name="hint_event_description">Bring your cookies!</string>
 </resources>
