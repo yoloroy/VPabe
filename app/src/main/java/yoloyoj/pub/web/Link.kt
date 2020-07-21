@@ -26,7 +26,7 @@ import yoloyoj.pub.models.*
         @Query("minute") minute: Int,
         @Query("place") place: String,
         @Query("authorid") authorid: Int
-    ): Call<ResponseBody?>?
+    ): Call<Int?>?
 
 
     @GET("getmessages")
