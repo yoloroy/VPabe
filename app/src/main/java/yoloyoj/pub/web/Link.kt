@@ -20,6 +20,7 @@ import yoloyoj.pub.models.*
     fun putEvent(
         @Query("name") name: String,
         @Query("description") description: String,
+        @Query("year") year: Int,
         @Query("month") month: Int,
         @Query("day") day: Int,
         @Query("hour") hour: Int,
@@ -88,6 +89,7 @@ import yoloyoj.pub.models.*
         @Query("eventid") eventid: Int,
         @Query("name") name: String,
         @Query("description") description: String,
+        @Query("year") year: Int,
         @Query("month") month: Int,
         @Query("day") day: Int,
         @Query("hour") hour: Int,

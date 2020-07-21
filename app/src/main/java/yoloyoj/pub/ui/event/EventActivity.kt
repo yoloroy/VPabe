@@ -16,6 +16,7 @@ import yoloyoj.pub.R
 import yoloyoj.pub.ui.login.LoginActivity
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.SingleEventGetter
+import yoloyoj.pub.web.handlers.UserGetter
 
 const val STADNARD_EVENT_IMAGE = "https://static.tildacdn.com/tild3630-6536-4534-a235-346239306632/45-459030_download-s.png"
 
@@ -56,7 +57,7 @@ class EventActivity : AppCompatActivity() {
                 }
                 event_name_header.text = it?.name
                 event_describe_header.text = it?.description
-                event_date_header.text = "${it?.date?.day}.${it?.date?.month} ${it?.date?.hour}:${it?.date?.minute}"
+                event_date_header.text = "${it?.date?.day}.${it?.date?.month}.${it?.date?.year} ${it?.date?.hour}:${it?.date?.minute}"
                 event_place_header.text = it?.place
                 if (it?.avatar.isNullOrEmpty()) {
                     Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
@@ -66,6 +67,17 @@ class EventActivity : AppCompatActivity() {
                 if (userId == it?.authorid) {
                     editMenu?.setGroupVisible(0, true)
                 }
+                lateinit var userGetter: UserGetter
+
+                userGetter = UserGetter (applicationContext) { user ->
+                    if (user == null) {
+                        userGetter.start(userId!!)
+                        return@UserGetter
+                    }
+
+                    eventAuthorName.text = getString(R.string.event_author_name, user.username)
+                }
+                userGetter.start(userId!!)
             }
         )
     }

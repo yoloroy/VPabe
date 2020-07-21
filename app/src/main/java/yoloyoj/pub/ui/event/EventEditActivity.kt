@@ -27,6 +27,7 @@ import java.util.*
 class EventEditActivity: AppCompatActivity() {
 
     private var eventImageLink = STADNARD_EVENT_IMAGE
+    private var eYear: Int = 0
     private var eMonth: Int = 0
     private var eDay: Int = 0
     private var eHour: Int = 0
@@ -100,7 +101,8 @@ class EventEditActivity: AppCompatActivity() {
                     }
                     event_header_edit.setText(it?.name)
                     event_describe_header_edit.setText(it?.description)
-                    tvDate.text = "${it?.date?.day}.${it?.date?.month}"
+                    tvDate.text = "${it?.date?.day}.${it?.date?.month}.${it?.date?.year}"
+                    eYear = it?.date?.year?:0
                     eMonth = it?.date?.month?:0
                     eDay = it?.date?.day?:0
                     tvTime.text = "${it?.date?.hour}:${it?.date?.minute}"
@@ -135,6 +137,7 @@ class EventEditActivity: AppCompatActivity() {
         pickDateBtn.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 tvDate.text = "$dayOfMonth.$monthOfYear.$year"
+                eYear = year
                 eMonth = monthOfYear
                 eDay = dayOfMonth
             },
@@ -163,6 +166,7 @@ class EventEditActivity: AppCompatActivity() {
        apiClient.putEvent(
            name = event_header_edit.text.toString(),
            description = event_describe_header_edit.text.toString(),
+           year = eYear,
            month = eMonth,
            day = eDay,
            hour = eHour,
@@ -183,6 +187,7 @@ class EventEditActivity: AppCompatActivity() {
             eventid = eventId!!,
             name = event_header_edit.text.toString(),
             description = event_describe_header_edit.text.toString(),
+            year = eYear,
             month = eMonth,
             day = eDay,
             hour = eHour,
