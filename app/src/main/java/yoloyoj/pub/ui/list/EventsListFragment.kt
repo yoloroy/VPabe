@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_events_list.*
 import yoloyoj.pub.R
 import yoloyoj.pub.models.Event
+import yoloyoj.pub.ui.event.EventEditActivity
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.EventGetter
 

@@ -1,22 +1,25 @@
 package yoloyoj.pub.web.handlers
 
+import android.content.Context
 import android.view.View
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import yoloyoj.pub.models.User
 
-class EventSender(private val view: View) : Callback<ResponseBody?> {
-    // TODO: refactor
-    // view needs to crying about failures
-    override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
-        Snackbar.make(view, "Ваше мероприятие слишком шедеврально, чтобы попасть в нашу базу..", Snackbar.LENGTH_LONG)
-            .setAction("Action", null)
-            .show()
+class EventSender(
+    val context: Context,
+    var eventHandler: (Int?) -> Unit
+    ) : Callback<Int?> {
+    override fun onFailure(call: Call<Int?>, t: Throwable) {
+        Toast.makeText(context, "Ошибка при сохранении события", Toast.LENGTH_LONG).show()
+        eventHandler(null)
     }
 
-    override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
-        // yeeeee boyyyyyyyy
+    override fun onResponse(call: Call<Int?>, response: Response<Int?>) {
+        eventHandler(response.body())
     }
 }

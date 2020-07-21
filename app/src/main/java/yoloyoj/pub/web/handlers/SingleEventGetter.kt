@@ -10,25 +10,21 @@ import yoloyoj.pub.web.apiClient
 
 class SingleEventGetter(
     val context: Context,
-    var eventHandler: ((Event) -> Unit)? = null
+    var eventHandler: ((Event?) -> Unit)
 ) : Callback<Event?> {
 
     fun start(
-        eventId: Int = 1
+        eventId: Int = 0
     ) {
         apiClient.getSingleEvent(eventId)?.enqueue(this)
     }
 
     override fun onFailure(call: Call<Event?>, t: Throwable) {
-        Toast.makeText(context, "Ошибка при сохранении данных", Toast.LENGTH_LONG).show()
-        eventHandler?.let {
-            null
-        }
+        Toast.makeText(context, "Ошибка при получении данных", Toast.LENGTH_LONG).show()
+        eventHandler(null)
     }
 
     override fun onResponse(call: Call<Event?>, response: Response<Event?>) {
-        eventHandler?.let {
-            it(response.body())
-        }
+        eventHandler(response.body())
     }
 }
