@@ -10,7 +10,7 @@
         android:id="@+id/editUserImage"
         android:layout_width="125dp"
         android:layout_height="125dp"
-        android:background="@color/colorPrimaryLL"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,6 +27,7 @@
         android:layout_height="56dp"
         android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/editUserImage"
+
         app:layout_constraintEnd_toEndOf="@+id/editUserImage"
         app:layout_constraintStart_toEndOf="@+id/editUserImage"
         app:layout_constraintTop_toBottomOf="@+id/editUserImage" />
@@ -39,6 +40,8 @@
         android:elevation="1dp"
         android:ems="10"
         android:hint="@string/hint_edit_profile_name"
+        android:theme="@style/regularFont"
+
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +54,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_edit_profile_name"
+        android:theme="@style/regularFont"
+
         app:layout_constraintBottom_toTopOf="@+id/editUserName"
         app:layout_constraintStart_toStartOf="@+id/editUserName" />
 
@@ -60,6 +65,8 @@
         android:layout_height="60dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:theme="@style/regularFont"
+
         android:hint="@string/hint_edit_profile_status"
         android:elevation="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -74,6 +81,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_edit_profile_status"
+        android:theme="@style/regularFont"
+
         app:layout_constraintBottom_toTopOf="@+id/editUserStatus"
         app:layout_constraintStart_toStartOf="@+id/editUserStatus" />
 
@@ -82,6 +91,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_save_edit_profile"
+        android:theme="@style/regularFont"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

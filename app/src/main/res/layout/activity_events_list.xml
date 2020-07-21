@@ -43,13 +43,14 @@
 
         <TextView
             android:id="@+id/events_list_header"
+            android:theme="@style/bigFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="6dp"
             android:paddingTop="5dp"
             android:paddingEnd="8dp"
             android:paddingBottom="5dp"
-            android:text="Мероприятия"
+            android:text="@string/title_list"
             android:textSize="24sp"
             android:textStyle="bold" />
 

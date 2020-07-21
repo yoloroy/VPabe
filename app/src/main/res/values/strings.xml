@@ -1,44 +1,48 @@
 <resources>
-    <string name="app_name">ВПабе</string>
+
+    <string name="app_name"> vPabe</string>
     <string name="title_chat">Chat</string>
+    <string name="title_chats">Chats</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_list">Events</string>
+    <string name="title_attachments">Attachments</string>
+    <string name="title_map">Map</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="icon_profile">profile</string>
+    <string name="icon_friends">friends</string>
+    <string name="icon_list">list</string>
+    <string name="icon_chat">chat</string>
+    <string name="icon_map">map</string>
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="title_attachments">Вложения</string>
+    <string name="action_sign_in">Sign up or Log in</string>
+    <string name="action_sign_in_short">Log in</string>
+    <string name="invalid_username">Invalid username</string>
+    <string name="invalid_password">Password must contain at least 6 characters </string>
+    <string name="login_failed">authentication error</string>
     <string name="download">Download</string>
-    <string name="title_chats">Chats</string>
-    <string name="title_profile">Profile</string>
-    <string name="title_map">Map</string>
-
-    <string name="action_sign_in">Войти или зарегистрироваться</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">Welcome!</string>
-    <string name="invalid_username">Incorrect username</string>
-    <string name="invalid_password">Пароль должен содержать не менее 6-ти символов</string>
-    <string name="login_failed">Ошибка авторизации</string>
-    <string name="user_name_hint">Ivan</string>
-    <string name="button_start">Let\'s go!</string>
+    <string name="user_name_hint">David</string>
+    <string name="button_start">Start</string>
     <string name="user_number_hint">+12345678900</string>
-    <string name="user_number_text">Phone number</string>
+    <string name="user_number_text">Number</string>
     <string name="user_name_text">Name</string>
-    <string name="start_text">Sign in</string>
-    <string name="icon_profile">Profile</string>
-    <string name="icon_friends">Friends</string>
-    <string name="icon_list">List</string>
-    <string name="icon_chat">Chat</string>
-    <string name="icon_map">Map</string>
-    <string name="event_text">Супер крутая сходка на остановке</string>
-    <string name="hint_event_name">Event name</string>
-    <string name="label_profile_upcoming_events">Ближайшие мероприятия</string>
-    <string name="label_profile_visited_events">Посещенные мероприятия</string>
-    <string name="title_edit_profile">Редактировать профиль</string>
-    <string name="hint_edit_profile_name">Иван Иванов</string>
-    <string name="label_edit_profile_name">Имя Фамилия</string>
-    <string name="label_edit_profile_status">Статус</string>
-    <string name="hint_edit_profile_status">Несколько слов о себе</string>
-    <string name="button_save_edit_profile">Сохранить</string>
+    <string name="event_text">The best bus stop Festival</string>
+    <string name="hint"> your event</string>
+    <string name="label_profile_upcoming_events">Upcoming events</string>
+    <string name="label_profile_visited_events">Visited events</string>
+    <string name="title_edit_profile">Edit profile</string>
+    <string name="hint_edit_profile_name">David Bowie</string>
+    <string name="label_edit_profile_name">Name/Last name</string>
+    <string name="label_edit_profile_status">some words about me:</string>
+    <string name="hint_edit_profile_status">.. a leading figure in the music industry and is considered one of the most influential musicians of the 20th century</string>
+    <string name="button_save_edit_profile">Save changes</string>
+    <string name="exit" translatable="false">Exit</string>
+    <string name="backdrop_open" translatable="false">backdrop_open</string>
+    <string name="todo">TODO</string>
+    <string name="please_check">Please check carefully that all details are correct.</string>
+    <string name="avatar_text">What do you want to show?</string>
     <string name="button_go_to_chat">Go to chat</string>
     <string name="button_add_event_description">Create event</string>
     <string name="button_pick_date">Pick date</string>

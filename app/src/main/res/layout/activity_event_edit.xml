@@ -41,8 +41,8 @@
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/design_default_color_on_secondary"
-                android:textSize="14sp"
-                android:importantForAutofill="no" />
+                android:theme="@style/bigFont"
+                android:textSize="18sp" />
 
 
             <LinearLayout
@@ -61,6 +61,7 @@
 
                     <Button
                         android:id="@+id/pickDateBtn"
+                        android:theme="@style/regularFont"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="@string/button_pick_date"
@@ -107,6 +108,7 @@
 
             <EditText
                 android:id="@+id/event_place_header_edit"
+                android:theme="@style/regularFont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -133,6 +135,7 @@
 
             <EditText
                 android:id="@+id/event_describe_header_edit"
+                android:theme="@style/regularFont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -148,7 +151,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/button_event_create" />
+                android:text="@string/button_event_create"
+                android:textColor="@color/colorAccent"
+                android:theme="@style/regularFont" />
 
         </LinearLayout>
 
