@@ -19,6 +19,9 @@ import yoloyoj.pub.web.handlers.UserGetter
 
 class ProfileFragment : Fragment() {
 
+    private var menuItem: MenuItem? = null
+    private var isOtherUser = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
@@ -33,6 +36,9 @@ class ProfileFragment : Fragment() {
             true
         }
 
+        menuItem = menu.getItem(0)
+        menuItem!!.isVisible = false
+
         menu.getItem(1).setOnMenuItemClickListener {
             activity!!.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
                 .edit().apply {
@@ -41,10 +47,9 @@ class ProfileFragment : Fragment() {
                 }
 
             startActivity(Intent(context, LoginActivity::class.java))
-
+            activity?.finish()
             true
         }
-
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -66,13 +71,17 @@ class ProfileFragment : Fragment() {
 
         if (arguments?.getInt("userId") != null){
             userId = arguments!!.getInt("userId")
+            isOtherUser = true
         }
 
-        UserGetter { user ->
-            if (user!!.avatar!!.isNotBlank())
+        UserGetter (activity!!.applicationContext) { user ->
+            if (user?.avatar!!.isNotBlank())
                 Picasso.get().load(user.avatar).into(userImage)
             userName.text = user.username
             userStatus.text = user.status
+            if (!isOtherUser) {
+                menuItem!!.isVisible = true
+            }
         }.start(userId!!)
 
         val currentYear = 2020
@@ -101,7 +110,6 @@ class ProfileFragment : Fragment() {
                 visitedEvents
             )
         }.start(userId)
-
         super.onViewCreated(view, savedInstanceState)
     }
 }

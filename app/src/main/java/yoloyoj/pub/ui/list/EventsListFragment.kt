@@ -1,5 +1,6 @@
 package yoloyoj.pub.ui.list
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -67,22 +68,24 @@ class EventsListFragment : Fragment() {
 
         super.onCreateOptionsMenu(menu, inflater)
     }
-
-
+  
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View? {
-        val root = inflater.inflate(R.layout.activity_events_list, container, false)
-
-        eventsListViewModel =
-                ViewModelProviders.of(this).get(EventsListViewModel::class.java)
-        events = eventsListViewModel.events
-
-
+            val root = inflater.inflate(R.layout.activity_events_list, container, false)
+            eventsListViewModel = ViewModelProviders.of(this).get(EventsListViewModel::class.java)
+            events = eventsListViewModel.events
             return root
         }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        fab.setOnClickListener {
+            startActivity(Intent(activity!!.applicationContext, EventEditActivity::class.java))
+        }
+        super.onViewCreated(view, savedInstanceState)
+    }
 
     override fun onStart() {
         events_container.layoutManager = LinearLayoutManager(context)
