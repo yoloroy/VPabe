@@ -51,6 +51,8 @@
     <string name="hint_event_place">Адрес</string>
     <string name="hint_event_description">Описание события</string>
     <string name="button_event_create">Создать событие</string>
-    <string name="title_edit_event">Редактировать событие</string>
+    <string name="title_edit_event">Редактирование события</string>
     <string name="exit_item">Выйти</string>
+    <string name="exit">Выход</string>
+    <string name="title_create_event">Создание события</string>
 </resources>

@@ -6,6 +6,9 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
+    android:padding="4dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="6sp"
     app:contentPadding="6dp">
@@ -13,7 +16,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="375dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -34,52 +37,42 @@
             tools:layout_editor_absoluteY="49dp" />
 
         <TextView
-            android:id="@+id/event_describe_header"
-
+            android:id="@+id/event_date_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:theme="@style/regularFont"
+            android:textAlignment="center"
+            tools:text="date is here" />
+
+        <TextView
+            android:id="@+id/event_place_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:textAlignment="center"
+            tools:text="place is here" />
+
+        <TextView
+            android:id="@+id/event_describe_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingTop="0dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
             android:theme="@style/regularFont"
-            tools:text="date is here" />
-
-
-        <TextView
-            android:theme="@style/regularFont"
-            android:id="@+id/event_date_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="0dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10"
-            tools:text="place is here" />
-
-        <TextView
-            android:id="@+id/event_place_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingTop="5dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
             tools:text="description is here" />
+
 
         <ImageView
             android:id="@+id/event_image"
             android:layout_width="wrap_content"
-            android:layout_height="213dp"
+            android:layout_height="200dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingBottom="5dp"
-            tools:srcCompat="@drawable/example"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp" />
+            tools:srcCompat="@drawable/example" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -82,7 +82,7 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:theme="@style/regularFont"
-            android:text="@strings/button_go_to_chat" />
+            android:text="@string/button_go_to_chat" />
 
     </LinearLayout>
 

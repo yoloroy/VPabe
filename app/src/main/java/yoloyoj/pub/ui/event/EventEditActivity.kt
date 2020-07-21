@@ -114,11 +114,13 @@ class EventEditActivity: AppCompatActivity() {
                     }
                     event_set_btn.text = getString(R.string.button_save_edit_profile)
                     event_set_btn.setOnClickListener { updateEvent() }
+                    supportActionBar?.title = getString(R.string.title_edit_event)
                 }
             )
         } else {
             event_set_btn.setOnClickListener { sendEvent() }
             Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
+            supportActionBar?.title = getString(R.string.title_create_event)
         }
 
 
