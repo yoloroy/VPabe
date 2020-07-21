@@ -15,9 +15,8 @@ class EventItemHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
                 event_name_header.text = eventItem.name
                 event_describe_header.text = eventItem.description
-                event_date_header.text = eventItem.date?.day.toString()
+                event_date_header.text = "${eventItem.date?.day}.${eventItem.date?.month} ${eventItem.date?.hour}:${eventItem.date?.minute}"
                 event_place_header.text = eventItem.place
-
 
                 setOnClickListener {
                     val intent = Intent(context,  EventActivity::class.java)

@@ -1,34 +1,34 @@
 <resources>
     <string name="app_name">ВПабе</string>
-    <string name="title_chat">Чат</string>
-    <string name="title_notifications">Уведомления</string>
-    <string name="title_list">События</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_list">Events</string>
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="title_attachments">Вложения</string>
-    <string name="download">Скачать</string>
-    <string name="title_chats">Чаты</string>
-    <string name="title_profile">Профиль</string>
-    <string name="title_map">Карта</string>
+    <string name="download">Download</string>
+    <string name="title_chats">Chats</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_map">Map</string>
 
     <string name="action_sign_in">Войти или зарегистрироваться</string>
-    <string name="action_sign_in_short">Войти</string>
-    <string name="welcome">Добро пожаловать!</string>
-    <string name="invalid_username">Некорректное имя пользователя</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">Welcome!</string>
+    <string name="invalid_username">Incorrect username</string>
     <string name="invalid_password">Пароль должен содержать не менее 6-ти символов</string>
     <string name="login_failed">Ошибка авторизации</string>
-    <string name="user_name_hint">Иван</string>
-    <string name="button_start">Погнали!</string>
+    <string name="user_name_hint">Ivan</string>
+    <string name="button_start">Let\'s go!</string>
     <string name="user_number_hint">+12345678900</string>
-    <string name="user_number_text">Телефончик</string>
-    <string name="user_name_text">Имя</string>
-    <string name="start_text">Вход</string>
-    <string name="icon_profile">Профиль</string>
-    <string name="icon_friends">Друзья</string>
-    <string name="icon_list">Список</string>
-    <string name="icon_chat">Час</string>
-    <string name="icon_map">Карта</string>
+    <string name="user_number_text">Phone number</string>
+    <string name="user_name_text">Name</string>
+    <string name="start_text">Sign in</string>
+    <string name="icon_profile">Profile</string>
+    <string name="icon_friends">Friends</string>
+    <string name="icon_list">List</string>
+    <string name="icon_chat">Chat</string>
+    <string name="icon_map">Map</string>
     <string name="event_text">Супер крутая сходка на остановке</string>
     <string name="hint_event_name">Event name</string>
     <string name="label_profile_upcoming_events">Ближайшие мероприятия</string>
@@ -46,4 +46,6 @@
     <string name="hint_event_place">Address</string>
     <string name="hint_event_description">Event description</string>
     <string name="button_event_create">Create event</string>
+    <string name="title_edit_event">Edit event</string>
+    <string name="exit_item">Sign out</string>
 </resources>

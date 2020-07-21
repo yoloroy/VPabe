@@ -71,7 +71,7 @@ class EditProfileFragment: Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            CODE_GET_PICTURE -> putImage(data!!.data!!)
+            CODE_GET_PICTURE -> putImage(data?.data!!)
         }
     }
 

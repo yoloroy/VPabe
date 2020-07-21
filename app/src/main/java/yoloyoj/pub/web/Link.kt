@@ -81,4 +81,16 @@ import yoloyoj.pub.models.*
     fun getSingleEvent(
         @Query("eventid") eventid: Int = 1
     ): Call<Event?>?
+
+    @GET("updevent")
+    fun updateEvent(
+        @Query("eventid") eventid: Int,
+        @Query("name") name: String,
+        @Query("description") description: String,
+        @Query("month") month: Int,
+        @Query("day") day: Int,
+        @Query("hour") hour: Int,
+        @Query("minute") minute: Int,
+        @Query("place") place: String
+    ): Call<ResponseBody?>?
 }

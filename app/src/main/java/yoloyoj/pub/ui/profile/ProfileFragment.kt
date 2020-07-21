@@ -109,7 +109,7 @@ class ProfileFragment : Fragment() {
             recyclerVisitedEvents.adapter = ProfileEventsAdapter(
                 visitedEvents
             )
-        }.start(userId)
+        }.start(userid = userId)
         super.onViewCreated(view, savedInstanceState)
     }
 }
