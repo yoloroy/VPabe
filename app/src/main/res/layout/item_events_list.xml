@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
     app:cardCornerRadius="8dp"
@@ -25,7 +25,7 @@
             android:paddingTop="5dp"
             android:paddingRight="20dp"
             android:paddingBottom="5dp"
-            android:text="@string/event_text"
+            tools:text="@string/event_text"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -44,12 +44,12 @@
             android:paddingTop="0dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="description is here"
-            android:theme="@style/regularFont" />
+            android:theme="@style/regularFont"
+            tools:text="date is here" />
+
 
         <TextView
             android:theme="@style/regularFont"
-
             android:id="@+id/event_date_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,8 +57,8 @@
             android:paddingLeft="20dp"
             android:paddingTop="0dp"
             android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:text="date is here" />
+            android:paddingBottom="10"
+            tools:text="place is here" />
 
         <TextView
             android:id="@+id/event_place_header"
@@ -67,18 +67,17 @@
             android:paddingLeft="20dp"
             android:paddingTop="5dp"
             android:paddingRight="20dp"
-            android:paddingBottom="5dp"
-            android:text="place is here" />
+            android:paddingBottom="10dp"
+            tools:text="description is here" />
 
         <ImageView
             android:id="@+id/event_image"
             android:layout_width="wrap_content"
             android:layout_height="213dp"
-            android:contentDescription="TODO"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingBottom="5dp"
-            app:srcCompat="@drawable/example"
+            tools:srcCompat="@drawable/example"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="16dp" />
 

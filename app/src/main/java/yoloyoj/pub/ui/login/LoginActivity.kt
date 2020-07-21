@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
 
     @SuppressLint("ApplySharedPref")
     override fun onStart() {
-        userGetter = UserGetter {
+        userGetter = UserGetter (applicationContext) {
             if (it != null) {
                 getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
                     .edit().apply {
@@ -48,6 +48,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     public fun onClickLogin(view: View) {
-
+        userGetter.start(telephone = editTextPhone.text.toString())
     }
 }

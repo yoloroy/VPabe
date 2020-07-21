@@ -9,15 +9,22 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soywiz.klock.DateTime
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_event.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
+import yoloyoj.pub.ui.event.STADNARD_EVENT_IMAGE
 import yoloyoj.pub.ui.login.LoginActivity
 import yoloyoj.pub.web.handlers.EventGetter
 import yoloyoj.pub.web.handlers.UserGetter
 
+const val STANDARD_PROFILE_IMAGE = "https://alpinism-industrial.ru/wp-content/uploads/2019/09/kisspng-user-profile-computer-icons-clip-art-profile-5ac092f6f2d337.1560498715225699749946-300x300.jpg"
+
 class ProfileFragment : Fragment() {
+
+    private var menuItem: MenuItem? = null
+    private var isOtherUser = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
@@ -33,6 +40,9 @@ class ProfileFragment : Fragment() {
             true
         }
 
+        menuItem = menu.getItem(0)
+        menuItem!!.isVisible = false
+
         menu.getItem(1).setOnMenuItemClickListener {
             activity!!.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
                 .edit().apply {
@@ -41,10 +51,9 @@ class ProfileFragment : Fragment() {
                 }
 
             startActivity(Intent(context, LoginActivity::class.java))
-
+            activity?.finish()
             true
         }
-
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -66,14 +75,30 @@ class ProfileFragment : Fragment() {
 
         if (arguments?.getInt("userId") != null){
             userId = arguments!!.getInt("userId")
+            isOtherUser = true
         }
 
-        UserGetter { user ->
-            if (user!!.avatar!!.isNotBlank())
+        lateinit var userGetter: UserGetter
+
+        userGetter = UserGetter (activity!!.applicationContext) {user ->
+            if (user == null){
+                userGetter.start(userId!!)
+                return@UserGetter
+            }
+
+            if (user.avatar.isNullOrEmpty()) {
+                Picasso.get().load(STANDARD_PROFILE_IMAGE).into(userImage)
+            } else {
                 Picasso.get().load(user.avatar).into(userImage)
+            }
             userName.text = user.username
             userStatus.text = user.status
-        }.start(userId!!)
+            if (!isOtherUser) {
+                menuItem!!.isVisible = true
+            }
+        }
+
+        userGetter.start(userId!!)
 
         val currentYear = 2020
         EventGetter { events ->
@@ -88,10 +113,14 @@ class ProfileFragment : Fragment() {
                     e.date!!.hour!!,
                     e.date!!.minute!!
                 ).unixMillisLong
+                var imageLink = STADNARD_EVENT_IMAGE
+                if (!e.avatar.isNullOrEmpty()) {
+                    imageLink = e.avatar!!
+                }
                 if (eventDate >= curDate){
-                    upcomingEvents.add(ProfileEventItem(eventName = e.name!!, eventId = e.eventid!!))
+                    upcomingEvents.add(ProfileEventItem(eventName = e.name!!, eventId = e.eventid!!, eventImageLink = imageLink))
                 } else {
-                    visitedEvents.add(ProfileEventItem(eventName = e.name!!, eventId = e.eventid!!))
+                    visitedEvents.add(ProfileEventItem(eventName = e.name!!, eventId = e.eventid!!, eventImageLink = imageLink))
                 }
             }
             recyclerUpcomingEvents.adapter = ProfileEventsAdapter(
@@ -100,8 +129,7 @@ class ProfileFragment : Fragment() {
             recyclerVisitedEvents.adapter = ProfileEventsAdapter(
                 visitedEvents
             )
-        }.start(userId)
-
+        }.start(userid = userId)
         super.onViewCreated(view, savedInstanceState)
     }
 }

@@ -8,8 +8,8 @@ import yoloyoj.pub.R
 import yoloyoj.pub.models.Event
 
 
-class EventListAdapter( private val items: List<Event>
-
+class EventListAdapter(
+    private val items: List<Event>
 ): RecyclerView.Adapter<EventItemHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventItemHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -24,11 +24,7 @@ class EventListAdapter( private val items: List<Event>
     }
 
     override fun onBindViewHolder(holder: EventItemHolder, position: Int) {
-        holder.bind(
-            items[position]
-            )
-
-
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int = items.size

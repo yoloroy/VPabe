@@ -9,7 +9,6 @@
     android:background="@color/design_default_color_background">
 
     <androidx.cardview.widget.CardView
-
         android:id="@+id/event_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,8 +17,6 @@
         app:contentPadding="6dp"
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="-16dp">
-
-
 
         <LinearLayout
             android:id="@+id/event_linear"
@@ -33,11 +30,11 @@
 
             <EditText
                 android:id="@+id/event_header_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#FFFFFF"
                 android:ems="10"
-                android:hint="@string/hint"
+                android:hint="@string/hint_event_name"
                 android:inputType="textPersonName"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
@@ -45,92 +42,120 @@
                 android:paddingBottom="10dp"
                 android:textColor="@color/design_default_color_on_secondary"
                 android:theme="@style/bigFont"
-                android:textSize="18sp"
-            />
+                android:textSize="18sp" />
 
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_margin="3dp">
+
+                    <Button
+                        android:id="@+id/pickDateBtn"
+                        android:theme="@style/regularFont"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/button_pick_date"
+                        android:layout_gravity="center_horizontal"
+                        tools:ignore="ButtonStyle,NestedWeights"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_margin="3dp">
 
                 <Button
-                    android:id="@+id/pickDateBtn"
+                    android:id="@+id/pickTimeBtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/regularFont"
-                    android:text=".." />
+                    android:layout_height="match_parent"
+                    android:text="@string/button_pick_time"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    tools:ignore="ButtonStyle,NestedWeights" />
 
-                <TextView
-                    android:id="@+id/text_date"
-                    android:theme="@style/regularFont"
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"/>
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="10dp"
-                    android:text="date pic" />
+                </LinearLayout>
+
             </LinearLayout>
 
 
             <EditText
                 android:id="@+id/event_place_header_edit"
                 android:theme="@style/regularFont"
-
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="place"
+                android:hint="@string/hint_event_place"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/design_default_color_on_secondary"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:ignore="TextFields" />
 
             <ImageView
                 android:id="@+id/event_image"
                 android:layout_width="wrap_content"
                 android:layout_height="213dp"
-                android:contentDescription="TODO"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingBottom="5dp"
-                app:srcCompat="@drawable/example"
+                tools:srcCompat="@drawable/example"
                 tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="16dp" />
+                tools:layout_editor_absoluteY="16dp"
+                tools:ignore="ContentDescription" />
 
             <EditText
                 android:id="@+id/event_describe_header_edit"
-                android:layout_width="wrap_content"
                 android:theme="@style/regularFont"
-
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="description"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="10dp"
+                android:hint="@string/hint_event_description"
+                android:minLines="3"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
                 android:textColor="@color/design_default_color_on_secondary"
-                android:textSize="14sp" />
+                android:importantForAutofill="no" />
+
+            <Button
+                android:id="@+id/event_set_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/button_event_create"
+                android:textColor="@color/colorAccent"
+                android:theme="@style/regularFont" />
+
         </LinearLayout>
-
-        <Button
-            android:id="@+id/event_set_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-
-            android:layout_marginTop="470dp"
-            android:layout_marginEnd="70dp"
-            android:layout_marginBottom="8dp"
-            android:text="Создать мероприятие"
-            android:textColor="@color/colorAccent"
-            android:theme="@style/regularFont" />
-
 
     </androidx.cardview.widget.CardView>
 
