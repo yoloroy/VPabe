@@ -1,5 +1,6 @@
 package yoloyoj.pub.ui.list
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,34 +10,34 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_events_list.*
 import yoloyoj.pub.R
+import yoloyoj.pub.ui.event.EventEditActivity
 
 class EventsListFragment : Fragment() {
 
     private lateinit var eventsListViewModel: EventsListViewModel
     private lateinit var events: EventData
 
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View? {
-        val root = inflater.inflate(R.layout.activity_events_list, container, false)
-
-        eventsListViewModel =
-                ViewModelProviders.of(this).get(EventsListViewModel::class.java)
-        events = eventsListViewModel.events
-
-
+            val root = inflater.inflate(R.layout.activity_events_list, container, false)
+            eventsListViewModel = ViewModelProviders.of(this).get(EventsListViewModel::class.java)
+            events = eventsListViewModel.events
             return root
         }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        fab.setOnClickListener {
+            startActivity(Intent(activity!!.applicationContext, EventEditActivity::class.java))
+        }
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     override fun onStart() {
         events_container.layoutManager = LinearLayoutManager(context)
-
         events.observeForever { loadAdapter() }
-
-
         super.onStart()
     }
 

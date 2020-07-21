@@ -19,7 +19,6 @@ class EventsListViewModel : ViewModel() {
             MY_USER_ID)
     }
 
-
     private fun loadHandlers() {
         eventGetter = EventGetter().apply {
             eventListener = { updEvents ->

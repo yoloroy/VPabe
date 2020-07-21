@@ -26,5 +26,10 @@
         android:name="yoloyoj.pub.ui.profile.EditProfileFragment"
         android:label="@string/title_edit_profile"
         tools:layout="@layout/fragment_edit_profile"/>
+    <fragment
+        android:name="yoloyoj.pub.ui.map.MapFragment"
+        android:id="@+id/navigation_map"
+        android:label="@string/title_map"
+        tools:layout="@layout/fragment_map"/>
 
 </navigation>

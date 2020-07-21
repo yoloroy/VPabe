@@ -9,16 +9,16 @@
     android:background="@color/design_default_color_background">
 
     <androidx.cardview.widget.CardView
-
         android:id="@+id/event_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="8dp"
         app:cardElevation="6sp"
         app:contentPadding="6dp"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="-16dp">
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <LinearLayout
@@ -39,12 +39,12 @@
                 android:paddingTop="10dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="5dp"
-                android:text="@string/event_text"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="80dp"
-                tools:layout_editor_absoluteY="49dp" />
+                tools:layout_editor_absoluteY="49dp"
+                tools:text="@string/event_text" />
 
             <TextView
                 android:id="@+id/event_date_header"
@@ -55,7 +55,7 @@
                 android:paddingTop="0dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp"
-                android:text="date is here" />
+                tools:text="date is here" />
 
             <TextView
                 android:id="@+id/event_place_header"
@@ -66,13 +66,12 @@
                 android:paddingTop="0dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp"
-                android:text="place is here" />
+                tools:text="place is here" />
 
             <ImageView
                 android:id="@+id/event_image"
                 android:layout_width="wrap_content"
                 android:layout_height="213dp"
-                android:contentDescription="TODO"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingBottom="5dp"
@@ -89,7 +88,7 @@
                 android:paddingTop="0dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp"
-                android:text="description is here" />
+                tools:text="description is here" />
 
         </LinearLayout>
 
@@ -101,20 +100,7 @@
             android:layout_marginTop="470dp"
             android:layout_marginEnd="70dp"
             android:layout_marginBottom="8dp"
-            android:text="Войти в чат" />
-
-        <Button
-            android:id="@+id/add_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="510dp"
-            android:layout_marginEnd="70dp"
-            android:layout_marginBottom="8dp"
-            android:text="add event"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            android:text="@string/button_go_to_chat" />
 
     </androidx.cardview.widget.CardView>
 

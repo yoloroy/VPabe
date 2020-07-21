@@ -20,8 +20,10 @@ import yoloyoj.pub.models.*
     fun putEvent(
         @Query("name") name: String,
         @Query("description") description: String,
-        @Query("month") month: String,
-        @Query("day") day: String,
+        @Query("month") month: Int,
+        @Query("day") day: Int,
+        @Query("hour") hour: Int,
+        @Query("minute") minute: Int,
         @Query("place") place: String,
         @Query("authorid") authorid: Int
     ): Call<ResponseBody?>?
@@ -69,4 +71,9 @@ import yoloyoj.pub.models.*
         @Query("status") status: String,
         @Query("avatar") avatar: String
     ): Call<ResponseBody?>?
+
+    @GET("getevent")
+    fun getSingleEvent(
+        @Query("eventid") eventid: Int = 1
+    ): Call<Event?>?
 }

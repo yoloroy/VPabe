@@ -19,24 +19,9 @@ class EventItemHolder(val view: View) : RecyclerView.ViewHolder(view) {
                 event_place_header.text = eventItem.place
 
 
-
                 setOnClickListener {
-                    val intent = Intent(context,  EventActivity ::class.java)
-                    intent.putExtra("event name",
-                        eventItem.name
-                    )
-                    intent.putExtra("event description",
-                        eventItem.description
-                    )
-
-                    intent.putExtra("event date",
-                        eventItem.date?.day.toString()
-                    )
-                    intent.putExtra("event place",
-                        eventItem.place
-                    )
-
-
+                    val intent = Intent(context,  EventActivity::class.java)
+                    intent.putExtra("eventid", eventItem.eventid)
                     context.startActivity(intent)
                 }
             }
