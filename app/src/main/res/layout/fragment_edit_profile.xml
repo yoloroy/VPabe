@@ -10,7 +10,7 @@
         android:id="@+id/editUserImage"
         android:layout_width="125dp"
         android:layout_height="125dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

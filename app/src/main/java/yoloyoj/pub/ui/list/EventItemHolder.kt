@@ -17,7 +17,7 @@ class EventItemHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
                 event_name_header.text = eventItem.name
                 event_describe_header.text = eventItem.description
-                event_date_header.text = "${eventItem.date?.day}.${eventItem.date?.month} ${eventItem.date?.hour}:${eventItem.date?.minute}"
+                event_date_header.text = "${eventItem.date?.hour}.${eventItem.date?.minute} ${eventItem.date?.day}:${eventItem.date?.month}"
                 event_place_header.text = eventItem.place
                 if (eventItem.avatar.isNullOrEmpty()) {
                     Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
