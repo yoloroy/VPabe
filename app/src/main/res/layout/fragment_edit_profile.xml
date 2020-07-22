@@ -27,6 +27,7 @@
         android:layout_height="56dp"
         android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/editUserImage"
+        android:theme="@style/regularFont"
 
         app:layout_constraintEnd_toEndOf="@+id/editUserImage"
         app:layout_constraintStart_toEndOf="@+id/editUserImage"

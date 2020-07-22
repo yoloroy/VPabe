@@ -50,7 +50,9 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:textAlignment="center"
-            tools:text="place is here" />
+            tools:text="place is here"
+            android:theme="@style/regularFont"
+            />
 
         <TextView
             android:id="@+id/event_describe_header"

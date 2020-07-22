@@ -71,6 +71,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/regularFont"
+
                 android:text="@string/avatar_text"
                 android:textAlignment="center" />
 
@@ -101,6 +103,8 @@
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:hint="@string/hint_edit_profile_name"
+                android:theme="@style/regularFont"
+
                 android:inputType="textPersonName"
                 android:minEms="12"
                 android:textAlignment="center"
@@ -113,6 +117,8 @@
                 android:hint="@string/user_number_hint"
                 android:inputType="textPersonName"
                 android:minEms="12"
+                android:theme="@style/regularFont"
+
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:importantForAutofill="no" />
