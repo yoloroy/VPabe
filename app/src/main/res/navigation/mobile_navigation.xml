@@ -26,7 +26,7 @@
         android:label="@string/title_list" />
     <fragment
         android:id="@+id/navigation_map"
-        android:name="yoloyoj.pub.ui.map.MapFragment"
+        android:name="yoloyoj.pub.ui.list.map.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
 
