@@ -1,65 +1,204 @@
 package yoloyoj.pub.ui.event
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event_edit.*
+import kotlinx.android.synthetic.main.activity_event_edit.event_image
+import kotlinx.android.synthetic.main.activity_event_edit.event_set_btn
+import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
+import yoloyoj.pub.ui.chat.CODE_GET_PICTURE
+import yoloyoj.pub.ui.login.LoginActivity
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.EventSender
+import yoloyoj.pub.web.handlers.EventUpdater
+import yoloyoj.pub.web.handlers.SingleEventGetter
+import java.io.File
 import java.util.*
-const val MY_USER_ID = 0
 
 class EventEditActivity: AppCompatActivity() {
-    private lateinit var eventSender: EventSender
+
+    private var eventImageLink = STADNARD_EVENT_IMAGE
+    private var eYear: Int = 0
+    private var eMonth: Int = 0
+    private var eDay: Int = 0
+    private var eHour: Int = 0
+    private var eMinute: Int = 0
+    private var userId: Int? = 0
+    private var eventId: Int? = 0
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data == null) return
+        when (requestCode) {
+            CODE_GET_PICTURE -> putImage(data.data!!)
+        }
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    fun addAttachment() {
+        val intent = Intent().apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
+        }
+
+        startActivityForResult(
+            Intent.createChooser(intent, "Select picture"),
+            CODE_GET_PICTURE
+        )
+    }
+
+    private fun putImage(uri: Uri) {
+        val file = File(uri.path)
+
+        val storage = FirebaseStorage.getInstance()
+        val storageReference = storage
+            .getReferenceFromUrl("gs://vpabe-75c05.appspot.com") // TODO: remove hardcode
+            .child("${file.hashCode()}.${uri.path!!.split(".").last()}")
+
+        storageReference.putFile(uri)
+        storageReference.downloadUrl.addOnSuccessListener {
+            onImagePutted(it.toString())
+        }
+    }
+
+    private fun onImagePutted(link: String) {
+        Picasso.get().load(link).into(event_image)
+        eventImageLink = link
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_edit)
-    }
 
-    override fun onStart() {
+        userId = getSharedPreferences(MainActivity.PREFERENCES_USER, Context.MODE_PRIVATE)
+            ?.getInt(MainActivity.PREFERENCES_USERID, 1)
+        if (userId == null || userId == 0){
+            startActivity(Intent(applicationContext, LoginActivity::class.java))
+            finish()
+        }
 
-        eventSender = EventSender(event_set_btn)
-        loadOnClicks()
+        eventId = intent?.getIntExtra("eventid", 0)
 
-        super.onStart()
-    }
+        if (eventId != null && eventId != 0){
+            apiClient.getSingleEvent(
+                eventId!!
+            )?.enqueue(
+                SingleEventGetter(
+                    this
+                ) {
+                    if (it == null) {
+                        Toast.makeText(applicationContext, "Ошибка при получении данных", Toast.LENGTH_LONG).show()
+                        finish()
+                    }
+                    event_header_edit.setText(it?.name)
+                    event_describe_header_edit.setText(it?.description)
+                    tvDate.text = "${it?.date?.day}.${it?.date?.month}.${it?.date?.year}"
+                    eYear = it?.date?.year?:0
+                    eMonth = it?.date?.month?:0
+                    eDay = it?.date?.day?:0
+                    tvTime.text = "${it?.date?.hour}:${it?.date?.minute}"
+                    eHour = it?.date?.hour?:0
+                    eMinute = it?.date?.minute?:0
+                    event_place_header_edit.setText(it?.place)
+                    if (it?.avatar.isNullOrEmpty()) {
+                        Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
+                    } else {
+                        Picasso.get().load(it?.avatar).into(event_image)
+                    }
+                    event_set_btn.text = getString(R.string.button_save_edit_profile)
+                    event_set_btn.setOnClickListener { updateEvent() }
+                    supportActionBar?.title = getString(R.string.title_edit_event)
+                }
+            )
+        } else {
+            event_set_btn.setOnClickListener { sendEvent() }
+            Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
+            supportActionBar?.title = getString(R.string.title_create_event)
+        }
 
 
-    private fun loadOnClicks() {
-        event_set_btn.setOnClickListener { sendEvent() }
-    }
 
-    private fun sendEvent() {
-        val name : EditText = findViewById(R.id.event_header_edit)
-        val place : EditText = findViewById(R.id.event_place_header_edit)
-        val describe : EditText = findViewById(R.id.event_describe_header_edit)
+        event_image.setOnClickListener { addAttachment() }
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setHomeButtonEnabled(false)
 
-        val mPickTimeBtn = findViewById<Button>(R.id.pickDateBtn)
         val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-        val textView = findViewById<TextView>(R.id.text_date)
 
-        mPickTimeBtn.setOnClickListener {
+        pickDateBtn.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                textView.setText("Your date: $dayOfMonth.$month.$year")
-            }, year, month, day)
+                tvDate.text = "$dayOfMonth.$monthOfYear.$year"
+                eYear = year
+                eMonth = monthOfYear
+                eDay = dayOfMonth
+            },
+                c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH)
+            )
             dpd.show()
         }
 
-        apiClient.putEvent(
-            name.text.toString(),
-            describe.text.toString(),
-            month.toString(),
-            day.toString(),
-            place.text.toString(),
-            MY_USER_ID
-        )?.enqueue(eventSender)
+        pickTimeBtn.setOnClickListener {
+            val tpd = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hour, minute ->
+                tvTime.text = "$hour:$minute"
+                eHour = hour
+                eMinute = minute
+            },
+                c.get(Calendar.HOUR_OF_DAY),
+                c.get(Calendar.MINUTE),
+                true
+            )
+            tpd.show()
+        }
+    }
+
+    private fun sendEvent() {
+       apiClient.putEvent(
+           name = event_header_edit.text.toString(),
+           description = event_describe_header_edit.text.toString(),
+           year = eYear,
+           month = eMonth,
+           day = eDay,
+           hour = eHour,
+           minute = eMinute,
+           place = event_place_header_edit.text.toString(),
+           authorid = userId!!,
+           avatar = eventImageLink
+        )?.enqueue(EventSender(applicationContext) {
+           val intent = Intent(this, EventActivity::class.java)
+           intent.putExtra("eventid", it)
+           startActivity(intent)
+           finish()
+       })
+    }
+
+    private fun updateEvent() {
+        apiClient.updateEvent(
+            eventid = eventId!!,
+            name = event_header_edit.text.toString(),
+            description = event_describe_header_edit.text.toString(),
+            year = eYear,
+            month = eMonth,
+            day = eDay,
+            hour = eHour,
+            minute = eMinute,
+            place = event_place_header_edit.text.toString(),
+            avatar = eventImageLink
+        )?.enqueue(EventUpdater(applicationContext) {
+            val intent = Intent(this, EventActivity::class.java)
+            intent.putExtra("eventid", eventId!!)
+            startActivity(intent)
+            finish()
+        })
     }
 }

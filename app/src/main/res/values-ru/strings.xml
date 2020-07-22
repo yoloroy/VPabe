@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ВПабе</string>
+    <string name="app_name">вПабе</string>
     <string name="title_chat">Чат</string>
+    <string name="title_chats">Чаты</string>
+
     <string name="title_notifications">Уведомления</string>
     <string name="title_list">События</string>
 
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_password">Пароль</string>
     <string name="title_attachments">Вложения</string>
     <string name="download">Скачать</string>
-    <string name="title_chats">Чаты</string>
+
     <string name="title_profile">Профиль</string>
     <string name="title_map">Карта</string>
 
     <string name="action_sign_in">Войти или зарегистрироваться</string>
     <string name="action_sign_in_short">Войти</string>
-    <string name="welcome">Добро пожаловать!</string>
     <string name="invalid_username">Некорректное имя пользователя</string>
     <string name="invalid_password">Пароль должен содержать не менее 6-ти символов</string>
     <string name="login_failed">Ошибка авторизации</string>
@@ -24,14 +25,14 @@
     <string name="user_number_hint">+12345678900</string>
     <string name="user_number_text">Телефончик</string>
     <string name="user_name_text">Имя</string>
-    <string name="start_text">Вход</string>
+
     <string name="icon_profile">Профиль</string>
     <string name="icon_friends">Друзья</string>
     <string name="icon_list">Список</string>
-    <string name="icon_chat">Час</string>
+    <string name="icon_chat">Чат</string>
     <string name="icon_map">Карта</string>
     <string name="event_text">Супер крутая сходка на остановке</string>
-    <string name="hint">Остановочное событие</string>
+    <string name="label_event_name">Название мероприятия</string>
     <string name="label_profile_upcoming_events">Ближайшие мероприятия</string>
     <string name="label_profile_visited_events">Посещенные мероприятия</string>
     <string name="title_edit_profile">Редактировать профиль</string>
@@ -41,4 +42,24 @@
     <string name="hint_edit_profile_status">Несколько слов о себе</string>
     <string name="button_save_edit_profile">Сохранить</string>
     <string name="title_activity_location_getter">Карта</string>
+    <string name="todo">TODO</string>
+    <string name="please_check">Пожалуйста, проверьте введённые данные</string>
+    <string name="avatar_text">Что вы хотите показать?</string>
+    <string name="button_go_to_chat">Войти в чат</string>
+    <string name="button_add_event_description">Создать событие</string>
+    <string name="button_pick_date">Выбрать дату</string>
+    <string name="button_pick_time">Выбрать время</string>
+    <string name="label_event_place">Адрес</string>
+    <string name="label_event_description">Описание события</string>
+    <string name="button_event_create">Создать событие</string>
+    <string name="title_edit_event">Редактирование события</string>
+    <string name="exit_item">Выйти</string>
+    <string name="exit">Выход</string>
+    <string name="title_create_event">Создание события</string>
+    <string name="event_author_name">Создатель: %s</string>
+    <string name="hint_event_name">Играем в UNO</string>
+    <string name="hint_event_place">Кремль</string>
+    <string name="hint_event_description">Приносите печенье!</string>
+    <string name="event_subscribe_button">Подписаться</string>
+    <string name="event_unsubscribe_button">Отписаться</string>
 </resources>

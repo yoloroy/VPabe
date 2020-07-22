@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_profile_event.view.*
 
-class ProfileEventItemHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+class ProfileEventItemHolder(val view: View) : RecyclerView.ViewHolder(view) {
     lateinit var eventItem: ProfileEventItem
     fun bind(eventItem: ProfileEventItem) {
         Picasso.get().load(eventItem.eventImageLink).into(view.eventImage)

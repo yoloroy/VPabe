@@ -21,11 +21,15 @@ import yoloyoj.pub.models.*
     fun putEvent(
         @Query("name") name: String,
         @Query("description") description: String,
-        @Query("month") month: String,
-        @Query("day") day: String,
+        @Query("year") year: Int,
+        @Query("month") month: Int,
+        @Query("day") day: Int,
+        @Query("hour") hour: Int,
+        @Query("minute") minute: Int,
         @Query("place") place: String,
-        @Query("authorid") authorid: Int
-    ): Call<ResponseBody?>?
+        @Query("authorid") authorid: Int,
+        @Query("avatar") avatar: String
+    ): Call<Int?>?
 
 
     @GET("getmessages")
@@ -81,4 +85,53 @@ import yoloyoj.pub.models.*
         @Path("location") location: String,
         @Query("key") key: String
     ): Call<Map<String, Any>?>?
+   
+    @GET("getevent")
+    fun getSingleEvent(
+        @Query("eventid") eventid: Int = 1
+    ): Call<Event?>?
+
+    @GET("updevent")
+    fun updateEvent(
+        @Query("eventid") eventid: Int,
+        @Query("name") name: String,
+        @Query("description") description: String,
+        @Query("year") year: Int,
+        @Query("month") month: Int,
+        @Query("day") day: Int,
+        @Query("hour") hour: Int,
+        @Query("minute") minute: Int,
+        @Query("place") place: String,
+        @Query("avatar") avatar: String
+    ): Call<ResponseBody?>?
+
+    @GET("dosubscribe")
+    fun subscribeOnEvent(
+        @Query("eventid") eventid: Int,
+        @Query("userid") userid: Int,
+        @Query("subscribe") subscribe: String = "true"
+    ): Call<ResponseBody?>?
+
+    @GET("checksubscribe")
+    fun checkSubscribe(
+        @Query("eventid") eventid: Int,
+        @Query("userid") userid: Int
+    ): Call<Boolean?>?
+
+    @GET("getchatbyevent")
+    fun getChatByEvent(
+        @Query("eventid") eventid: Int
+    ): Call<Int?>?
+
+    @GET("addtochat")
+    fun addUserToChat(
+        @Query("chatid") chatid: Int,
+        @Query("userid") userid: Int
+    ): Call<ResponseBody?>?
+
+    @GET("checkinchat")
+    fun isUserInChat(
+        @Query("chatid") chatid: Int,
+        @Query("userid") userid: Int
+    ): Call<Boolean?>?
 }

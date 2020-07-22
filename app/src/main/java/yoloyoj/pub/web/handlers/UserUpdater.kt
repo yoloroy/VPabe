@@ -12,7 +12,8 @@ import yoloyoj.pub.models.User
 import yoloyoj.pub.web.apiClient
 
 class UserUpdater(
-    val context: Context
+    val context: Context,
+    val callback: () -> Unit
 ) : Callback<ResponseBody?> {
 
     override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
@@ -20,6 +21,6 @@ class UserUpdater(
     }
 
     override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
-        // all is OK
+        callback()
     }
 }

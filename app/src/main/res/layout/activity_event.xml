@@ -11,92 +11,78 @@
     <LinearLayout
         android:id="@+id/event_linear"
         android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="7dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/event_name_header"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
             android:paddingTop="10dp"
-            android:paddingRight="20dp"
             android:paddingBottom="5dp"
-            android:text="@string/event_text"
+            android:textAlignment="center"
+            tools:text="@string/event_text"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="80dp"
-            tools:layout_editor_absoluteY="49dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/event_date_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="0dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:text="date is here" />
+            android:layout_marginBottom="5dp"
+            android:textAlignment="center"
+            tools:text="date is here" />
 
         <TextView
             android:id="@+id/event_place_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="0dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:text="place is here" />
+            android:layout_marginBottom="5dp"
+            android:textAlignment="center"
+            tools:text="place is here" />
+
+        <TextView
+            android:id="@+id/eventAuthorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginBottom="5dp"
+            tools:text="author is here" />
 
         <ImageView
             android:id="@+id/event_image"
             android:layout_width="wrap_content"
-            android:layout_height="213dp"
-            android:contentDescription="TODO"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingBottom="5dp"
-            app:srcCompat="@drawable/example"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp" />
+            android:minHeight="200dp"
+            android:maxHeight="300dp"
+            android:layout_height="200dp"
+            tools:srcCompat="@drawable/example" />
 
         <TextView
             android:id="@+id/event_describe_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="0dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:text="description is here" />
+            tools:text="description is here" />
 
         <Button
-            android:id="@+id/event_set_btn"
-            android:layout_width="match_parent"
+            android:id="@+id/event_subscribe_button"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="70dp"
-            android:text="Войти в чат" />
+            android:theme="@style/regularFont"
+            android:text="@string/event_subscribe_button" />
 
         <Button
-            android:id="@+id/add_btn"
-            android:layout_width="match_parent"
+            android:id="@+id/event_chat_button"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="70dp"
-            android:layout_marginBottom="8dp"
-            android:text="add event"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:theme="@style/regularFont"
+            android:text="@string/button_go_to_chat" />
 
     </LinearLayout>
 

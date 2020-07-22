@@ -4,7 +4,7 @@
     <item
         android:id="@+id/app_bar_search"
         android:icon="@drawable/ic_search_black_24dp"
-        android:title="Search"
+        android:title="@string/backdrop_open"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
 </menu>

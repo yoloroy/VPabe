@@ -9,7 +9,8 @@ class Event(
     var authorid: Int? = null,
     var place: String? = null,
     var lat: Int? = null,
-    var lng: Int? = null
+    var lng: Int? = null,
+    var avatar: String? = null
 ) {
     override fun toString(): String {
         return "{ \n" +
