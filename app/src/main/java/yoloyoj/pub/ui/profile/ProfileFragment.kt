@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soywiz.klock.DateTime
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_event.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
@@ -123,10 +122,10 @@ class ProfileFragment : Fragment() {
                 }
             }
             recyclerUpcomingEvents.adapter = ProfileEventsAdapter(
-                upcomingEvents
+                upcomingEvents.reversed()
             )
             recyclerVisitedEvents.adapter = ProfileEventsAdapter(
-                visitedEvents
+                visitedEvents.reversed()
             )
         }.start(userid = userId)
         super.onViewCreated(view, savedInstanceState)

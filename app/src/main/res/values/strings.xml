@@ -57,4 +57,7 @@
     <string name="hint_event_name">Playing UNO</string>
     <string name="hint_event_place">Kremlin</string>
     <string name="hint_event_description">Bring your cookies!</string>
+    <string name="event_subscribe_button">Subscribe</string>
+    <string name="event_unsubscribe_button">Unsubscribe</string>
+
 </resources>

@@ -69,7 +69,15 @@
             tools:text="description is here" />
 
         <Button
-            android:id="@+id/event_set_btn"
+            android:id="@+id/event_subscribe_button"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:theme="@style/regularFont"
+            android:text="@string/event_subscribe_button" />
+
+        <Button
+            android:id="@+id/event_chat_button"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
