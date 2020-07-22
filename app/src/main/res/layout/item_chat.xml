@@ -13,7 +13,7 @@
         android:layout_height="49dp"
         android:layout_gravity="top"
         android:layout_margin="4dp"
-        android:background="@color/colorPrimary"
+        android:background="@android:color/background_light"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/rounded" />
 
@@ -42,7 +42,7 @@
                 android:id="@+id/lastSender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLength="15"
+                android:maxLength="20"
                 android:maxLines="1"
                 android:theme="@style/regularFont"
 

@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_chat.view.*
 import yoloyoj.pub.R
 import yoloyoj.pub.models.ChatView
 import yoloyoj.pub.ui.chat.ChatActivity
 import yoloyoj.pub.ui.chat.EXTRA_CHATID
+import yoloyoj.pub.ui.event.STADNARD_EVENT_IMAGE
+import yoloyoj.pub.utils.tryDefault
 
 class ChatListAdapter(
     private val items: List<ChatView>
@@ -35,10 +38,18 @@ class ChatListAdapter(
 
 class ChatViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(chatView: ChatView) {
-        // view.chatAvatar TODO: set image(or holder) from picasso
-        view.apply {
-            chatName.text = chatView.chatid.toString() // TODO: add chat names
+        if (chatView.chatAvatar.isNullOrEmpty()) {
+            tryDefault(true) {
+                Picasso.get().load(STADNARD_EVENT_IMAGE).into(view.chatAvatar)
+            }
+        } else {
+            tryDefault(true) {
+                Picasso.get().load(chatView.chatAvatar).into(view.chatAvatar)
+            }
+        }
 
+        view.apply {
+            chatName.text = chatView.chatName
             lastSender.text = chatView.sender
             lastMessage.text = chatView.text
 
