@@ -71,6 +71,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/regularFont"
+                android:textColor="@color/colorAccent"
+
                 android:text="@string/avatar_text"
                 android:textAlignment="center" />
 
@@ -80,8 +83,7 @@
                 android:layout_height="168dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/ic_person"
-                android:backgroundTint="#aaa"
+                android:background="@drawable/ic_profile_back_cat"
                 android:onClick="onAvatarChoose"
                 android:scaleType="centerCrop"
                 android:theme="@style/rounded" />
@@ -101,6 +103,8 @@
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:hint="@string/hint_edit_profile_name"
+                android:theme="@style/regularFont"
+
                 android:inputType="textPersonName"
                 android:minEms="12"
                 android:textAlignment="center"
@@ -113,6 +117,8 @@
                 android:hint="@string/user_number_hint"
                 android:inputType="textPersonName"
                 android:minEms="12"
+                android:theme="@style/regularFont"
+
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:importantForAutofill="no" />
@@ -126,19 +132,22 @@
             <Button
                 android:id="@+id/registerButton"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="165dp"
+                android:layout_height="55dp"
                 android:layout_gravity="bottom|center_horizontal"
-                android:layout_margin="32dp"
+
+                android:layout_marginTop="38dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
                 android:onClick="onClickRegister"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
                 android:text="@string/button_start"
 
-                android:textAllCaps="false"
-                android:textSize="18sp"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorBackgroundFace"
                 android:theme="@style/regularFont"
-                app:strokeColor="@color/colorAccent" />
+                app:backgroundTint="@color/colorAccent" />
         </FrameLayout>
 
     </LinearLayout>

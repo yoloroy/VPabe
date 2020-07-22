@@ -3,7 +3,7 @@
 
     <style name="MyTextStyle">
         <item name="android:textSize">18sp</item>
-        <item name="android:font">@font/light</item>
+        <item name="android:font">@font/regular</item>
 
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:typeface">monospace</item>

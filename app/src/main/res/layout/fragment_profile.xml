@@ -34,7 +34,7 @@
         android:id="@+id/userImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:background="@color/colorBackgroundFaceDark"
+        android:background="@drawable/ic_profile_back_cat"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerVisitedEvents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

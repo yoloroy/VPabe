@@ -2,16 +2,15 @@ package yoloyoj.pub.ui.event
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProviders
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event.*
-import kotlinx.android.synthetic.main.item_events_list.view.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
 import yoloyoj.pub.ui.chat.ChatActivity
@@ -20,8 +19,9 @@ import yoloyoj.pub.ui.login.LoginActivity
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.*
 
-const val STADNARD_EVENT_IMAGE = "https://static.tildacdn.com/tild3630-6536-4534-a235-346239306632/45-459030_download-s.png"
 
+//const val STADNARD_EVENT_IMAGE = "https://static.tildacdn.com/tild3630-6536-4534-a235-346239306632/45-459030_download-s.png"
+const val STADNARD_EVENT_IMAGE = "/home/mira/AndroidStudioProjects/VPabe/app/src/main/res/drawable-v24/ic_events_const.png"
 class EventActivity : AppCompatActivity() {
 
     private var eventId: Int? = 0
@@ -32,6 +32,10 @@ class EventActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
+
+
+
+
 
         userId = getSharedPreferences(MainActivity.PREFERENCES_USER, Context.MODE_PRIVATE)
             ?.getInt(MainActivity.PREFERENCES_USERID, 1)

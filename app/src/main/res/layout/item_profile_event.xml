@@ -4,24 +4,31 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/eventImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:layout_gravity="center"
-        app:shapeAppearanceOverlay="@style/rounded" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/eventName"
-        android:theme="@style/regularFont"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/eventImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/rounded" />
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:maxWidth="100dp"
-        android:maxLength="200"
-        android:textAlignment="center"
-        android:textColor="@android:color/black" />
+        <TextView
+            android:id="@+id/eventName"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:maxWidth="100dp"
+            android:maxLength="200"
+            android:text="идффффф"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:theme="@style/regularFont" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -20,7 +20,7 @@
         android:id="@+id/attachmentsPreView"
         android:layout_width="match_parent"
         android:layout_height="96dp"
-        android:background="@android:color/white"
+        android:background="@color/colorBackgroundBack"
         android:clipChildren="true"
         android:orientation="horizontal"
         android:padding="4dp"

@@ -27,6 +27,8 @@
                 android:id="@+id/labelEventName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/regularFont"
+
                 android:text="@string/label_event_name" />
 
             <EditText
@@ -52,6 +54,39 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/pickTimeBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:background="@android:drawable/editbox_background"
+                        android:text="@string/button_pick_time"
+
+                        android:textColor="@color/colorAccent"
+                        android:theme="@style/regularFont"
+                        app:backgroundTint="@color/colorBackgroundBack"
+                        app:backgroundTintMode="add"
+                        app:cornerRadius="8dp"
+                        tools:ignore="ButtonStyle,NestedWeights" />
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:theme="@style/regularFont" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
                     android:layout_margin="3dp">
@@ -62,6 +97,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="@string/button_pick_date"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorAccent"
+                        app:backgroundTint="@color/colorBackgroundBack"
+                        app:backgroundTintMode="add"
+                        app:cornerRadius="8dp"
+
                         android:layout_gravity="center_horizontal"
                         tools:ignore="ButtonStyle,NestedWeights"
                         android:layout_weight="1"/>
@@ -71,31 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textAlignment="center"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_margin="3dp">
-
-                <Button
-                    android:id="@+id/pickTimeBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/button_pick_time"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    tools:ignore="ButtonStyle,NestedWeights" />
-
-                    <TextView
-                        android:id="@+id/tvTime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:theme="@style/regularFont"
                         android:textAlignment="center"/>
 
                 </LinearLayout>
@@ -107,6 +124,8 @@
                 android:id="@+id/labelEventPlace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/regularFont"
+
                 android:text="@string/label_event_place" />
 
             <EditText
@@ -134,6 +153,8 @@
 
             <TextView
                 android:id="@+id/labelEventDescription"
+                android:theme="@style/regularFont"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/label_event_description" />
@@ -148,17 +169,21 @@
                 android:minLines="3"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-                android:textColor="@color/design_default_color_on_secondary"
+                android:textColor="@color/colorPrimary"
                 android:importantForAutofill="no" />
 
             <Button
                 android:id="@+id/event_set_btn"
+                android:layout_marginVertical="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/button_event_create"
-                android:textColor="@color/colorAccent"
-                android:theme="@style/regularFont" />
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorBackgroundFace"
+                android:theme="@style/regularFont"
+                app:backgroundTint="@color/colorAccent"
+                />
 
         </LinearLayout>
 
