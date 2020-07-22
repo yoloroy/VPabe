@@ -53,12 +53,12 @@ class EditProfileFragment: Fragment() {
                     editUserStatus.text.toString(),
                     avatarLink
                 )?.enqueue(
-                    UserUpdater(context!!)
+                    UserUpdater(context!!) {
+                        val imm: InputMethodManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.hideSoftInputFromWindow(getView()!!.windowToken, 0)
+                        activity!!.supportFragmentManager.popBackStack()
+                    }
                 )
-                val imm: InputMethodManager =
-                    activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(getView()!!.windowToken, 0)
-                activity!!.supportFragmentManager.popBackStack()
             }
         }.start(userId!!)
 

@@ -97,4 +97,34 @@ import yoloyoj.pub.models.*
         @Query("place") place: String,
         @Query("avatar") avatar: String
     ): Call<ResponseBody?>?
+
+    @GET("dosubscribe")
+    fun subscribeOnEvent(
+        @Query("eventid") eventid: Int,
+        @Query("userid") userid: Int,
+        @Query("subscribe") subscribe: String = "true"
+    ): Call<ResponseBody?>?
+
+    @GET("checksubscribe")
+    fun checkSubscribe(
+        @Query("eventid") eventid: Int,
+        @Query("userid") userid: Int
+    ): Call<Boolean?>?
+
+    @GET("getchatbyevent")
+    fun getChatByEvent(
+        @Query("eventid") eventid: Int
+    ): Call<Int?>?
+
+    @GET("addtochat")
+    fun addUserToChat(
+        @Query("chatid") chatid: Int,
+        @Query("userid") userid: Int
+    ): Call<ResponseBody?>?
+
+    @GET("checkinchat")
+    fun isUserInChat(
+        @Query("chatid") chatid: Int,
+        @Query("userid") userid: Int
+    ): Call<Boolean?>?
 }
