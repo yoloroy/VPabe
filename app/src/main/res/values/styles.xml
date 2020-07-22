@@ -1,11 +1,37 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorBackgroundFace</item>
+        <item name="colorPrimaryDark">@color/colorBackgroundFaceDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
+        <item name="android:actionBarStyle">@style/MyTheme.ActionBar</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item></style>
+
+
+    <style name="MyTheme.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
     </style>
+
+    <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="lightFont" >
+        <item name="android:fontFamily">@font/regular</item>
+    </style>
+    <style name="bigFont" >
+        <item name="android:fontFamily">@font/big</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+    <style name="largeFont" >
+        <item name="android:fontFamily">@font/large</item>
+    </style>
+    <style name="regularFont" >
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:fontFamily">@font/regular</item>
+    </style>
+
+
 
     <style name="ImageViewTheme" parent="BlackTheme">
         <item name="colorPrimary">#3000</item>
@@ -13,15 +39,15 @@
     </style>
 
     <style name="BlackTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@android:color/black</item>
-        <item name="colorPrimaryDark">@android:color/black</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
     </style>
 
     <style name="LauncherTheme" parent="Theme.Design.NoActionBar">
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:windowBackground">@drawable/ic_launcher_background</item>
+        <item name="android:windowBackground">@drawable/ic_launcher_foreground_logo</item>
         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
     </style>
 

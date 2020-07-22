@@ -96,7 +96,7 @@ class ChatActivity : AppCompatActivity() {
 
                 if (items.value!!.isEmpty()) {
                     attachmentsPreView.visibility = View.GONE
-                    addAttachment.drawable.setTint(resources.getColor(R.color.colorAccentBored))
+                    addAttachment.drawable.setTint(resources.getColor(R.color.colorAccent))
                 } else if (attachmentsPreView.visibility == View.GONE) {
                     attachmentsPreView.visibility = View.VISIBLE
                     addAttachment.drawable.setTint(resources.getColor(R.color.colorAccent))
@@ -188,7 +188,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun onImageSent() {
-        addAttachment.drawable.setTint(resources.getColor(R.color.colorAccentBored))
+        addAttachment.drawable.setTint(resources.getColor(R.color.colorAccent))
 
         attachments.value = mutableListOf()
     }

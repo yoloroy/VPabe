@@ -13,7 +13,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:background="@color/colorPrimaryLL"
+        android:background="@color/ic_launcher_background"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/rounded"
         app:srcCompat="@drawable/ic_person" />
@@ -30,7 +30,7 @@
             android:layout_height="32dp"
             android:layout_gravity="bottom|start"
             android:layout_marginBottom="16dp"
-            android:tint="@color/colorPrimaryLight"
+            android:tint="@color/ic_launcher_background"
             app:srcCompat="@drawable/ic_corner" />
 
         <FrameLayout
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/back_message_box"
-                android:backgroundTint="@color/colorPrimaryLight"
+                android:backgroundTint="@color/ic_launcher_background"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -61,6 +61,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
+                        android:theme="@style/regularFont"
+
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/colorAccent" />
 
@@ -69,6 +71,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
+                        android:theme="@style/regularFont"
+
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 </LinearLayout>
@@ -76,8 +80,8 @@
                 <ImageButton
                     android:id="@+id/attachmentButton"
                     style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:layout_gravity="top|end"
                     android:scaleType="centerCrop"
                     android:tint="@color/colorAccent"

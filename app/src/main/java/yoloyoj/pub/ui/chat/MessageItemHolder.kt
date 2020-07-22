@@ -9,6 +9,7 @@ import yoloyoj.pub.R
 import yoloyoj.pub.models.Attachment
 import yoloyoj.pub.models.Message
 import yoloyoj.pub.ui.attachment.view.AttachmentsViewActivity
+import yoloyoj.pub.ui.profile.asactivity.ProfileActivity
 import yoloyoj.pub.utils.toDp
 
 const val ATTACHMENTS_TYPES = "at"
@@ -32,6 +33,12 @@ class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) 
 
         if (showUserAvatar) {
             view.showAvatar()
+
+            view.setOnClickListener {
+                val intent = Intent(it.context, ProfileActivity::class.java)
+                intent.putExtra("userid", message.senderId)
+                (it.context as ChatActivity).startActivity(intent)
+            }
 
             if (message.avatar!!.isNotEmpty())
                 Picasso.get()

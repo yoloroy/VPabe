@@ -20,10 +20,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/please"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/regularFont"
+
             android:layout_margin="8dp"
-            android:text="Пожалуйста, проверьте введённые данные"
+            android:text="@string/please_check"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="16sp" />
 
@@ -38,6 +41,8 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:gravity="center"
+                android:theme="@style/regularFont"
+
                 android:onClick="onClickBannerClose"
                 android:text="@android:string/ok"
                 android:textAlignment="center"
@@ -66,7 +71,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Что вы хотите показать?"
+                android:theme="@style/regularFont"
+                android:textColor="@color/colorAccent"
+
+                android:text="@string/avatar_text"
                 android:textAlignment="center" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -75,8 +83,7 @@
                 android:layout_height="168dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/ic_person"
-                android:backgroundTint="#aaa"
+                android:background="@drawable/ic_profile_back_cat"
                 android:onClick="onAvatarChoose"
                 android:scaleType="centerCrop"
                 android:theme="@style/rounded" />
@@ -94,7 +101,10 @@
                 android:id="@+id/nameEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Как будете зваться?"
+                android:autofillHints=""
+                android:hint="@string/hint_edit_profile_name"
+                android:theme="@style/regularFont"
+
                 android:inputType="textPersonName"
                 android:minEms="12"
                 android:textAlignment="center"
@@ -104,11 +114,14 @@
                 android:id="@+id/phoneEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Можно номерок?"
+                android:hint="@string/user_number_hint"
                 android:inputType="textPersonName"
                 android:minEms="12"
+                android:theme="@style/regularFont"
+
                 android:textAlignment="center"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:importantForAutofill="no" />
 
         </LinearLayout>
 
@@ -119,17 +132,22 @@
             <Button
                 android:id="@+id/registerButton"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="165dp"
+                android:layout_height="55dp"
                 android:layout_gravity="bottom|center_horizontal"
-                android:layout_margin="32dp"
+
+                android:layout_marginTop="38dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
                 android:onClick="onClickRegister"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
-                android:text="Начать"
-                android:textAllCaps="false"
-                android:textSize="18sp"
-                app:strokeColor="@color/colorAccent" />
+                android:text="@string/button_start"
+
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorBackgroundFace"
+                android:theme="@style/regularFont"
+                app:backgroundTint="@color/colorAccent" />
         </FrameLayout>
 
     </LinearLayout>
