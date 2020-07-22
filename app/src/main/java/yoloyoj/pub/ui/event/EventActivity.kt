@@ -145,6 +145,11 @@ class EventActivity : AppCompatActivity() {
                                             userid = userId!!
                                         )?.enqueue(
                                             AddToChatSender(applicationContext) {
+                                                event_chat_button.setOnClickListener {
+                                                    val intent = Intent(applicationContext, ChatActivity::class.java)
+                                                    intent.putExtra(EXTRA_CHATID, chatId!!)
+                                                    startActivity(intent)
+                                                }
                                                 val intent = Intent(applicationContext, ChatActivity::class.java)
                                                 intent.putExtra(EXTRA_CHATID, chatId!!)
                                                 startActivity(intent)
