@@ -22,9 +22,6 @@ const val STANDARD_PROFILE_IMAGE = "https://alpinism-industrial.ru/wp-content/up
 
 class ProfileFragment : Fragment() {
 
-    private var menuItem: MenuItem? = null
-    private var isOtherUser = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
@@ -33,15 +30,10 @@ class ProfileFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         inflater.inflate(R.menu.profile_edit_menu, menu)
-
         menu.getItem(0).setOnMenuItemClickListener {
             findNavController().navigate(R.id.editProfileFragment)
             true
         }
-
-        menuItem = menu.getItem(0)
-        menuItem!!.isVisible = false
-
         menu.getItem(1).setOnMenuItemClickListener {
             activity!!.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
                 .edit().apply {
@@ -64,17 +56,12 @@ class ProfileFragment : Fragment() {
         recyclerUpcomingEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerVisitedEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        var userId = activity
+        val userId = activity
             ?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
             ?.getInt(PREFERENCES_USERID, 1)
         if (userId == null || userId == 0){
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
-        }
-
-        if (arguments?.getInt("userId") != null){
-            userId = arguments!!.getInt("userId")
-            isOtherUser = true
         }
 
         lateinit var userGetter: UserGetter
@@ -92,9 +79,6 @@ class ProfileFragment : Fragment() {
             }
             userName.text = user.username
             userStatus.text = user.status
-            if (!isOtherUser) {
-                menuItem!!.isVisible = true
-            }
         }
 
         userGetter.start(userId!!)
