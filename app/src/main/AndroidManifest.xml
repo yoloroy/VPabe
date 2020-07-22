@@ -56,6 +56,7 @@
             android:label="Edit event"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.profile.asactivity.ProfileActivity" />
     </application>
 
 </manifest>
