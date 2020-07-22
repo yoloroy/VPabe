@@ -17,14 +17,15 @@
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign up or Log in</string>
-    <string name="action_sign_in_short">Log in</string>
+    <string name="action_log_in">Log in</string>
+    <string name="button_start">next</string>
+
     <string name="invalid_username">Invalid username</string>
     <string name="invalid_password">Password must contain at least 6 characters </string>
     <string name="login_failed">authentication error</string>
     <string name="download">Download</string>
     <string name="user_name_hint">David</string>
-    <string name="button_start">Start</string>
+
     <string name="user_number_hint">+12345678900</string>
     <string name="user_number_text">Телефончик</string>
     <string name="user_name_text">Имя</string>
@@ -62,7 +63,7 @@
     <string name="todo">TODO</string>
     <string name="please_check">Please check carefully that all details are correct.</string>
     <string name="avatar_text">What do you want to show?</string>
-    <string name="button_go_to_chat">Go to chat</string>
+    <string name="button_go_to_chat">Chat</string>
     <string name="button_add_event_description">Create event</string>
     <string name="button_pick_date">Pick date</string>
     <string name="button_pick_time">Pick time</string>

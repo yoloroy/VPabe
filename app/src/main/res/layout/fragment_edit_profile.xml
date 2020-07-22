@@ -10,7 +10,7 @@
         android:id="@+id/editUserImage"
         android:layout_width="125dp"
         android:layout_height="125dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,13 +21,15 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/setNewImageButton"
-        app:icon="@drawable/ic_baseline_edit_24"
         style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
         android:layout_width="56dp"
         android:layout_height="56dp"
+        android:backgroundTintMode="add"
         android:elevation="3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editUserImage"
+        app:backgroundTint="@color/colorAccent"
 
+        app:icon="@drawable/ic_baseline_edit_24"
+        app:layout_constraintBottom_toBottomOf="@+id/editUserImage"
         app:layout_constraintEnd_toEndOf="@+id/editUserImage"
         app:layout_constraintStart_toEndOf="@+id/editUserImage"
         app:layout_constraintTop_toBottomOf="@+id/editUserImage" />
@@ -90,9 +92,14 @@
         android:id="@+id/saveProfileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+
         android:text="@string/button_save_edit_profile"
+        android:textColor="@color/colorBackgroundBack"
+        android:textStyle="bold"
         android:theme="@style/regularFont"
 
+        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

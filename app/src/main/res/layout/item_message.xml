@@ -13,7 +13,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:background="@color/colorBackgroundFaceDark"
+        android:background="@color/ic_launcher_background"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/rounded"
         app:srcCompat="@drawable/ic_person" />
