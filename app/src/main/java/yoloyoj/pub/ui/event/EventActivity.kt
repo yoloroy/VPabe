@@ -74,15 +74,15 @@ class EventActivity : AppCompatActivity() {
                 }
                 lateinit var userGetter: UserGetter
 
-                userGetter = UserGetter (applicationContext) { user ->
-                    if (user == null) {
-                        userGetter.start(userId!!)
+                userGetter = UserGetter (applicationContext) { author ->
+                    if (author == null) {
+                        userGetter.start(it.authorid!!)
                         return@UserGetter
                     }
 
-                    eventAuthorName.text = getString(R.string.event_author_name, user.username)
+                    eventAuthorName.text = getString(R.string.event_author_name, author.username)
                 }
-                userGetter.start(userId!!)
+                userGetter.start(it.authorid!!)
 
                 apiClient.checkSubscribe(
                     eventid = eventId!!,

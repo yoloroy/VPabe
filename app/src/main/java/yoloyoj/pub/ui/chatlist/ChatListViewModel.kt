@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import yoloyoj.pub.models.ChatView
 import yoloyoj.pub.ui.chat.MY_USER_ID
+import yoloyoj.pub.utils.tryDefault
 import yoloyoj.pub.web.handlers.ChatListGetter
 
 class ChatListViewModel : ViewModel() {
@@ -24,7 +25,9 @@ class ChatListViewModel : ViewModel() {
 
             chatListGetter!!.start(
                 chats.value!!.count(),
-                chats.value!!.map { it.lastMessage?._rowid_ }.sumBy { it!! }
+                tryDefault(0) {
+                    chats.value!!.map { it.lastMessage?._rowid_ }.sumBy { it!! }
+                }
             )
         }
 
