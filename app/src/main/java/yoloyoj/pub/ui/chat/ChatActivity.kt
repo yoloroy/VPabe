@@ -61,6 +61,7 @@ class ChatActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
         viewModel.chatid = chatid
 
+        viewModel.messages.value = mutableListOf()
         messages = viewModel.messages
         attachments = viewModel.attachments
     }
