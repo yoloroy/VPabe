@@ -41,6 +41,7 @@
     <string name="label_edit_profile_status">Статус</string>
     <string name="hint_edit_profile_status">Несколько слов о себе</string>
     <string name="button_save_edit_profile">Сохранить</string>
+    <string name="title_activity_location_getter">Карта</string>
     <string name="todo">TODO</string>
     <string name="please_check">Пожалуйста, проверьте введённые данные</string>
     <string name="avatar_text">Что вы хотите показать?</string>
