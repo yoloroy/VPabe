@@ -5,6 +5,7 @@ class Message {
     var text: String? = null
     var chatid: Int? = null
     var sender: String? = null
+    var senderId: Int? = null
     var avatar: String? = null
     var attachments: List<Attachment>? = null
 
