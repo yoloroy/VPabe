@@ -54,6 +54,39 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/pickTimeBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:background="@android:drawable/editbox_background"
+                        android:text="@string/button_pick_time"
+
+                        android:textColor="@color/colorAccent"
+                        android:theme="@style/regularFont"
+                        app:backgroundTint="@color/colorBackgroundBack"
+                        app:backgroundTintMode="add"
+                        app:cornerRadius="8dp"
+                        tools:ignore="ButtonStyle,NestedWeights" />
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:theme="@style/regularFont" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
                     android:layout_margin="3dp">
@@ -80,38 +113,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:theme="@style/regularFont"
-                        android:textAlignment="center"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_margin="3dp">
-
-                <Button
-                    android:id="@+id/pickTimeBtn"
-                    android:theme="@style/regularFont"
-                    android:background="@android:drawable/editbox_background"
-                    android:textColor="@color/colorAccent"
-                    app:backgroundTint="@color/colorBackgroundBack"
-                    app:backgroundTintMode="add"
-                    app:cornerRadius="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/button_pick_time"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    tools:ignore="ButtonStyle,NestedWeights" />
-
-                    <TextView
-                        android:id="@+id/tvTime"
-                        android:theme="@style/regularFont"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:textAlignment="center"/>
 
                 </LinearLayout>
@@ -173,6 +174,7 @@
 
             <Button
                 android:id="@+id/event_set_btn"
+                android:layout_marginVertical="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

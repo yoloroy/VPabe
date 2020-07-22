@@ -72,6 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/regularFont"
+                android:textColor="@color/colorAccent"
 
                 android:text="@string/avatar_text"
                 android:textAlignment="center" />
@@ -132,10 +133,13 @@
             <Button
                 android:id="@+id/registerButton"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="165dp"
+                android:layout_height="55dp"
                 android:layout_gravity="bottom|center_horizontal"
-                android:layout_margin="32dp"
+
+                android:layout_marginTop="38dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
                 android:onClick="onClickRegister"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"

@@ -43,7 +43,7 @@
     <string name="todo">TODO</string>
     <string name="please_check">Please check carefully that all details are correct.</string>
     <string name="avatar_text">What do you want to show?</string>
-    <string name="button_go_to_chat">Go to chat</string>
+    <string name="button_go_to_chat">Chat</string>
     <string name="button_add_event_description">Create event</string>
     <string name="button_pick_date">Pick date</string>
     <string name="button_pick_time">Pick time</string>
