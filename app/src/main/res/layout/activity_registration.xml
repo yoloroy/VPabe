@@ -141,10 +141,10 @@
                 android:paddingRight="24dp"
                 android:text="@string/button_start"
 
-                android:textAllCaps="false"
-                android:textSize="18sp"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorBackgroundFace"
                 android:theme="@style/regularFont"
-                app:strokeColor="@color/colorAccent" />
+                app:backgroundTint="@color/colorAccent" />
         </FrameLayout>
 
     </LinearLayout>

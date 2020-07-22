@@ -15,13 +15,13 @@
     <string name="title_profile">Профиль</string>
     <string name="title_map">Карта</string>
 
-    <string name="action_sign_in">Войти или зарегистрироваться</string>
-    <string name="action_sign_in_short">Войти</string>
+    <string name="action_log_in">Войти</string>
+    <string name="button_start">Продолжить</string>
+
     <string name="invalid_username">Некорректное имя пользователя</string>
     <string name="invalid_password">Пароль должен содержать не менее 6-ти символов</string>
     <string name="login_failed">Ошибка авторизации</string>
     <string name="user_name_hint">Иван</string>
-    <string name="button_start">Погнали!</string>
     <string name="user_number_hint">+12345678900</string>
     <string name="user_number_text">Телефончик</string>
     <string name="user_name_text">Имя</string>

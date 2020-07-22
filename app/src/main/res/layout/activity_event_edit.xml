@@ -64,6 +64,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="@string/button_pick_date"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorAccent"
+                        app:backgroundTint="@color/colorBackgroundBack"
+                        app:backgroundTintMode="add"
+                        app:cornerRadius="8dp"
+
                         android:layout_gravity="center_horizontal"
                         tools:ignore="ButtonStyle,NestedWeights"
                         android:layout_weight="1"/>
@@ -88,7 +94,11 @@
                 <Button
                     android:id="@+id/pickTimeBtn"
                     android:theme="@style/regularFont"
-
+                    android:background="@android:drawable/editbox_background"
+                    android:textColor="@color/colorAccent"
+                    app:backgroundTint="@color/colorBackgroundBack"
+                    app:backgroundTintMode="add"
+                    app:cornerRadius="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/button_pick_time"
@@ -158,7 +168,7 @@
                 android:minLines="3"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-                android:textColor="@color/design_default_color_on_secondary"
+                android:textColor="@color/colorPrimary"
                 android:importantForAutofill="no" />
 
             <Button
@@ -167,8 +177,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/button_event_create"
-                android:textColor="@color/colorAccent"
-                android:theme="@style/regularFont" />
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorBackgroundFace"
+                android:theme="@style/regularFont"
+                app:backgroundTint="@color/colorAccent"
+                />
 
         </LinearLayout>
 
