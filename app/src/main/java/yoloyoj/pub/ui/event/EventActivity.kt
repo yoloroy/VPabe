@@ -21,7 +21,7 @@ import yoloyoj.pub.web.handlers.*
 
 
 //const val STADNARD_EVENT_IMAGE = "https://static.tildacdn.com/tild3630-6536-4534-a235-346239306632/45-459030_download-s.png"
-const val STADNARD_EVENT_IMAGE = "src/main/res/drawable-v24/ic_events_const.png"
+const val STADNARD_EVENT_IMAGE = "/home/mira/AndroidStudioProjects/VPabe/app/src/main/res/drawable-v24/ic_events_const.png"
 class EventActivity : AppCompatActivity() {
 
     private var eventId: Int? = 0
