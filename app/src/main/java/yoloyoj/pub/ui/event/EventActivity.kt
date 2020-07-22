@@ -7,16 +7,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProviders
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event.*
 import kotlinx.android.synthetic.main.item_events_list.view.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
+import yoloyoj.pub.ui.chat.ChatActivity
+import yoloyoj.pub.ui.chat.EXTRA_CHATID
 import yoloyoj.pub.ui.login.LoginActivity
 import yoloyoj.pub.web.apiClient
-import yoloyoj.pub.web.handlers.SingleEventGetter
-import yoloyoj.pub.web.handlers.UserGetter
+import yoloyoj.pub.web.handlers.*
 
 const val STADNARD_EVENT_IMAGE = "https://static.tildacdn.com/tild3630-6536-4534-a235-346239306632/45-459030_download-s.png"
 
@@ -25,6 +27,7 @@ class EventActivity : AppCompatActivity() {
     private var eventId: Int? = 0
     private var userId: Int? = 0
     private var editMenu: Menu? = null
+    private var chatId: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +42,8 @@ class EventActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.setHomeButtonEnabled(false)
-
+        event_subscribe_button.isVisible = false
+        event_chat_button.isVisible = false
         eventId = intent?.getIntExtra("eventid", 0)
         if (eventId == null || eventId == 0) {
             finish()
@@ -54,17 +58,18 @@ class EventActivity : AppCompatActivity() {
                 if (it == null) {
                     Toast.makeText(applicationContext, "Ошибка при получении данных", Toast.LENGTH_LONG).show()
                     finish()
+                    return@SingleEventGetter
                 }
-                event_name_header.text = it?.name
-                event_describe_header.text = it?.description
-                event_date_header.text = "${it?.date?.day}.${it?.date?.month}.${it?.date?.year} ${it?.date?.hour}:${it?.date?.minute}"
-                event_place_header.text = it?.place
-                if (it?.avatar.isNullOrEmpty()) {
+                event_name_header.text = it.name
+                event_describe_header.text = it.description
+                event_date_header.text = "${it.date?.day}.${it.date?.month}.${it.date?.year} ${it.date?.hour}:${it.date?.minute}"
+                event_place_header.text = it.place
+                if (it.avatar.isNullOrEmpty()) {
                     Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
                 } else {
-                    Picasso.get().load(it?.avatar).into(event_image)
+                    Picasso.get().load(it.avatar).into(event_image)
                 }
-                if (userId == it?.authorid) {
+                if (userId == it.authorid) {
                     editMenu?.setGroupVisible(0, true)
                 }
                 lateinit var userGetter: UserGetter
@@ -78,6 +83,80 @@ class EventActivity : AppCompatActivity() {
                     eventAuthorName.text = getString(R.string.event_author_name, user.username)
                 }
                 userGetter.start(userId!!)
+
+                apiClient.checkSubscribe(
+                    eventid = eventId!!,
+                    userid = userId!!
+                )?.enqueue(
+                    EventRegistrationChecker(applicationContext) { isUserSubscribedOnEvent ->
+                        if (isUserSubscribedOnEvent == null) {
+                            finish()
+                            return@EventRegistrationChecker
+                        }
+                        if (!isUserSubscribedOnEvent) {
+                            event_subscribe_button.isVisible = true
+                            event_subscribe_button.setOnClickListener {
+                                apiClient.subscribeOnEvent(
+                                    eventid = eventId!!,
+                                    userid = userId!!
+                                )?.enqueue(
+                                    EventSubscriber(applicationContext) {
+                                        event_subscribe_button.isVisible = false
+                                    }
+                                )
+                            }
+                        } else {
+                            // TODO: Add unsubscribe ability (server is already supported this action)
+                        }
+                    }
+                )
+
+                apiClient.getChatByEvent(
+                    eventId!!
+                )?.enqueue(
+                    ChatGetter(applicationContext) { chatid ->
+                        if (chatid == null) {
+                            finish()
+                            return@ChatGetter
+                        }
+                        chatId = chatid
+
+                        apiClient.isUserInChat(
+                            userid = userId!!,
+                            chatid = chatId!!
+                        )?.enqueue(
+                            UserInChatChecker(applicationContext) { isUserInChat ->
+                                if (isUserInChat == null) {
+                                    finish()
+                                    return@UserInChatChecker
+                                }
+
+                                if (isUserInChat) {
+                                    event_chat_button.setOnClickListener {
+                                        val intent = Intent(applicationContext, ChatActivity::class.java)
+                                        intent.putExtra(EXTRA_CHATID, chatId!!)
+                                        startActivity(intent)
+                                    }
+                                    event_chat_button.isVisible = true
+                                } else {
+                                    event_chat_button.setOnClickListener {
+                                        apiClient.addUserToChat(
+                                            chatid = chatId!!,
+                                            userid = userId!!
+                                        )?.enqueue(
+                                            AddToChatSender(applicationContext) {
+                                                val intent = Intent(applicationContext, ChatActivity::class.java)
+                                                intent.putExtra(EXTRA_CHATID, chatId!!)
+                                                startActivity(intent)
+                                            }
+                                        )
+                                    }
+                                    event_chat_button.isVisible = true
+                                }
+                            }
+                        )
+                    }
+                )
             }
         )
     }
