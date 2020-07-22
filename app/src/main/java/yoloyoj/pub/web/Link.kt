@@ -3,6 +3,7 @@ package yoloyoj.pub.web
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import yoloyoj.pub.models.*
 
@@ -74,4 +75,10 @@ import yoloyoj.pub.models.*
     fun getSearchedEvents(
         @Query("searchtext") searchtext: String
     ): Call<List<Event>?>?
+
+    @GET("http://dev.virtualearth.net/REST/v1/Locations/{location}")
+    fun getAddress(
+        @Path("location") location: String,
+        @Query("key") key: String
+    ): Call<Map<String, Any>?>?
 }
