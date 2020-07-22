@@ -63,8 +63,7 @@
             android:parentActivityName=".ui.chat.ChatActivity"
             android:theme="@style/BlackTheme" />
         <activity
-            android:name=".LoadingActivity"
-            android:theme="@style/LauncherTheme">
+            android:name=".LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
