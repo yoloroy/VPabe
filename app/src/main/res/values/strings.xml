@@ -67,5 +67,6 @@
     <string name="dialog_text">Enter code from sms</string>
     <string name="example_code">0z8kL</string>
     <string name="question">Not registered yet?</string>
+    <string name="unexpected_fail">Something went wrong</string>
 
 </resources>
