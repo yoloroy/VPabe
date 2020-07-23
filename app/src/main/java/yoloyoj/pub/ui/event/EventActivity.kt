@@ -16,6 +16,8 @@ import yoloyoj.pub.R
 import yoloyoj.pub.ui.chat.ChatActivity
 import yoloyoj.pub.ui.chat.EXTRA_CHATID
 import yoloyoj.pub.ui.login.LoginActivity
+import yoloyoj.pub.utils.dateToString
+import yoloyoj.pub.utils.timeToString
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.*
 
@@ -31,10 +33,6 @@ class EventActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
-
-
-
-
 
         userId = getSharedPreferences(MainActivity.PREFERENCES_USER, Context.MODE_PRIVATE)
             ?.getInt(MainActivity.PREFERENCES_USERID, 1)
@@ -65,7 +63,14 @@ class EventActivity : AppCompatActivity() {
                 }
                 event_name_header.text = it.name
                 event_describe_header.text = it.description
-                event_date_header.text = "${it.date?.day}.${it.date?.month}.${it.date?.year} ${it.date?.hour}:${it.date?.minute}"
+                event_date_header.text = dateToString(
+                        it.date?.day?:0,
+                        it.date?.month?:0,
+                        it.date?.year?:0
+                    ) + " " + timeToString(
+                        it.date?.hour?:0,
+                        it.date?.minute?:0
+                    ) // TODO: Replace with a resource string
                 event_place_header.text = it.place
                 if (it.avatar.isNullOrEmpty()) {
                     Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)

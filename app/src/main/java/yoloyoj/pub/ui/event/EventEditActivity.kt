@@ -17,6 +17,8 @@ import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
 import yoloyoj.pub.ui.chat.CODE_GET_PICTURE
 import yoloyoj.pub.ui.login.LoginActivity
+import yoloyoj.pub.utils.dateToString
+import yoloyoj.pub.utils.timeToString
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.EventSender
 import yoloyoj.pub.web.handlers.EventUpdater
@@ -101,13 +103,13 @@ class EventEditActivity: AppCompatActivity() {
                     }
                     event_header_edit.setText(it?.name)
                     event_describe_header_edit.setText(it?.description)
-                    tvDate.text = "${it?.date?.day}.${it?.date?.month}.${it?.date?.year}"
                     eYear = it?.date?.year?:0
                     eMonth = it?.date?.month?:0
                     eDay = it?.date?.day?:0
-                    tvTime.text = "${it?.date?.hour}:${it?.date?.minute}"
+                    tvDate.text = dateToString(eDay, eMonth, eYear)
                     eHour = it?.date?.hour?:0
                     eMinute = it?.date?.minute?:0
+                    tvTime.text = timeToString(eHour, eMinute)
                     event_place_header_edit.setText(it?.place)
                     if (it?.avatar.isNullOrEmpty()) {
                         Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
@@ -136,10 +138,10 @@ class EventEditActivity: AppCompatActivity() {
 
         pickDateBtn.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                tvDate.text = "$dayOfMonth.$monthOfYear.$year"
                 eYear = year
-                eMonth = monthOfYear
+                eMonth = monthOfYear + 1
                 eDay = dayOfMonth
+                tvDate.text = dateToString(eDay, eMonth, eYear)
             },
                 c.get(Calendar.YEAR),
                 c.get(Calendar.MONTH),
@@ -150,9 +152,9 @@ class EventEditActivity: AppCompatActivity() {
 
         pickTimeBtn.setOnClickListener {
             val tpd = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hour, minute ->
-                tvTime.text = "$hour:$minute"
                 eHour = hour
                 eMinute = minute
+                tvTime.text = timeToString(eHour, eMinute)
             },
                 c.get(Calendar.HOUR_OF_DAY),
                 c.get(Calendar.MINUTE),
