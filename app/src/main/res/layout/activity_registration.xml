@@ -15,7 +15,7 @@
         android:gravity="end"
         android:orientation="vertical"
         android:padding="8dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -23,12 +23,12 @@
             android:id="@+id/please"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/regularFont"
-
             android:layout_margin="8dp"
+
             android:text="@string/please_check"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:theme="@style/regularFont" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -41,13 +41,13 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:gravity="center"
-                android:theme="@style/regularFont"
-
                 android:onClick="onClickBannerClose"
+
                 android:text="@android:string/ok"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:theme="@style/regularFont" />
         </LinearLayout>
     </LinearLayout>
 
