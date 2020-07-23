@@ -47,64 +47,79 @@
             tools:listitem="@layout/item_image"
             tools:visibility="visible" />
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorBackgroundFace"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/addAttachment"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/todo"
-                android:onClick="addAttachment"
-                android:padding="8dp"
-                android:scaleType="fitCenter"
-                android:theme="@style/regularFont"
-                android:tint="@color/colorAccent"
-                app:srcCompat="@drawable/ic_attach_file" />
-            />
-
-            <EditText
-                android:id="@+id/editMessage"
-                style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:autofillHints=""
-                android:background="@drawable/back_message_box"
-                android:backgroundTint="@color/colorBackgroundBack"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="Сообщение.."
-                android:inputType="textMultiLine"
-                android:maxHeight="144dp"
-                android:minHeight="48dp"
-                android:paddingTop="14dp"
-                android:theme="@style/regularFont" />
-            />
+                android:background="@color/colorBackgroundFace"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
-            <ImageButton
-                android:id="@+id/sendButton"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="#0000"
-                android:contentDescription="TODO"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_send_black_24dp"
-                android:theme="@style/regularFont"
-                android:tint="@color/colorPrimaryDark"
-                android:visibility="gone" />
-            />
+                <ImageButton
+                    android:id="@+id/addAttachment"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/todo"
+                    android:onClick="addAttachment"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:theme="@style/regularFont"
+                    android:tint="@color/colorAccent"
+                    app:srcCompat="@drawable/ic_attach_file" />
+                />
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/editMessage"
+                    style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:autofillHints=""
+                    android:background="@drawable/back_message_box"
+                    android:backgroundTint="@color/colorBackgroundBack"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="Сообщение.."
+                    android:inputType="textMultiLine"
+                    android:maxHeight="144dp"
+                    android:minHeight="48dp"
+                    android:paddingTop="14dp"
+                    android:theme="@style/regularFont" />
+                />
+
+                <ImageButton
+                    android:id="@+id/sendButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="#0000"
+                    android:contentDescription="TODO"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_send_black_24dp"
+                    android:theme="@style/regularFont"
+                    android:tint="@color/colorPrimaryDark"
+                    android:visibility="gone" />
+                />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="40dp"
+                android:layout_marginBottom="8dp"
+                android:tint="@color/colorBackgroundBack"
+                app:srcCompat="@drawable/ic_corner" />
+
+        </FrameLayout>
 
     </LinearLayout>
 

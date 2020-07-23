@@ -73,7 +73,9 @@ class ChatActivity : AppCompatActivity() {
 
         messages.observeForever { loadAdapter() }
 
-        messagesView.layoutManager = LinearLayoutManager(this)
+        messagesView.apply {
+            layoutManager = LinearLayoutManager(context)
+        }
 
         loadAttachmentPreview()
 
@@ -82,6 +84,12 @@ class ChatActivity : AppCompatActivity() {
         loadOnClicks()
 
         super.onStart()
+    }
+
+    override fun onResume() {
+        messages.value = emptyList()
+
+        super.onResume()
     }
 
     private fun loadAttachmentPreview() {

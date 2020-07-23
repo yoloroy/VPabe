@@ -17,7 +17,7 @@ const val ATTACHMENTS_LINKS = "al"
 
 class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(message: Message, showUserName: Boolean, showUserAvatar: Boolean) {
-        if (!showUserName and message.text.isNullOrBlank())
+        if (message.text.isNullOrBlank())
             view.messageView.visibility = View.GONE
         else
             view.messageView.visibility = View.VISIBLE
