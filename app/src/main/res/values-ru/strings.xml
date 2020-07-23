@@ -63,4 +63,7 @@
     <string name="event_subscribe_button">Подписаться</string>
     <string name="event_unsubscribe_button">Отписаться</string>
     <string name="button_pick_location">Выбрать</string>
+    <string name="dialog_text">Пожалуйста, введите код из смс</string>
+    <string name="example_code">0z8kL</string>
+    <string name="question">Вы ещё не зарегестрированы?</string>
 </resources>
