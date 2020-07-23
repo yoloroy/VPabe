@@ -62,5 +62,6 @@
     <string name="event_subscribe_button">Subscribe</string>
     <string name="event_unsubscribe_button">Unsubscribe</string>
     <string name="button_pick_location">Pick</string>
+    <string name="unexpected_fail">Something went wrong</string>
 
 </resources>

@@ -63,4 +63,5 @@
     <string name="event_subscribe_button">Подписаться</string>
     <string name="event_unsubscribe_button">Отписаться</string>
     <string name="button_pick_location">Выбрать</string>
+    <string name="unexpected_fail">Что-то пошло не так</string>
 </resources>

@@ -9,6 +9,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.arialyy.aria.core.Aria
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_image_view.*
 import yoloyoj.pub.R
@@ -42,7 +43,11 @@ class ImageViewActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             android.R.id.home -> { onBackPressed(); return true }
-            R.id.download -> { download(); return true }  // TODO("add download");
+            R.id.download -> {
+                try { download() }
+                catch (e: Exception) { showFail() }
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -72,5 +77,9 @@ class ImageViewActivity : AppCompatActivity() {
                 imageLink.split("/").last() // file name
             )
             .start()
+    }
+
+    private fun showFail() {
+        Snackbar.make(imageView, R.string.unexpected_fail, Snackbar.LENGTH_LONG)
     }
 }
