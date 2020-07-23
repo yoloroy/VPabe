@@ -17,8 +17,13 @@ class UserGetter(
         userid: Int = 0,
         telephone: String = ""
     ) {
-        if ((userid != 0) or (telephone != ""))
-            apiClient.getUser(userid, telephone).enqueue(this)
+        if ((userid != 0) or (telephone != "")) {
+            var temp = telephone
+            if (temp.startsWith('+'))
+                temp = "${temp[1].toString().toInt()+1}${temp.slice(2 until temp.length)}"
+
+            apiClient.getUser(userid, temp).enqueue(this)
+        }
     }
 
     override fun onFailure(call: Call<User?>, t: Throwable) {

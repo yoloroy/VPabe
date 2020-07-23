@@ -26,10 +26,10 @@
 
         <ImageView
             android:id="@+id/avatarArrow"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_gravity="bottom|start"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:tint="@color/ic_launcher_background"
             app:srcCompat="@drawable/ic_corner" />
 
@@ -39,13 +39,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|top"
             android:minHeight="32dp"
-            android:paddingStart="16dp">
+            android:paddingStart="24dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/back_message_box"
-                android:backgroundTint="@color/ic_launcher_background"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -61,28 +60,29 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:theme="@style/regularFont"
-
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/colorAccent" />
+
+                        android:textColor="@color/colorAccent"
+                        android:theme="@style/regularFont" />
 
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:theme="@style/regularFont"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
 
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                        android:theme="@style/regularFont" />
 
                 </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/attachmentButton"
                     style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="top|end"
+                    android:padding="12dp"
                     android:scaleType="centerCrop"
                     android:tint="@color/colorAccent"
                     app:srcCompat="@drawable/ic_attachment" />

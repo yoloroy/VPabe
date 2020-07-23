@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import yoloyoj.pub.models.Event
+import yoloyoj.pub.utils.tryDefault
 import yoloyoj.pub.web.apiClient
 
 class EventGetter(
@@ -13,7 +14,7 @@ class EventGetter(
     fun start(userid: Int = 0, eventid:Int = 0) = apiClient.getEvents(userid,eventid)?.enqueue(this)
 
     override fun onFailure(call: Call<List<Event>?>, t: Throwable) {
-        Log.e("onFailure", t.localizedMessage)
+        tryDefault(Unit) { Log.e("onFailure", t.localizedMessage) }
     }
 
     override fun onResponse(call: Call<List<Event>?>, response: Response<List<Event>?>) {

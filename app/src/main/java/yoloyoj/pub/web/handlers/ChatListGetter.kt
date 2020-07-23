@@ -19,7 +19,7 @@ class ChatListGetter(
     ) = apiClient.getChats(userid, chatsCount, lastMessageSum)?.enqueue(this)
 
     override fun onFailure(call: Call<List<ChatView>?>, t: Throwable) {
-        Log.e("onFailure", t.localizedMessage)
+        tryDefault(Unit) { Log.e("onFailure", t.localizedMessage) }
         chatListener?.let { it(emptyList()) }
     }
 
