@@ -27,10 +27,11 @@ import yoloyoj.pub.models.*
         @Query("hour") hour: Int,
         @Query("minute") minute: Int,
         @Query("place") place: String,
+        @Query("lat") lat: Double,
+        @Query("lng") lng: Double,
         @Query("authorid") authorid: Int,
         @Query("avatar") avatar: String
     ): Call<Int?>?
-
 
     @GET("getmessages")
     fun getMessages(
@@ -102,6 +103,8 @@ import yoloyoj.pub.models.*
         @Query("hour") hour: Int,
         @Query("minute") minute: Int,
         @Query("place") place: String,
+        @Query("lat") lat: Double,
+        @Query("lng") lng: Double,
         @Query("avatar") avatar: String
     ): Call<ResponseBody?>?
 

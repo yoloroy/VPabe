@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_event_edit.event_set_btn
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
 import yoloyoj.pub.ui.chat.CODE_GET_PICTURE
+import yoloyoj.pub.ui.loacation.getter.LocationGetterActivity
 import yoloyoj.pub.ui.login.LoginActivity
 import yoloyoj.pub.utils.dateToString
 import yoloyoj.pub.utils.timeToString
@@ -25,6 +26,8 @@ import yoloyoj.pub.web.handlers.EventUpdater
 import yoloyoj.pub.web.handlers.SingleEventGetter
 import java.io.File
 import java.util.*
+
+const val LOCATION_REQUEST_CODE = 127
 
 class EventEditActivity: AppCompatActivity() {
 
@@ -36,12 +39,21 @@ class EventEditActivity: AppCompatActivity() {
     private var eMinute: Int = 0
     private var userId: Int? = 0
     private var eventId: Int? = 0
+    private var ePlace: String? = ""
+    private var eLat: Double? = 0.0
+    private var eLng: Double? = 0.0
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data == null) return
         when (requestCode) {
             CODE_GET_PICTURE -> putImage(data.data!!)
+            LOCATION_REQUEST_CODE -> {
+                ePlace = data.getStringExtra("address")
+                eLat = data.getDoubleExtra("lat", 0.0)
+                eLng = data.getDoubleExtra("lng", 0.0)
+                tvEventPlace.text = ePlace
+            }
         }
     }
 
@@ -110,7 +122,7 @@ class EventEditActivity: AppCompatActivity() {
                     eHour = it?.date?.hour?:0
                     eMinute = it?.date?.minute?:0
                     tvTime.text = timeToString(eHour, eMinute)
-                    event_place_header_edit.setText(it?.place)
+                    tvEventPlace.text = it?.place
                     if (it?.avatar.isNullOrEmpty()) {
                         Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
                     } else {
@@ -162,6 +174,11 @@ class EventEditActivity: AppCompatActivity() {
             )
             tpd.show()
         }
+
+        getLocationButton.setOnClickListener {
+            val intent = Intent(this, LocationGetterActivity::class.java)
+            startActivityForResult(intent, LOCATION_REQUEST_CODE)
+        }
     }
 
     private fun sendEvent() {
@@ -173,7 +190,9 @@ class EventEditActivity: AppCompatActivity() {
            day = eDay,
            hour = eHour,
            minute = eMinute,
-           place = event_place_header_edit.text.toString(),
+           place = ePlace?:"",
+           lat = eLat!!,
+           lng = eLng!!,
            authorid = userId!!,
            avatar = eventImageLink
         )?.enqueue(EventSender(applicationContext) {
@@ -194,7 +213,9 @@ class EventEditActivity: AppCompatActivity() {
             day = eDay,
             hour = eHour,
             minute = eMinute,
-            place = event_place_header_edit.text.toString(),
+            place = ePlace?:"",
+            lat = eLat!!,
+            lng = eLng!!,
             avatar = eventImageLink
         )?.enqueue(EventUpdater(applicationContext) {
             val intent = Intent(this, EventActivity::class.java)
