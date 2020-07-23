@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import yoloyoj.pub.models.ChatView
+import yoloyoj.pub.utils.tryDefault
 import yoloyoj.pub.web.apiClient
 
 class ChatListGetter(
@@ -23,6 +24,8 @@ class ChatListGetter(
     }
 
     override fun onResponse(call: Call<List<ChatView>?>, response: Response<List<ChatView>?>) {
-        chatListener?.let { it(response.body()!!) }
+        tryDefault(0) {
+            chatListener?.let { it(response.body()!!) }
+        }
     }
 }

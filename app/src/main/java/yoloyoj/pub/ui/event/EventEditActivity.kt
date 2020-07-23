@@ -125,9 +125,14 @@ class EventEditActivity: AppCompatActivity() {
                     tvEventPlace.text = it?.place
                     if (it?.avatar.isNullOrEmpty()) {
                         Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
+                        eventImageLink = STANDARD_EVENT_IMAGE
                     } else {
                         Picasso.get().load(it?.avatar).into(event_image)
+                        eventImageLink = it?.avatar!!
                     }
+                    ePlace = it?.place?:""
+                    eLat = it?.lat?:0.0
+                    eLng = it?.lng?:0.0
                     event_set_btn.text = getString(R.string.button_save_edit_profile)
                     event_set_btn.setOnClickListener { updateEvent() }
                     supportActionBar?.title = getString(R.string.title_edit_event)
