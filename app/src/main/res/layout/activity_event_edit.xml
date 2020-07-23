@@ -125,19 +125,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/regularFont"
-
                 android:text="@string/label_event_place" />
 
-            <EditText
-                android:id="@+id/event_place_header_edit"
-                android:theme="@style/regularFont"
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/hint_event_place"
-                android:textColor="@color/design_default_color_on_secondary"
-                android:textSize="14sp"
-                tools:ignore="TextFields" />
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_gravity="start|top"
+                    android:id="@+id/tvEventPlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/regularFont"
+                    android:maxWidth="200dp"
+                    tools:text="FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+                    android:minLines="2"/>
+
+                <Button
+                    android:id="@+id/getLocationButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="@color/colorAccent"
+                    android:textColor="@color/colorBackgroundFace"
+                    android:theme="@style/regularFont"
+                    app:backgroundTint="@color/colorAccent"
+                    android:text="@string/button_pick_location" />
+
+            </GridLayout>
 
             <ImageView
                 android:id="@+id/event_image"
@@ -154,7 +171,6 @@
             <TextView
                 android:id="@+id/labelEventDescription"
                 android:theme="@style/regularFont"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/label_event_description" />
@@ -166,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/hint_event_description"
-                android:minLines="3"
+                android:minLines="2"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:textColor="@color/colorPrimary"

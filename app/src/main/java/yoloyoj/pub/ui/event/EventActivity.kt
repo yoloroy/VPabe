@@ -2,7 +2,6 @@ package yoloyoj.pub.ui.event
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -16,12 +15,13 @@ import yoloyoj.pub.R
 import yoloyoj.pub.ui.chat.ChatActivity
 import yoloyoj.pub.ui.chat.EXTRA_CHATID
 import yoloyoj.pub.ui.login.LoginActivity
+import yoloyoj.pub.utils.dateToString
+import yoloyoj.pub.utils.timeToString
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.*
 
+const val STANDARD_EVENT_IMAGE = "https://static.tildacdn.com/tild3630-6536-4534-a235-346239306632/45-459030_download-s.png"
 
-//const val STADNARD_EVENT_IMAGE = "https://static.tildacdn.com/tild3630-6536-4534-a235-346239306632/45-459030_download-s.png"
-const val STADNARD_EVENT_IMAGE = "/home/mira/AndroidStudioProjects/VPabe/app/src/main/res/drawable-v24/ic_events_const.png"
 class EventActivity : AppCompatActivity() {
 
     private var eventId: Int? = 0
@@ -32,10 +32,6 @@ class EventActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
-
-
-
-
 
         userId = getSharedPreferences(MainActivity.PREFERENCES_USER, Context.MODE_PRIVATE)
             ?.getInt(MainActivity.PREFERENCES_USERID, 1)
@@ -66,10 +62,17 @@ class EventActivity : AppCompatActivity() {
                 }
                 event_name_header.text = it.name
                 event_describe_header.text = it.description
-                event_date_header.text = "${it.date?.day}.${it.date?.month}.${it.date?.year} ${it.date?.hour}:${it.date?.minute}"
+                event_date_header.text = dateToString(
+                        it.date?.day?:0,
+                        it.date?.month?:0,
+                        it.date?.year?:0
+                    ) + " " + timeToString(
+                        it.date?.hour?:0,
+                        it.date?.minute?:0
+                    ) // TODO: Replace with a resource string
                 event_place_header.text = it.place
                 if (it.avatar.isNullOrEmpty()) {
-                    Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
+                    Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
                 } else {
                     Picasso.get().load(it.avatar).into(event_image)
                 }

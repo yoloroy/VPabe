@@ -11,7 +11,7 @@ import yoloyoj.pub.R
 import yoloyoj.pub.models.ChatView
 import yoloyoj.pub.ui.chat.ChatActivity
 import yoloyoj.pub.ui.chat.EXTRA_CHATID
-import yoloyoj.pub.ui.event.STADNARD_EVENT_IMAGE
+import yoloyoj.pub.ui.event.STANDARD_EVENT_IMAGE
 import yoloyoj.pub.utils.tryDefault
 
 class ChatListAdapter(
@@ -40,7 +40,7 @@ class ChatViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(chatView: ChatView) {
         if (chatView.chatAvatar.isNullOrEmpty()) {
             tryDefault(true) {
-                Picasso.get().load(STADNARD_EVENT_IMAGE).into(view.chatAvatar)
+                Picasso.get().load(STANDARD_EVENT_IMAGE).into(view.chatAvatar)
             }
         } else {
             tryDefault(true) {

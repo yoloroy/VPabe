@@ -12,7 +12,6 @@
         android:text="@string/label_profile_upcoming_events"
         android:textColor="@android:color/black"
         android:theme="@style/regularFont"
-
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerUpcomingEvents"
         app:layout_constraintStart_toStartOf="@+id/recyclerUpcomingEvents" />
@@ -34,7 +33,7 @@
         android:id="@+id/userImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:background="@drawable/ic_profile_back_cat"
+        android:background="@color/colorBackgroundFace"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerVisitedEvents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

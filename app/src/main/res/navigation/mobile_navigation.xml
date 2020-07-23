@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_chats"
         android:name="yoloyoj.pub.ui.chatlist.ChatListFragment"
-        android:label="@string/title_chat"
+        android:label="@string/title_chats"
         tools:layout="@layout/fragment_chat_list" />
     <fragment
         android:id="@+id/navigation_profile"
@@ -23,11 +23,12 @@
     <fragment
         android:id="@+id/navigation_list"
         android:name="yoloyoj.pub.ui.list.EventsListFragment"
-        android:label="@string/title_list" />
+        android:label="@string/title_list"
+        tools:layout="@layout/activity_events_list"/>
     <fragment
         android:id="@+id/navigation_map"
         android:name="yoloyoj.pub.ui.list.map.MapFragment"
-        android:label="fragment_map"
+        android:label="@string/title_map"
         tools:layout="@layout/fragment_map" />
 
 </navigation>

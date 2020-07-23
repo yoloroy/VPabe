@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
-import yoloyoj.pub.ui.event.STADNARD_EVENT_IMAGE
+import yoloyoj.pub.ui.event.STANDARD_EVENT_IMAGE
 import yoloyoj.pub.ui.login.LoginActivity
 import yoloyoj.pub.ui.profile.STANDARD_PROFILE_IMAGE
 import yoloyoj.pub.web.handlers.EventGetter
@@ -74,7 +74,7 @@ class ProfileActivity: AppCompatActivity() {
                     e.date!!.hour!!,
                     e.date!!.minute!!
                 ).unixMillisLong
-                var imageLink = STADNARD_EVENT_IMAGE
+                var imageLink = STANDARD_EVENT_IMAGE
                 if (!e.avatar.isNullOrEmpty()) {
                     imageLink = e.avatar!!
                 }
