@@ -34,6 +34,7 @@ class ChatViewModel : ViewModel() {
                 messageGetter.start(
                     chatid!!,
                     when (messages.value) {
+                        mutableListOf<Attachment>() -> 0
                         null -> 0
                         else -> messages.value!!.last()._rowid_!!
                     }
