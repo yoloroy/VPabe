@@ -61,5 +61,6 @@
     <string name="hint_event_description">Bring your cookies!</string>
     <string name="event_subscribe_button">Subscribe</string>
     <string name="event_unsubscribe_button">Unsubscribe</string>
+    <string name="button_pick_location">Pick</string>
 
 </resources>

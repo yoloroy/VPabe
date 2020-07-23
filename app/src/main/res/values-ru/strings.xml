@@ -62,4 +62,5 @@
     <string name="hint_event_description">Приносите печенье!</string>
     <string name="event_subscribe_button">Подписаться</string>
     <string name="event_unsubscribe_button">Отписаться</string>
+    <string name="button_pick_location">Выбрать</string>
 </resources>
