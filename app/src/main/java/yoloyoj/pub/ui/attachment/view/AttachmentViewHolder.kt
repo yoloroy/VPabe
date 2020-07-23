@@ -15,6 +15,7 @@ import yoloyoj.pub.models.Attachment
 import yoloyoj.pub.models.TYPE_IMAGE
 import yoloyoj.pub.ui.imageview.EXTRA_IMAGE_LINK
 import yoloyoj.pub.ui.imageview.ImageViewActivity
+import yoloyoj.pub.utils.tryDefault
 
 open class AttachmentViewHolder(open val view: ImageView) : RecyclerView.ViewHolder(view) {
 
@@ -39,10 +40,12 @@ open class AttachmentViewHolder(open val view: ImageView) : RecyclerView.ViewHol
         view.setPadding(0, 0, 0, 0)
         view.alpha = 1f
 
-        Picasso.get()
-            .load(attachment.attachment_link)
-            .noPlaceholder()
-            .into(view)
+        tryDefault(Unit) {
+            Picasso.get()
+                .load(attachment.attachment_link)
+                .noPlaceholder()
+                .into(view)
+        }
     }
 
     private fun bindSomething(attachment: Attachment) {

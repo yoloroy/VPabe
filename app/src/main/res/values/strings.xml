@@ -9,12 +9,6 @@
     <string name="title_map">Map</string>
     <string name="title_profile">Profile</string>
 
-    <string name="icon_profile">profile</string>
-    <string name="icon_friends">friends</string>
-    <string name="icon_list">list</string>
-    <string name="icon_chat">chat</string>
-    <string name="icon_map">map</string>
-
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_log_in">Log in</string>
@@ -27,6 +21,11 @@
     <string name="user_name_hint">David</string>
 
     <string name="user_number_hint">+12345678900</string>
+    <string name="icon_profile">Профиль</string>
+    <string name="icon_friends">Друзья</string>
+    <string name="icon_list">Список</string>
+    <string name="icon_chat">Час</string>
+    <string name="icon_map">Карта</string>
     <string name="google_maps_key" translatable="false">AIzaSyBneXCaUKpDk2XXFny5cRmHPns78xhcHQE</string>
     <string name="title_activity_location_getter">Map</string>
     <string name="user_number_text">Number</string>
