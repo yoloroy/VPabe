@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import yoloyoj.pub.models.Message
+import yoloyoj.pub.utils.tryDefault
 import yoloyoj.pub.web.apiClient
 
 class MessageGetter(
@@ -19,7 +20,7 @@ class MessageGetter(
     }
 
     override fun onFailure(call: Call<List<Message>?>, t: Throwable) {
-        Log.i("onFailure", t.localizedMessage)
+        tryDefault(Unit) { Log.i("onFailure", t.localizedMessage) }
         messageUpdater?.let { it(emptyList()) }
     }
 
