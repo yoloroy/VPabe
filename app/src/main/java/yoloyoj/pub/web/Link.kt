@@ -5,7 +5,10 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import yoloyoj.pub.models.*
+import yoloyoj.pub.models.ChatView
+import yoloyoj.pub.models.Event
+import yoloyoj.pub.models.Message
+import yoloyoj.pub.models.User
 
 @Suppress("unused")
  interface Link {
@@ -134,4 +137,9 @@ import yoloyoj.pub.models.*
         @Query("chatid") chatid: Int,
         @Query("userid") userid: Int
     ): Call<Boolean?>?
+
+    @GET("checkme")
+    fun checkMe(
+        @Query("phone") phone: String
+    ): Call<String?>?
 }
