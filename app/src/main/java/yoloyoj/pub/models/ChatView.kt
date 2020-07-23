@@ -8,7 +8,7 @@ class ChatView (
     val chatName: String? = null
 ) {
     val sender: String
-        get() = "${lastMessage!!.sender}: "
+        get() = if (!lastMessage!!.sender.isNullOrEmpty()) "${lastMessage.sender}: " else ""
 
     val text: String
         get() = lastMessage!!.text!!
