@@ -28,7 +28,7 @@ import java.util.*
 
 class EventEditActivity: AppCompatActivity() {
 
-    private var eventImageLink = STADNARD_EVENT_IMAGE
+    private var eventImageLink = STANDARD_EVENT_IMAGE
     private var eYear: Int = 0
     private var eMonth: Int = 0
     private var eDay: Int = 0
@@ -112,7 +112,7 @@ class EventEditActivity: AppCompatActivity() {
                     tvTime.text = timeToString(eHour, eMinute)
                     event_place_header_edit.setText(it?.place)
                     if (it?.avatar.isNullOrEmpty()) {
-                        Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
+                        Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
                     } else {
                         Picasso.get().load(it?.avatar).into(event_image)
                     }
@@ -123,7 +123,7 @@ class EventEditActivity: AppCompatActivity() {
             )
         } else {
             event_set_btn.setOnClickListener { sendEvent() }
-            Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
+            Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
             supportActionBar?.title = getString(R.string.title_create_event)
         }
 

@@ -7,7 +7,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_events_list.view.*
 import yoloyoj.pub.models.Event
 import yoloyoj.pub.ui.event.EventActivity
-import yoloyoj.pub.ui.event.STADNARD_EVENT_IMAGE
+import yoloyoj.pub.ui.event.STANDARD_EVENT_IMAGE
 import yoloyoj.pub.utils.dateToString
 import yoloyoj.pub.utils.timeToString
 
@@ -29,7 +29,7 @@ class EventItemHolder(val view: View) : RecyclerView.ViewHolder(view) {
                 ) // TODO: Replace with a resource string
                 event_place_header.text = eventItem.place
                 if (eventItem.avatar.isNullOrEmpty()) {
-                    Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
+                    Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
                 } else {
                     Picasso.get().load(eventItem.avatar).into(event_image)
                 }

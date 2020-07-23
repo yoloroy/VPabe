@@ -2,7 +2,6 @@ package yoloyoj.pub.ui.event
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -21,8 +20,8 @@ import yoloyoj.pub.utils.timeToString
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.*
 
+const val STANDARD_EVENT_IMAGE = "https://static.tildacdn.com/tild3630-6536-4534-a235-346239306632/45-459030_download-s.png"
 
-const val STADNARD_EVENT_IMAGE = "https://static.tildacdn.com/tild3630-6536-4534-a235-346239306632/45-459030_download-s.png"
 class EventActivity : AppCompatActivity() {
 
     private var eventId: Int? = 0
@@ -73,7 +72,7 @@ class EventActivity : AppCompatActivity() {
                     ) // TODO: Replace with a resource string
                 event_place_header.text = it.place
                 if (it.avatar.isNullOrEmpty()) {
-                    Picasso.get().load(STADNARD_EVENT_IMAGE).into(event_image)
+                    Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
                 } else {
                     Picasso.get().load(it.avatar).into(event_image)
                 }
