@@ -49,7 +49,10 @@ class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) 
             view.hideAvatar()
         }
 
-        if (message.attachments!!.all { !it.attachment_link.isNullOrBlank() }) {
+        if (
+            message.attachments!!.all { !it.attachment_link.isNullOrBlank() } and // for compatibility
+            message.attachments!!.isNotEmpty()
+        ) {
             view.showAttachments(message.attachments!!)
         } else {
             view.attachmentButton.visibility = View.GONE
