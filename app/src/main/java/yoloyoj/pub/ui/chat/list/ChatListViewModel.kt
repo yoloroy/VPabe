@@ -33,6 +33,8 @@ class ChatListViewModel : ViewModel() {
         chatListGetter!!.start()
     }
 
-    fun List<ChatView>.messagesSum(): String = joinToString { chat ->
-        "${chat.chatid}${chat.lastMessage?.text}" }
+    fun List<ChatView>.messagesSum(): String =
+        joinToString { chat ->
+            "${chat.chatid}${chat.lastMessage?.text}"
+        }
 }

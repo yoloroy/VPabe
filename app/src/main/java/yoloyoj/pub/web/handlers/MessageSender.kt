@@ -11,8 +11,15 @@ class MessageSender(private val view: View) : Callback<ResponseBody?> {
     // TODO: refactor
     // view needs to crying about failures
     override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
-        Snackbar.make(view, "Не удалось отправить сообщение...", Snackbar.LENGTH_LONG)
-            .setAction("Action", null)
+        Snackbar.make(
+            view,
+            "Не удалось отправить сообщение...",
+            Snackbar.LENGTH_LONG
+        )
+            .setAction(
+                "Action",
+                null
+            )
             .show()
     }
 

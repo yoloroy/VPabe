@@ -34,10 +34,10 @@ class RegistrationActivity : AppCompatActivity() {
     lateinit var userSender: UserSender
 
     private val name: String
-    get() = nameEdit.text.toString()
+        get() = nameEdit.text.toString()
 
     private val phone: String
-    get() = phoneEdit.text.toString()
+        get() = phoneEdit.text.toString()
 
     private var avatar: String = ""
 
@@ -46,21 +46,23 @@ class RegistrationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_registration)
 
         userSender = UserSender { result, userid ->
-            when(result) {
+            when (result) {
                 REGISTERED_TRUE ->
                     apiClient.checkMe(phoneEdit.text.toString())!!.enqueue(object :
-                        Callback<String?> {
-                        override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
+                            Callback<String?> {
+                            override fun onFailure(call: Call<String?>, t: Throwable): Unit =
+                                showVerificationFailMessage()
 
-                        override fun onResponse(call: Call<String?>, response: Response<String?>) = checkCode(response.body()!!, userid!!)
-                    })
+                            override fun onResponse(call: Call<String?>, response: Response<String?>): Unit =
+                                checkCode(response.body()!!, userid!!)
+                        }
+                    )
 
                 REGISTERED_FALSE ->
                     registerFailBanner.visibility = View.VISIBLE
 
                 REGISTERED_FAIL ->
                     Snackbar.make(registerButton, "Произошла ошибка, пожалуйста, повторите попытку позже", Snackbar.LENGTH_LONG)
-
             }
         }
     }

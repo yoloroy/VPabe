@@ -11,7 +11,7 @@ import yoloyoj.pub.models.Message
 import yoloyoj.pub.models.User
 
 @Suppress("unused")
- interface Link {
+interface Link {
     @GET("putmessage")
     fun putMessage(
         @Query("text") text: String,
@@ -89,7 +89,7 @@ import yoloyoj.pub.models.User
         @Path("location") location: String,
         @Query("key") key: String
     ): Call<Map<String, Any>?>?
-   
+
     @GET("getevent")
     fun getSingleEvent(
         @Query("eventid") eventid: Int = 1

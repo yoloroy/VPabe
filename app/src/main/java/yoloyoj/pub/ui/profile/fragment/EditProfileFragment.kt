@@ -22,7 +22,7 @@ import yoloyoj.pub.web.handlers.UserGetter
 import yoloyoj.pub.web.handlers.UserUpdater
 import java.io.File
 
-class EditProfileFragment: Fragment() {
+class EditProfileFragment : Fragment() {
 
     private var avatarLink = ""
 
@@ -34,11 +34,11 @@ class EditProfileFragment: Fragment() {
             ?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
             ?.getInt(PREFERENCES_USERID, 1)
 
-        if (userId == null || userId == 0){
+        if (userId == null || userId == 0) {
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
         }
-        UserGetter (activity!!.applicationContext) { user ->
+        UserGetter(activity!!.applicationContext) { user ->
             if (user!!.avatar!!.isNotBlank())
                 Picasso.get().load(user.avatar).into(editUserImage)
             editUserName.setText(user.username)

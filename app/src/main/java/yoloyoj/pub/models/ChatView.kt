@@ -1,6 +1,6 @@
 package yoloyoj.pub.models
 
-class ChatView (
+class ChatView(
     val chatid: Int? = null,
     val userid: Int? = null,
     val chatAvatar: String? = null,
@@ -13,5 +13,6 @@ class ChatView (
     val text: String
         get() = lastMessage!!.text!!
 
-    override fun toString(): String = "{\n\tchatid=$chatid,\n\tuserid=$userid,\n\tchatAvatarLink=$chatAvatar,\n\tlastMessage=$lastMessage\n}"
+    override fun toString(): String =
+        "{\n\tchatid=$chatid,\n\tuserid=$userid,\n\tchatAvatarLink=$chatAvatar,\n\tlastMessage=$lastMessage\n}"
 }

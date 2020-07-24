@@ -17,7 +17,7 @@ import yoloyoj.pub.ui.profile.fragment.STANDARD_PROFILE_IMAGE
 import yoloyoj.pub.web.handlers.EventGetter
 import yoloyoj.pub.web.handlers.UserGetter
 
-class ProfileActivity: AppCompatActivity() {
+class ProfileActivity : AppCompatActivity() {
 
     private var selfUserId: Int? = 0 // me
     private var profileUserId: Int = 0 // other user
@@ -31,7 +31,7 @@ class ProfileActivity: AppCompatActivity() {
 
         selfUserId = getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
             ?.getInt(PREFERENCES_USERID, 1)
-        if (selfUserId == null || selfUserId == 0){
+        if (selfUserId == null || selfUserId == 0) {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
             finish()
             return
@@ -45,8 +45,8 @@ class ProfileActivity: AppCompatActivity() {
 
         lateinit var userGetter: UserGetter
 
-        userGetter = UserGetter (applicationContext) {user ->
-            if (user == null){
+        userGetter = UserGetter(applicationContext) { user ->
+            if (user == null) {
                 userGetter.start(profileUserId)
                 return@UserGetter
             }
@@ -66,7 +66,7 @@ class ProfileActivity: AppCompatActivity() {
             val upcomingEvents = emptyList<ProfileEventItemActivity>().toMutableList()
             val visitedEvents = emptyList<ProfileEventItemActivity>().toMutableList()
             val curDate = DateTime.now().unixMillisLong
-            for (e in events){
+            for (e in events) {
                 val eventDate = DateTime.createAdjusted(
                     e.date!!.year!!,
                     e.date!!.month!!,
@@ -78,7 +78,7 @@ class ProfileActivity: AppCompatActivity() {
                 if (!e.avatar.isNullOrEmpty()) {
                     imageLink = e.avatar!!
                 }
-                if (eventDate >= curDate){
+                if (eventDate >= curDate) {
                     upcomingEvents.add(ProfileEventItemActivity(eventName = e.name!!, eventId = e.eventid!!, eventImageLink = imageLink))
                 } else {
                     visitedEvents.add(ProfileEventItemActivity(eventName = e.name!!, eventId = e.eventid!!, eventImageLink = imageLink))

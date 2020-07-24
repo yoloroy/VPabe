@@ -14,12 +14,11 @@ class Date(
     val date: String
         get() = "$day.$month.$year"
 
-    override fun toString(): String {
-        return "{ \n" +
-                "dateid=${this.dateid},\n" +
-                "month=${this.month},\n" +
-                "day=${this.day},\n" +
-                "time=${this.time}\n" +
-                " }"
-    }
+    override fun toString(): String  =
+        "{ \n" +
+            "dateid=${this.dateid},\n" +
+            "month=${this.month},\n" +
+            "day=${this.day},\n" +
+            "time=${this.time}\n" +
+            " }"
 }

@@ -3,7 +3,11 @@ package yoloyoj.pub.ui.profile.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,7 +55,6 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_profile, container, false)
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerUpcomingEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerVisitedEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -59,15 +62,15 @@ class ProfileFragment : Fragment() {
         val userId = activity
             ?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
             ?.getInt(PREFERENCES_USERID, 1)
-        if (userId == null || userId == 0){
+        if (userId == null || userId == 0) {
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
         }
 
         lateinit var userGetter: UserGetter
 
-        userGetter = UserGetter (activity!!.applicationContext) {user ->
-            if (user == null){
+        userGetter = UserGetter(activity!!.applicationContext) { user ->
+            if (user == null) {
                 userGetter.start(userId!!)
                 return@UserGetter
             }
@@ -82,12 +85,12 @@ class ProfileFragment : Fragment() {
         }
 
         userGetter.start(userId!!)
-        
+
         EventGetter { events ->
             val upcomingEvents = emptyList<ProfileEventItem>().toMutableList()
             val visitedEvents = emptyList<ProfileEventItem>().toMutableList()
             val curDate = DateTime.now().unixMillisLong
-            for (e in events){
+            for (e in events) {
                 val eventDate = DateTime.createAdjusted(
                     e.date!!.year!!,
                     e.date!!.month!!,
@@ -99,7 +102,7 @@ class ProfileFragment : Fragment() {
                 if (!e.avatar.isNullOrEmpty()) {
                     imageLink = e.avatar!!
                 }
-                if (eventDate >= curDate){
+                if (eventDate >= curDate) {
                     upcomingEvents.add(
                         ProfileEventItem(
                             eventName = e.name!!,

@@ -20,7 +20,8 @@ class ChatListFragment : Fragment() {
     private lateinit var chats: LiveData<List<ChatView>>
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProviders.of(this).get(ChatListViewModel::class.java)

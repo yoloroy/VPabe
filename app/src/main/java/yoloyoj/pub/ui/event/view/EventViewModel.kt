@@ -19,9 +19,6 @@ class EventViewModel : ViewModel() {
         )
     }
 
-
-
-
     private fun loadHandlers() {
         eventGetter = EventGetter().apply {
             eventListener = { updEvents ->

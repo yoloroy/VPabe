@@ -16,7 +16,8 @@ class ChatListGetter(
     fun start(
         chatsCount: Int = 0,
         lastMessageSum: Int = 0
-    ) = apiClient.getChats(userid, chatsCount, lastMessageSum)?.enqueue(this)
+    ): Unit? =
+        apiClient.getChats(userid, chatsCount, lastMessageSum)?.enqueue(this)
 
     override fun onFailure(call: Call<List<ChatView>?>, t: Throwable) {
         tryDefault(Unit) { Log.e("onFailure", t.localizedMessage) }

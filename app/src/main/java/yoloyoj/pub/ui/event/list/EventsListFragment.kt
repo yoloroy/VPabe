@@ -2,7 +2,11 @@ package yoloyoj.pub.ui.event.list
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
@@ -39,10 +43,12 @@ class EventsListFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null)
-                    apiClient.getSearchedEvents(query)!!.enqueue(EventGetter {
-                        search = true
-                        loadAdapter(it)
-                    })
+                    apiClient.getSearchedEvents(query)!!.enqueue(
+                        EventGetter {
+                            search = true
+                            loadAdapter(it)
+                        }
+                    )
 
                 return true
             }
@@ -69,17 +75,17 @@ class EventsListFragment : Fragment() {
 
         super.onCreateOptionsMenu(menu, inflater)
     }
-  
+
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            val root = inflater.inflate(R.layout.activity_events_list, container, false)
-            eventsListViewModel = ViewModelProviders.of(this).get(EventsListViewModel::class.java)
-            events = eventsListViewModel.events
-            return root
-        }
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val root = inflater.inflate(R.layout.activity_events_list, container, false)
+        eventsListViewModel = ViewModelProviders.of(this).get(EventsListViewModel::class.java)
+        events = eventsListViewModel.events
+        return root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fab.setOnClickListener {
@@ -103,5 +109,4 @@ class EventsListFragment : Fragment() {
             )
         } catch (e: Exception) {}
     }
-
 }

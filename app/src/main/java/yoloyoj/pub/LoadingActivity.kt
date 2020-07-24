@@ -16,17 +16,17 @@ class LoadingActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_loading)
 
-        Handler().postDelayed({
-            if (
-                getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
-                    .getInt(PREFERENCES_USERID, 0) == 0
-            ) {
-                startActivity(Intent(this@LoadingActivity, LoginActivity::class.java))
-                finish()
-            } else {
-                startActivity(Intent(this@LoadingActivity, MainActivity::class.java))
-                finish()
-            }
-        }, 1000)
+        Handler().postDelayed(
+            {
+                if (getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE).getInt(PREFERENCES_USERID, 0) == 0) {
+                    startActivity(Intent(this@LoadingActivity, LoginActivity::class.java))
+                    finish()
+                } else {
+                    startActivity(Intent(this@LoadingActivity, MainActivity::class.java))
+                    finish()
+                }
+            },
+            1000
+        )
     }
 }

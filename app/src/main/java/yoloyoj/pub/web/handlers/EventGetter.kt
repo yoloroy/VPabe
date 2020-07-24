@@ -11,7 +11,11 @@ import yoloyoj.pub.web.apiClient
 class EventGetter(
     var eventListener: ((List<Event>) -> Unit)? = null
 ) : Callback<List<Event>?> {
-    fun start(userid: Int = 0, eventid:Int = 0) = apiClient.getEvents(userid,eventid)?.enqueue(this)
+    fun start(
+        userid: Int = 0,
+        eventid: Int = 0
+    ): Unit? =
+        apiClient.getEvents(userid, eventid)?.enqueue(this)
 
     override fun onFailure(call: Call<List<Event>?>, t: Throwable) {
         tryDefault(Unit) { Log.e("onFailure", t.localizedMessage) }
