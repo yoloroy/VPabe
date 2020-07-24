@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundBack"
     android:orientation="vertical"
-    tools:context=".ui.chat.ChatActivity">
+    tools:context=".ui.chat.view.ChatActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messagesView"

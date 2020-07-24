@@ -48,20 +48,20 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ui.loacation.getter.LocationGetterActivity"
+            android:name="yoloyoj.pub.ui.utils.loacation.getter.LocationGetterActivity"
             android:label="@string/title_activity_location_getter" />
         <activity
-            android:name=".ui.registration.RegistrationActivity"
-            android:parentActivityName=".ui.login.LoginActivity"
+            android:name="yoloyoj.pub.ui.enter.registration.RegistrationActivity"
+            android:parentActivityName="yoloyoj.pub.ui.enter.login.LoginActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.imageview.ImageViewActivity"
-            android:parentActivityName=".ui.attachment.view.AttachmentsViewActivity"
+            android:name="yoloyoj.pub.ui.utils.attachment.imageview.ImageViewActivity"
+            android:parentActivityName="yoloyoj.pub.ui.utils.attachment.view.AttachmentsViewActivity"
             android:theme="@style/ImageViewTheme" />
         <activity
-            android:name=".ui.attachment.view.AttachmentsViewActivity"
+            android:name="yoloyoj.pub.ui.utils.attachment.view.AttachmentsViewActivity"
             android:label="@string/title_attachments"
-            android:parentActivityName=".ui.chat.ChatActivity"
+            android:parentActivityName=".ui.chat.view.ChatActivity"
             android:theme="@style/BlackTheme" />
         <activity
             android:name=".LoadingActivity">
@@ -75,23 +75,23 @@
             android:name=".MainActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".ui.chat.ChatActivity"
+            android:name=".ui.chat.view.ChatActivity"
             android:label="@string/title_chat"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ui.event.EventActivity"
+            android:name=".ui.event.view.EventActivity"
             android:label="@string/title_list"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ui.event.EventEditActivity"
+            android:name=".ui.event.view.EventEditActivity"
             android:label="Edit event"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name="yoloyoj.pub.ui.enter.login.LoginActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <activity android:name=".ui.profile.asactivity.ProfileActivity" />
+        <activity android:name=".ui.profile.activity.ProfileActivity" />
     </application>
 
 </manifest>
