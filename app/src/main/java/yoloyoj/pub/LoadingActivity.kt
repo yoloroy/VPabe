@@ -7,8 +7,7 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
-import yoloyoj.pub.ui.login.LoginActivity
-import yoloyoj.pub.ui.registration.RegistrationActivity
+import yoloyoj.pub.ui.enter.login.LoginActivity
 
 class LoadingActivity : AppCompatActivity() {
 

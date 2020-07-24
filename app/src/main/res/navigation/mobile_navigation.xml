@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/navigation_chats"
-        android:name="yoloyoj.pub.ui.chatlist.ChatListFragment"
+        android:name="yoloyoj.pub.ui.chat.list.ChatListFragment"
         android:label="@string/title_chats"
         tools:layout="@layout/fragment_chat_list" />
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="yoloyoj.pub.ui.profile.ProfileFragment"
+        android:name="yoloyoj.pub.ui.profile.fragment.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile"/>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="yoloyoj.pub.ui.profile.EditProfileFragment"
+        android:name="yoloyoj.pub.ui.profile.fragment.EditProfileFragment"
         android:label="@string/title_edit_profile"
         tools:layout="@layout/fragment_edit_profile"/>
     <fragment
         android:id="@+id/navigation_list"
-        android:name="yoloyoj.pub.ui.list.EventsListFragment"
+        android:name="yoloyoj.pub.ui.event.list.EventsListFragment"
         android:label="@string/title_list"
         tools:layout="@layout/activity_events_list"/>
     <fragment
         android:id="@+id/navigation_map"
-        android:name="yoloyoj.pub.ui.list.map.MapFragment"
+        android:name="yoloyoj.pub.ui.map.MapFragment"
         android:label="@string/title_map"
         tools:layout="@layout/fragment_map" />
 
