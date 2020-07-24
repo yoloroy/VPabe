@@ -5,6 +5,6 @@
         <color name="colorAccent">#E74C3C</color>
     <color name="colorAccent2">#446EA6</color>
     <color name="colorBackgroundFace">#E4E4E4</color>
-    <color name="colorBackgroundFaceDark">#D3778292</color>
+    <color name="colorBackgroundFaceDark">#D3BFBFBF</color>
     <color name="colorBackgroundBack">#F9F9F9</color>
 </resources>

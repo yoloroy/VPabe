@@ -83,7 +83,7 @@
         android:gravity="top"
         android:onClick="onClickRegister"
         android:paddingTop="6dp"
-        android:text="Вы ещё не зарегестрированы?"
+        android:text="@string/question"
         android:theme="@style/regularFont"
         android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="@+id/editTextPhone"

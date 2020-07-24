@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/eventImage"
@@ -20,9 +20,9 @@
         android:layout_gravity="center"
         android:maxWidth="100dp"
         android:maxLength="200"
-        tools:text="example"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:theme="@style/regularFont" />
+        android:theme="@style/regularFont"
+        tools:text="example" />
 
 </LinearLayout>

@@ -71,7 +71,7 @@
                     android:theme="@style/regularFont"
                     android:tint="@color/colorAccent"
                     app:srcCompat="@drawable/ic_attach_file" />
-                />
+
 
                 <EditText
                     android:id="@+id/editMessage"
@@ -86,13 +86,12 @@
                     android:backgroundTint="@color/colorBackgroundBack"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:hint="Сообщение.."
+                    android:hint="@string/hint_msg_text"
                     android:inputType="textMultiLine"
                     android:maxHeight="144dp"
                     android:minHeight="48dp"
                     android:paddingTop="14dp"
                     android:theme="@style/regularFont" />
-                />
 
                 <ImageButton
                     android:id="@+id/sendButton"
@@ -100,13 +99,13 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="#0000"
-                    android:contentDescription="TODO"
+                    android:contentDescription="@string/todo"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_send_black_24dp"
                     android:theme="@style/regularFont"
                     android:tint="@color/colorPrimaryDark"
                     android:visibility="gone" />
-                />
+
 
             </LinearLayout>
 

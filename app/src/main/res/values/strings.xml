@@ -26,6 +26,7 @@
     <string name="icon_list">Список</string>
     <string name="icon_chat">Час</string>
     <string name="icon_map">Карта</string>
+
     <string name="google_maps_key" translatable="false">AIzaSyBneXCaUKpDk2XXFny5cRmHPns78xhcHQE</string>
     <string name="title_activity_location_getter">Map</string>
     <string name="user_number_text">Number</string>
@@ -41,7 +42,6 @@
     <string name="button_save_edit_profile">Save changes</string>
     <string name="exit">Exit</string>
     <string name="backdrop_open" translatable="false">backdrop_open</string>
-    <string name="todo">TODO</string>
     <string name="please_check">Please check carefully that all details are correct.</string>
     <string name="avatar_text">What do you want to show?</string>
     <string name="button_go_to_chat">Chat</string>
@@ -62,6 +62,11 @@
     <string name="event_subscribe_button">Subscribe</string>
     <string name="event_unsubscribe_button">Unsubscribe</string>
     <string name="button_pick_location">Pick</string>
+    <string name="hint_msg_text" translatable="false">Write a message..</string>
+    <string name="todo">TODO</string>
+    <string name="dialog_text">Enter code from sms</string>
+    <string name="example_code">0z8kL</string>
+    <string name="question">Not registered yet?</string>
     <string name="unexpected_fail">Something went wrong</string>
 
 </resources>
