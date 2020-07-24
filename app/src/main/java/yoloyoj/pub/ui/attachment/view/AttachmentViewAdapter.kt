@@ -27,10 +27,10 @@ class AttachmentViewAdapter(
         }
     }
 
-    override fun getItem(position: Int): Any = items[position]
+    override fun getItem(position: Int): Any =
+        items[position]
 
     override fun getItemId(position: Int): Long = 0
 
     override fun getCount(): Int = items.size
-
 }

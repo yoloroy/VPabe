@@ -12,15 +12,14 @@ class Event(
     var lng: Double? = null,
     var avatar: String? = null
 ) {
-    override fun toString(): String {
-        return "{ \n" +
-                "eventid=${this.eventid},\n" +
-                "place=${this.place},\n" +
-                "name=${this.name},\n" +
-                "description=${this.description},\n" +
-                "date=${this.date.toString().replace("\n", "\n\t")},\n" +
-                "like=${this.like.toString().replace("\n", "\n\t")},\n" +
-                "authorid=${this.authorid}\n" +
-                " }"
-    }
+    override fun toString(): String  =
+        "{ \n" +
+            "eventid=${this.eventid},\n" +
+            "place=${this.place},\n" +
+            "name=${this.name},\n" +
+            "description=${this.description},\n" +
+            "date=${this.date.toString().replace("\n", "\n\t")},\n" +
+            "like=${this.like.toString().replace("\n", "\n\t")},\n" +
+            "authorid=${this.authorid}\n" +
+            " }"
 }

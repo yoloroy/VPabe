@@ -37,12 +37,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        userGetter = UserGetter (applicationContext) {
+        userGetter = UserGetter(applicationContext) {
             if (it != null) {
                 apiClient.checkMe(editTextPhone.text.toString())!!.enqueue(object : Callback<String?> {
-                    override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
+                    override fun onFailure(call: Call<String?>, t: Throwable): Unit =
+                        showVerificationFailMessage()
 
-                    override fun onResponse(call: Call<String?>, response: Response<String?>) = checkCode(response.body()!!, it)
+                    override fun onResponse(call: Call<String?>, response: Response<String?>): Unit =
+                        checkCode(response.body()!!, it)
                 })
             } else
                 showWrongInputMessage()

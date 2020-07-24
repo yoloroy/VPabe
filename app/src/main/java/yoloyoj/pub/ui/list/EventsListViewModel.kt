@@ -3,7 +3,6 @@ package yoloyoj.pub.ui.list
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import yoloyoj.pub.models.Event
-import yoloyoj.pub.ui.chat.MY_USER_ID
 import yoloyoj.pub.web.handlers.EventGetter
 
 class EventsListViewModel : ViewModel() {
@@ -35,4 +34,4 @@ class EventsListViewModel : ViewModel() {
     }
 }
 
-class EventData: MutableLiveData<List<Event>>()
+class EventData : MutableLiveData<List<Event>>()

@@ -18,7 +18,13 @@ import yoloyoj.pub.ui.login.LoginActivity
 import yoloyoj.pub.utils.dateToString
 import yoloyoj.pub.utils.timeToString
 import yoloyoj.pub.web.apiClient
-import yoloyoj.pub.web.handlers.*
+import yoloyoj.pub.web.handlers.AddToChatSender
+import yoloyoj.pub.web.handlers.ChatGetter
+import yoloyoj.pub.web.handlers.EventRegistrationChecker
+import yoloyoj.pub.web.handlers.EventSubscriber
+import yoloyoj.pub.web.handlers.SingleEventGetter
+import yoloyoj.pub.web.handlers.UserGetter
+import yoloyoj.pub.web.handlers.UserInChatChecker
 
 const val STANDARD_EVENT_IMAGE = "https://static.tildacdn.com/tild3630-6536-4534-a235-346239306632/45-459030_download-s.png"
 
@@ -35,7 +41,7 @@ class EventActivity : AppCompatActivity() {
 
         userId = getSharedPreferences(MainActivity.PREFERENCES_USER, Context.MODE_PRIVATE)
             ?.getInt(MainActivity.PREFERENCES_USERID, 1)
-        if (userId == null || userId == 0){
+        if (userId == null || userId == 0) {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
             finish()
         }
@@ -63,13 +69,13 @@ class EventActivity : AppCompatActivity() {
                 event_name_header.text = it.name
                 event_describe_header.text = it.description
                 event_date_header.text = dateToString(
-                        it.date?.day?:0,
-                        it.date?.month?:0,
-                        it.date?.year?:0
-                    ) + " " + timeToString(
-                        it.date?.hour?:0,
-                        it.date?.minute?:0
-                    ) // TODO: Replace with a resource string
+                    it.date?.day ?: 0,
+                    it.date?.month ?: 0,
+                    it.date?.year ?: 0
+                ) + " " + timeToString(
+                    it.date?.hour ?: 0,
+                    it.date?.minute ?: 0
+                ) // TODO: Replace with a resource string
                 event_place_header.text = it.place
                 if (it.avatar.isNullOrEmpty()) {
                     Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
@@ -81,7 +87,7 @@ class EventActivity : AppCompatActivity() {
                 }
                 lateinit var userGetter: UserGetter
 
-                userGetter = UserGetter (applicationContext) { author ->
+                userGetter = UserGetter(applicationContext) { author ->
                     if (author == null) {
                         userGetter.start(it.authorid!!)
                         return@UserGetter
@@ -192,10 +198,3 @@ class EventActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
-
-
-
-
-
-
-

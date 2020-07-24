@@ -132,19 +132,19 @@
             <Button
                 android:id="@+id/registerButton"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="165dp"
-                android:layout_height="55dp"
+                android:layout_width="186dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
 
-                android:layout_marginTop="38dp"
                 android:layout_marginStart="48dp"
+                android:layout_marginTop="38dp"
                 android:layout_marginEnd="48dp"
+                android:background="@color/colorAccent"
                 android:onClick="onClickRegister"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
-                android:text="@string/button_start"
 
-                android:background="@color/colorAccent"
+                android:text="@string/button_start"
                 android:textColor="@color/colorBackgroundFace"
                 android:theme="@style/regularFont"
                 app:backgroundTint="@color/colorAccent" />

@@ -6,10 +6,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserInChatChecker (
+class UserInChatChecker(
     val context: Context,
     val callback: (Boolean?) -> Unit
-): Callback<Boolean?> {
+) : Callback<Boolean?> {
 
     override fun onFailure(call: Call<Boolean?>, t: Throwable) {
         Toast.makeText(context, "Ошибка при обновлении статуса чата", Toast.LENGTH_LONG).show()

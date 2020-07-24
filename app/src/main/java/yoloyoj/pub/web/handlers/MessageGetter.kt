@@ -12,7 +12,8 @@ class MessageGetter(
     var messageUpdater: ((List<Message>) -> Unit)? = null
 ) : Callback<List<Message>?> {
     fun start(
-        chatid: Int, after: Int
+        chatid: Int,
+        after: Int
     ) {
         apiClient.getMessages(
             chatid, after

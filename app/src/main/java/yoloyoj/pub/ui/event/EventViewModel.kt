@@ -20,9 +20,6 @@ class EventViewModel : ViewModel() {
         )
     }
 
-
-
-
     private fun loadHandlers() {
         eventGetter = EventGetter().apply {
             eventListener = { updEvents ->
@@ -36,4 +33,4 @@ class EventViewModel : ViewModel() {
     }
 }
 
-class EventData: MutableLiveData<List<Event>>()
+class EventData : MutableLiveData<List<Event>>()

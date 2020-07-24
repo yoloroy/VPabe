@@ -9,7 +9,7 @@ import retrofit2.Response
 class EventSender(
     val context: Context,
     var eventHandler: (Int?) -> Unit
-    ) : Callback<Int?> {
+) : Callback<Int?> {
     override fun onFailure(call: Call<Int?>, t: Throwable) {
         Toast.makeText(context, "Ошибка при сохранении события", Toast.LENGTH_LONG).show()
         eventHandler(null)

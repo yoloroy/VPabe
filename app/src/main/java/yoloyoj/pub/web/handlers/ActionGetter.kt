@@ -6,7 +6,8 @@ import retrofit2.Response
 import yoloyoj.pub.web.apiClient
 
 class ActionGetter : Callback<String?> {
-    fun start() = apiClient.getAction()?.enqueue(this)
+    fun start(): Unit? =
+        apiClient.getAction()?.enqueue(this)
 
     var actionListener: ((String) -> Unit)? = null
 

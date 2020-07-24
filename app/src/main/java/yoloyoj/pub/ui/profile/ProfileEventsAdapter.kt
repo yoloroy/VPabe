@@ -25,7 +25,7 @@ class ProfileEventsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         (holder as ProfileEventItemHolder).bind(items[position])
-        holder.view.setOnClickListener{
+        holder.view.setOnClickListener {
             val intent = Intent(it.context, EventActivity::class.java)
             intent.putExtra("eventid", items[position].eventId)
             (it.context as MainActivity).startActivity(intent)

@@ -60,7 +60,6 @@ class ChatViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
                     chatView.chatid
                 )
 
-
                 context.startActivity(intent)
             }
         }

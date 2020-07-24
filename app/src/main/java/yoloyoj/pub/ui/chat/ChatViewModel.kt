@@ -47,4 +47,4 @@ class ChatViewModel : ViewModel() {
     }
 }
 
-class MessagesData: MutableLiveData<List<Message>>()
+class MessagesData : MutableLiveData<List<Message>>()

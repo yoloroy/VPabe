@@ -20,7 +20,7 @@ class UserGetter(
         if ((userid != 0) or (telephone != "")) {
             var temp = telephone
             if (temp.startsWith('+'))
-                temp = "${temp[1].toString().toInt()+1}${temp.slice(2 until temp.length)}"
+                temp = "${temp[1].toString().toInt() + 1}${temp.slice(2 until temp.length)}"
 
             apiClient.getUser(userid, temp).enqueue(this)
         }

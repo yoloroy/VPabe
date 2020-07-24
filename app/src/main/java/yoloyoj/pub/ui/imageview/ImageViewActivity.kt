@@ -14,8 +14,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_image_view.*
 import yoloyoj.pub.R
 
-
-const val EXTRA_IMAGE_LINK= "il"
+const val EXTRA_IMAGE_LINK = "il"
 
 class ImageViewActivity : AppCompatActivity() {
     lateinit var imageLink: String
@@ -44,8 +43,7 @@ class ImageViewActivity : AppCompatActivity() {
         when (item!!.itemId) {
             android.R.id.home -> { onBackPressed(); return true }
             R.id.download -> {
-                try { download() }
-                catch (e: Exception) { showFail() }
+                try { download() } catch (e: Exception) { showFail() }
                 return true
             }
         }
@@ -73,8 +71,8 @@ class ImageViewActivity : AppCompatActivity() {
             .load(imageLink)
             .setDownloadPath(
                 root.absolutePath +
-                "/download/" +
-                imageLink.split("/").last() // file name
+                    "/download/" +
+                    imageLink.split("/").last() // file name
             )
             .start()
     }

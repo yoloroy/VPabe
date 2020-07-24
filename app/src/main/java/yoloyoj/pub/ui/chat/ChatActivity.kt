@@ -21,7 +21,6 @@ import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.MessageSender
 import java.io.File
 
-
 const val MY_USER_ID = 1
 
 const val EXTRA_CHATID = "chatid"
@@ -44,9 +43,9 @@ class ChatActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (data != null)
-        when (requestCode) {
-            CODE_GET_PICTURE -> putImage(data.data!!)
-        }
+            when (requestCode) {
+                CODE_GET_PICTURE -> putImage(data.data!!)
+            }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +66,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        viewModel.messageGetter.start( chatid!!, 0)
+        viewModel.messageGetter.start(chatid!!, 0)
 
         messageSender = MessageSender(sendButton)
 
@@ -126,7 +125,6 @@ class ChatActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
         })
     }
 
@@ -151,7 +149,7 @@ class ChatActivity : AppCompatActivity() {
             editMessage.text.toString(),
             userid,
             chatid!!,
-            attachments.value!!.map{ it.attachment_link }.joinToString(";")
+            attachments.value!!.map { it.attachment_link }.joinToString(";")
         )?.enqueue(messageSender)
         editMessage.text.clear()
 

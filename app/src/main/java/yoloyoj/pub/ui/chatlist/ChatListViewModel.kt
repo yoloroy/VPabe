@@ -3,7 +3,6 @@ package yoloyoj.pub.ui.chatlist
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import yoloyoj.pub.models.ChatView
-import yoloyoj.pub.ui.chat.MY_USER_ID
 import yoloyoj.pub.utils.tryDefault
 import yoloyoj.pub.web.handlers.ChatListGetter
 
@@ -34,6 +33,8 @@ class ChatListViewModel : ViewModel() {
         chatListGetter!!.start()
     }
 
-    fun List<ChatView>.messagesSum(): String = joinToString { chat ->
-        "${chat.chatid}${chat.lastMessage?.text}" }
+    fun List<ChatView>.messagesSum(): String =
+        joinToString { chat ->
+            "${chat.chatid}${chat.lastMessage?.text}"
+        }
 }

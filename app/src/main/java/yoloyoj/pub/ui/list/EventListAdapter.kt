@@ -7,10 +7,9 @@ import kotlinx.android.synthetic.main.item_events_list.view.*
 import yoloyoj.pub.R
 import yoloyoj.pub.models.Event
 
-
 class EventListAdapter(
     private val items: List<Event>
-): RecyclerView.Adapter<EventItemHolder>() {
+) : RecyclerView.Adapter<EventItemHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventItemHolder {
         val inflater = LayoutInflater.from(parent.context)
 

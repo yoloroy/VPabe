@@ -17,7 +17,8 @@ class UserSender(
         name: String,
         telephone: String,
         avatar: String
-    ) = apiClient.regUser(name, telephone, avatar).enqueue(this)
+    ): Unit =
+        apiClient.regUser(name, telephone, avatar).enqueue(this)
 
     override fun onFailure(call: Call<Int?>, t: Throwable) {
         userUpdater(REGISTERED_FAIL, null)

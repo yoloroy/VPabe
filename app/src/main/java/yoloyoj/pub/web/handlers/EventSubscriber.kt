@@ -7,10 +7,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EventSubscriber (
+class EventSubscriber(
     val context: Context,
     val callback: () -> Unit
-): Callback<ResponseBody?> {
+) : Callback<ResponseBody?> {
     override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
         Toast.makeText(context, "Ошибка при обновлении статуса регистрации", Toast.LENGTH_LONG).show()
     }
