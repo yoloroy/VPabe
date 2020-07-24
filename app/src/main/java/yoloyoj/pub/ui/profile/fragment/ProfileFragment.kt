@@ -102,7 +102,7 @@ class ProfileFragment : Fragment() {
                 if (!e.avatar.isNullOrEmpty()) {
                     imageLink = e.avatar!!
                 }
-                if (eventDate >= curDate){
+                if (eventDate >= curDate) {
                     upcomingEvents.add(
                         ProfileEventItem(
                             eventName = e.name!!,

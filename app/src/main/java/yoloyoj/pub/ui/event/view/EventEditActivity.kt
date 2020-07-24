@@ -183,7 +183,8 @@ class EventEditActivity : AppCompatActivity() {
 
         getLocationButton.setOnClickListener {
             val intent = Intent(this, LocationGetterActivity::class.java)
-            startActivityForResult(intent,
+            startActivityForResult(
+                intent,
                 LOCATION_REQUEST_CODE
             )
         }
