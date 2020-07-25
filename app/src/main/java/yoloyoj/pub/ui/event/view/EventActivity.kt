@@ -15,8 +15,6 @@ import yoloyoj.pub.R
 import yoloyoj.pub.ui.chat.view.ChatActivity
 import yoloyoj.pub.ui.chat.view.EXTRA_CHATID
 import yoloyoj.pub.ui.enter.login.LoginActivity
-import yoloyoj.pub.utils.dateToString
-import yoloyoj.pub.utils.timeToString
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.AddToChatSender
 import yoloyoj.pub.web.handlers.ChatGetter
@@ -68,14 +66,14 @@ class EventActivity : AppCompatActivity() {
                 }
                 event_name_header.text = it.name
                 event_describe_header.text = it.description
-                event_date_header.text = dateToString(
+                event_date_header.text = getString(
+                    R.string.date_time,
                     it.date?.day ?: 0,
                     it.date?.month ?: 0,
-                    it.date?.year ?: 0
-                ) + " " + timeToString(
+                    it.date?.year ?: 0,
                     it.date?.hour ?: 0,
                     it.date?.minute ?: 0
-                ) // TODO: Replace with a resource string
+                )
                 event_place_header.text = it.place
                 if (it.avatar.isNullOrEmpty()) {
                     Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)

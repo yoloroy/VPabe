@@ -16,8 +16,6 @@ import yoloyoj.pub.R
 import yoloyoj.pub.ui.chat.view.CODE_GET_PICTURE
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.utils.loacation.getter.LocationGetterActivity
-import yoloyoj.pub.utils.dateToString
-import yoloyoj.pub.utils.timeToString
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.EventSender
 import yoloyoj.pub.web.handlers.EventUpdater
@@ -116,10 +114,10 @@ class EventEditActivity : AppCompatActivity() {
                     eYear = it?.date?.year ?: 0
                     eMonth = it?.date?.month ?: 0
                     eDay = it?.date?.day ?: 0
-                    tvDate.text = dateToString(eDay, eMonth, eYear)
+                    tvDate.text = getString(R.string.date, eDay, eMonth, eYear)
                     eHour = it?.date?.hour ?: 0
                     eMinute = it?.date?.minute ?: 0
-                    tvTime.text = timeToString(eHour, eMinute)
+                    tvTime.text = getString(R.string.time, eHour, eMinute)
                     tvEventPlace.text = it?.place
                     if (it?.avatar.isNullOrEmpty()) {
                         Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
@@ -157,7 +155,7 @@ class EventEditActivity : AppCompatActivity() {
                     eYear = year
                     eMonth = monthOfYear + 1
                     eDay = dayOfMonth
-                    tvDate.text = dateToString(eDay, eMonth, eYear)
+                    tvDate.text = getString(R.string.date, eDay, eMonth, eYear)
                 },
                 c.get(Calendar.YEAR),
                 c.get(Calendar.MONTH),
@@ -172,7 +170,7 @@ class EventEditActivity : AppCompatActivity() {
                 TimePickerDialog.OnTimeSetListener { view, hour, minute ->
                     eHour = hour
                     eMinute = minute
-                    tvTime.text = timeToString(eHour, eMinute)
+                    tvTime.text = getString(R.string.time, eHour, eMinute)
                 },
                 c.get(Calendar.HOUR_OF_DAY),
                 c.get(Calendar.MINUTE),

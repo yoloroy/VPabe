@@ -9,9 +9,3 @@ fun Number.toDp(view: View): Int =
         this.toFloat(),
         view.resources.displayMetrics
     ).toInt()
-
-fun timeToString(hour: Int, minute: Int): String =
-    "${if (hour < 10) "0" else ""}$hour:${if (minute < 10) "0" else ""}$minute"
-
-fun dateToString(day: Int, month: Int, year: Int): String =
-    "${if (day < 10) "0" else ""}$day.${if (month < 10) "0" else ""}$month.${if (year < 10) "0" else ""}$year"
