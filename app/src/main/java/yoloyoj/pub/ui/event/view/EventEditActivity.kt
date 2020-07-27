@@ -4,16 +4,13 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event_edit.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
-import yoloyoj.pub.ui.chat.view.CODE_GET_PICTURE
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.utils.loacation.getter.LocationGetterActivity
 import yoloyoj.pub.utils.dateToString
@@ -22,7 +19,9 @@ import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.EventSender
 import yoloyoj.pub.web.handlers.EventUpdater
 import yoloyoj.pub.web.handlers.SingleEventGetter
-import java.io.File
+import yoloyoj.pub.web.utils.CODE_GET_PICTURE
+import yoloyoj.pub.web.utils.chooseImage
+import yoloyoj.pub.web.utils.putImage
 import java.util.*
 
 const val LOCATION_REQUEST_CODE = 127
@@ -45,7 +44,7 @@ class EventEditActivity: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (data == null) return
         when (requestCode) {
-            CODE_GET_PICTURE -> putImage(data.data!!)
+            CODE_GET_PICTURE -> putImage(data.data!!) { onImagePutted(it) }
             LOCATION_REQUEST_CODE -> {
                 ePlace = data.getStringExtra("address")
                 eLat = data.getDoubleExtra("lat", 0.0)
@@ -56,31 +55,7 @@ class EventEditActivity: AppCompatActivity() {
     }
 
     @Suppress("UNUSED_PARAMETER")
-    fun addAttachment() {
-        val intent = Intent().apply {
-            type = "image/*"
-            action = Intent.ACTION_GET_CONTENT
-        }
-
-        startActivityForResult(
-            Intent.createChooser(intent, "Select picture"),
-            CODE_GET_PICTURE
-        )
-    }
-
-    private fun putImage(uri: Uri) {
-        val file = File(uri.path)
-
-        val storage = FirebaseStorage.getInstance()
-        val storageReference = storage
-            .getReferenceFromUrl("gs://vpabe-75c05.appspot.com") // TODO: remove hardcode
-            .child("${file.hashCode()}.${uri.path!!.split(".").last()}")
-
-        storageReference.putFile(uri)
-        storageReference.downloadUrl.addOnSuccessListener {
-            onImagePutted(it.toString())
-        }
-    }
+    fun addAttachment() = chooseImage()
 
     private fun onImagePutted(link: String) {
         Picasso.get().load(link).into(event_image)

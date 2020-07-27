@@ -3,14 +3,12 @@ package yoloyoj.pub.ui.enter.registration
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registration.*
@@ -21,13 +19,14 @@ import yoloyoj.pub.MainActivity
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
-import yoloyoj.pub.ui.chat.view.CODE_GET_PICTURE
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.REGISTERED_FAIL
 import yoloyoj.pub.web.handlers.REGISTERED_FALSE
 import yoloyoj.pub.web.handlers.REGISTERED_TRUE
 import yoloyoj.pub.web.handlers.UserSender
-import java.io.File
+import yoloyoj.pub.web.utils.CODE_GET_PICTURE
+import yoloyoj.pub.web.utils.chooseImage
+import yoloyoj.pub.web.utils.putImage
 
 class RegistrationActivity : AppCompatActivity() {
 
@@ -87,45 +86,21 @@ class RegistrationActivity : AppCompatActivity() {
         registerFailBanner.visibility = View.GONE
     }
 
-    public fun onAvatarChoose(view: View) {
-        val intent = Intent().apply {
-            type = "image/*"
-            action = Intent.ACTION_GET_CONTENT
-        }
-
-        startActivityForResult(
-            Intent.createChooser(intent, "Select picture"),
-            CODE_GET_PICTURE
-        )
-    }
+    public fun onAvatarChoose(view: View) = chooseImage()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            CODE_GET_PICTURE -> putImage(data!!.data!!)
-        }
-    }
-
-    private fun putImage(uri: Uri) {
-        val file = File(uri.path)
-
-        val storage = FirebaseStorage.getInstance()
-        val storageReference = storage
-            .getReferenceFromUrl("gs://vpabe-75c05.appspot.com") // TODO: remove hardcode
-            .child("${file.hashCode()}.${uri.path!!.split(".").last()}")
-
-        storageReference.putFile(uri)
-        storageReference.downloadUrl.addOnSuccessListener {
-            onImagePutted(it.path!!)
+            CODE_GET_PICTURE -> putImage(data!!.data!!) { onImagePutted(it) }
         }
     }
 
     private fun onImagePutted(link: String) {
-        avatar = "https://firebasestorage.googleapis.com$link?alt=media"
+        avatar = link
 
         Picasso.get()
-            .load(avatar)
+            .load(link)
             .placeholder(R.drawable.ic_person)
             .into(avatarEdit)
     }

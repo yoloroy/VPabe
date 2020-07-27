@@ -2,7 +2,6 @@ package yoloyoj.pub.ui.chat.view
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_chat.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
@@ -19,14 +17,13 @@ import yoloyoj.pub.models.Attachment
 import yoloyoj.pub.ui.utils.attachment.preview.AttachmentPreviewAdapter
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.MessageSender
-import java.io.File
-
+import yoloyoj.pub.web.utils.CODE_GET_PICTURE
+import yoloyoj.pub.web.utils.chooseImage
+import yoloyoj.pub.web.utils.putImage
 
 const val MY_USER_ID = 1
 
 const val EXTRA_CHATID = "chatid"
-
-const val CODE_GET_PICTURE = 1
 
 class ChatActivity : AppCompatActivity() {
 
@@ -45,7 +42,7 @@ class ChatActivity : AppCompatActivity() {
 
         if (data != null)
         when (requestCode) {
-            CODE_GET_PICTURE -> putImage(data.data!!)
+            CODE_GET_PICTURE -> putImage(data.data!!) { onImagePutted(it) }
         }
     }
 
@@ -159,34 +156,10 @@ class ChatActivity : AppCompatActivity() {
     }
 
     @Suppress("UNUSED_PARAMETER")
-    fun addAttachment(view: View) {
-        val intent = Intent().apply {
-            type = "image/*"
-            action = Intent.ACTION_GET_CONTENT
-        }
-
-        startActivityForResult(
-            Intent.createChooser(intent, "Select picture"),
-            CODE_GET_PICTURE
-        )
-    }
-
-    private fun putImage(uri: Uri) {
-        val file = File(uri.path)
-
-        val storage = FirebaseStorage.getInstance()
-        val storageReference = storage
-            .getReferenceFromUrl("gs://vpabe-75c05.appspot.com") // TODO: remove hardcode
-            .child("${file.hashCode()}.${uri.path!!.split(".").last()}")
-
-        storageReference.putFile(uri)
-        storageReference.downloadUrl.addOnSuccessListener {
-            onImagePutted(it.path!!)
-        }
-    }
+    fun addAttachment(view: View) = chooseImage()
 
     private fun onImagePutted(link: String) {
-        attachments.value = (attachments.value!! + Attachment("image", "https://firebasestorage.googleapis.com$link?alt=media")).toMutableList()
+        attachments.value = (attachments.value!! + Attachment("image", link)).toMutableList()
 
         (attachmentsPreView.adapter as AttachmentPreviewAdapter).apply {
             items = attachments // temporary
