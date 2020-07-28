@@ -11,10 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_events_list.*
 import yoloyoj.pub.R
 import yoloyoj.pub.models.Event
+import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.event.EventData
 import yoloyoj.pub.ui.event.view.EventEditActivity
-import yoloyoj.pub.web.apiClient
-import yoloyoj.pub.web.handlers.EventGetter
 
 class EventsListFragment : Fragment() {
 
@@ -39,10 +38,10 @@ class EventsListFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null)
-                    apiClient.getSearchedEvents(query)!!.enqueue(EventGetter {
+                    Storage.getEventsBySearch(query) {
                         search = true
                         loadAdapter(it)
-                    })
+                    }
 
                 return true
             }

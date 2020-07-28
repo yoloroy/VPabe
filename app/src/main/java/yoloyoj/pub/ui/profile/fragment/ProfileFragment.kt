@@ -16,7 +16,6 @@ import yoloyoj.pub.R
 import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.event.view.STANDARD_EVENT_IMAGE
-import yoloyoj.pub.web.handlers.EventGetter
 
 const val STANDARD_PROFILE_IMAGE = "https://alpinism-industrial.ru/wp-content/uploads/2019/09/kisspng-user-profile-computer-icons-clip-art-profile-5ac092f6f2d337.1560498715225699749946-300x300.jpg"
 
@@ -75,7 +74,7 @@ class ProfileFragment : Fragment() {
             userStatus.text = user.status
         }
         
-        EventGetter { events ->
+        Storage.getEventsForUser(userId) { events ->
             val upcomingEvents = emptyList<ProfileEventItem>().toMutableList()
             val visitedEvents = emptyList<ProfileEventItem>().toMutableList()
             val curDate = DateTime.now().unixMillisLong
@@ -117,7 +116,7 @@ class ProfileFragment : Fragment() {
                 ProfileEventsAdapter(
                     visitedEvents.reversed()
                 )
-        }.start(userid = userId)
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 }

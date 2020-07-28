@@ -15,7 +15,6 @@ import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.event.view.STANDARD_EVENT_IMAGE
 import yoloyoj.pub.ui.profile.fragment.STANDARD_PROFILE_IMAGE
-import yoloyoj.pub.web.handlers.EventGetter
 
 class ProfileActivity: AppCompatActivity() {
 
@@ -53,7 +52,7 @@ class ProfileActivity: AppCompatActivity() {
             userStatusActivity.text = user.status
         }
 
-        EventGetter { events ->
+        Storage.getEventsForUser(profileUserId) { events ->
             val upcomingEvents = emptyList<ProfileEventItemActivity>().toMutableList()
             val visitedEvents = emptyList<ProfileEventItemActivity>().toMutableList()
             val curDate = DateTime.now().unixMillisLong
@@ -81,6 +80,6 @@ class ProfileActivity: AppCompatActivity() {
             recyclerVisitedEventsActivity.adapter = ProfileEventsAdapterActivity(
                 visitedEvents.reversed()
             )
-        }.start(userid = profileUserId)
+        }
     }
 }
