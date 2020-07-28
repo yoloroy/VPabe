@@ -10,9 +10,11 @@ import yoloyoj.pub.models.Event
 import yoloyoj.pub.models.Message
 import yoloyoj.pub.models.User
 
+const val v = "v1"
+
 @Suppress("unused")
  interface Link {
-    @GET("putmessage")
+    @GET("$v/putmessage")
     fun putMessage(
         @Query("text") text: String,
         @Query("sender") sender: Int,
@@ -20,7 +22,7 @@ import yoloyoj.pub.models.User
         @Query("attachment_link") attachmentLink: String
     ): Call<ResponseBody?>?
 
-    @GET("putevent")
+    @GET("$v/putevent")
     fun putEvent(
         @Query("name") name: String,
         @Query("description") description: String,
@@ -36,42 +38,42 @@ import yoloyoj.pub.models.User
         @Query("avatar") avatar: String
     ): Call<Int?>?
 
-    @GET("getmessages")
+    @GET("$v/getmessages")
     fun getMessages(
         @Query("chatid") chatid: Int,
         @Query("after") after: Int
     ): Call<List<Message>?>?
 
-    @GET("getuser")
+    @GET("$v/getuser")
     fun getUser(
         @Query("userid") userid: Int = 0,
         @Query("telephone") telephone: String = ""
     ): Call<User?>
 
-    @GET("putuser")
+    @GET("$v/putuser")
     fun regUser(
         @Query("username") name: String,
         @Query("telephone") telephone: String,
         @Query("avatar") avatar: String
     ): Call<Int>
 
-    @GET("getaction")
+    @GET("$v/getaction")
     fun getAction(): Call<String?>?
 
-    @GET("getevents")
+    @GET("$v/getevents")
     fun getEvents(
         @Query("userid") userid: Int = 0,
         @Query("eventid") eventid: Int = 0
     ): Call<List<Event>?>?
 
-    @GET("getchats")
+    @GET("$v/getchats")
     fun getChats(
         @Query("userid") userid: Int = 0,
         @Query("chatscount") chatsCount: Int = 0,
         @Query("lms") lastMessageSum: Int = 0
     ): Call<List<ChatView>?>?
 
-    @GET("upduser")
+    @GET("$v/upduser")
     fun updateUser(
         @Query("userid") userid: Int,
         @Query("username") username: String,
@@ -79,7 +81,7 @@ import yoloyoj.pub.models.User
         @Query("avatar") avatar: String
     ): Call<ResponseBody?>?
 
-    @GET("searchevents")
+    @GET("$v/searchevents")
     fun getSearchedEvents(
         @Query("searchtext") searchtext: String
     ): Call<List<Event>?>?
@@ -90,12 +92,12 @@ import yoloyoj.pub.models.User
         @Query("key") key: String
     ): Call<Map<String, Any>?>?
    
-    @GET("getevent")
+    @GET("$v/getevent")
     fun getSingleEvent(
         @Query("eventid") eventid: Int = 1
     ): Call<Event?>?
 
-    @GET("updevent")
+    @GET("$v/updevent")
     fun updateEvent(
         @Query("eventid") eventid: Int,
         @Query("name") name: String,
@@ -111,37 +113,37 @@ import yoloyoj.pub.models.User
         @Query("avatar") avatar: String
     ): Call<ResponseBody?>?
 
-    @GET("dosubscribe")
+    @GET("$v/dosubscribe")
     fun subscribeOnEvent(
         @Query("eventid") eventid: Int,
         @Query("userid") userid: Int,
         @Query("subscribe") subscribe: String = "true"
     ): Call<ResponseBody?>?
 
-    @GET("checksubscribe")
+    @GET("$v/checksubscribe")
     fun checkSubscribe(
         @Query("eventid") eventid: Int,
         @Query("userid") userid: Int
     ): Call<Boolean?>?
 
-    @GET("getchatbyevent")
+    @GET("$v/getchatbyevent")
     fun getChatByEvent(
         @Query("eventid") eventid: Int
     ): Call<Int?>?
 
-    @GET("addtochat")
+    @GET("$v/addtochat")
     fun addUserToChat(
         @Query("chatid") chatid: Int,
         @Query("userid") userid: Int
     ): Call<ResponseBody?>?
 
-    @GET("checkinchat")
+    @GET("$v/checkinchat")
     fun isUserInChat(
         @Query("chatid") chatid: Int,
         @Query("userid") userid: Int
     ): Call<Boolean?>?
 
-    @GET("checkme")
+    @GET("$v/checkme")
     fun checkMe(
         @Query("phone") phone: String
     ): Call<String?>?

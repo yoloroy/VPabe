@@ -3,6 +3,7 @@
     <words>
       <w>chatid</w>
       <w>chatscount</w>
+      <w>latlng</w>
       <w>searchtext</w>
       <w>userid</w>
     </words>

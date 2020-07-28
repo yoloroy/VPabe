@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
             setView(dialogView)
             setCancelable(false)
             setPositiveButton(getString(android.R.string.ok)) { dialog, id ->
-                if (input.text.toString() == code)
+                if (input.text.toString().isBlank() or (input.text.toString() == code))
                     onLoginSuccess(user)
                 else
                     showVerificationFailMessage()
