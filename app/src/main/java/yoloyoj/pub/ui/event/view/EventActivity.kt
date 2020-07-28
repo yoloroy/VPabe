@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
+import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.chat.view.ChatActivity
 import yoloyoj.pub.ui.chat.view.EXTRA_CHATID
 import yoloyoj.pub.ui.enter.login.LoginActivity
@@ -79,17 +80,10 @@ class EventActivity : AppCompatActivity() {
                 if (userId == it.authorid) {
                     editMenu?.setGroupVisible(0, true)
                 }
-                lateinit var userGetter: UserGetter
 
-                userGetter = UserGetter { author ->
-                    if (author == null) {
-                        userGetter.start(it.authorid!!)
-                        return@UserGetter
-                    }
-
+                Storage.getUser { author ->
                     eventAuthorName.text = getString(R.string.event_author_name, author.username)
                 }
-                userGetter.start(it.authorid!!)
 
                 apiClient.checkSubscribe(
                     eventid = eventId!!,

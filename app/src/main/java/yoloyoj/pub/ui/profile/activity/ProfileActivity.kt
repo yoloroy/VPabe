@@ -11,11 +11,11 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
+import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.event.view.STANDARD_EVENT_IMAGE
 import yoloyoj.pub.ui.profile.fragment.STANDARD_PROFILE_IMAGE
 import yoloyoj.pub.web.handlers.EventGetter
-import yoloyoj.pub.web.handlers.UserGetter
 
 class ProfileActivity: AppCompatActivity() {
 
@@ -43,14 +43,7 @@ class ProfileActivity: AppCompatActivity() {
             return
         }
 
-        lateinit var userGetter: UserGetter
-
-        userGetter = UserGetter { user ->
-            if (user == null) {
-                userGetter.start(profileUserId)
-                return@UserGetter
-            }
-
+        Storage.getUser(userid = profileUserId) { user ->
             if (user.avatar.isNullOrEmpty()) {
                 Picasso.get().load(STANDARD_PROFILE_IMAGE).into(userImageActivity)
             } else {
@@ -59,8 +52,6 @@ class ProfileActivity: AppCompatActivity() {
             userNameActivity.text = user.username
             userStatusActivity.text = user.status
         }
-
-        userGetter.start(profileUserId)
 
         EventGetter { events ->
             val upcomingEvents = emptyList<ProfileEventItemActivity>().toMutableList()

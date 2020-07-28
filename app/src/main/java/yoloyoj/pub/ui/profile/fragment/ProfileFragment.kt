@@ -13,10 +13,10 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
+import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.event.view.STANDARD_EVENT_IMAGE
 import yoloyoj.pub.web.handlers.EventGetter
-import yoloyoj.pub.web.handlers.UserGetter
 
 const val STANDARD_PROFILE_IMAGE = "https://alpinism-industrial.ru/wp-content/uploads/2019/09/kisspng-user-profile-computer-icons-clip-art-profile-5ac092f6f2d337.1560498715225699749946-300x300.jpg"
 
@@ -64,14 +64,8 @@ class ProfileFragment : Fragment() {
             activity?.finish()
         }
 
-        lateinit var userGetter: UserGetter
-
-        userGetter = UserGetter {user ->
-            if (user == null){
-                userGetter.start(userId!!)
-                return@UserGetter
-            }
-
+        userId!!
+        Storage.getUser(userid = userId) { user ->
             if (user.avatar.isNullOrEmpty()) {
                 Picasso.get().load(STANDARD_PROFILE_IMAGE).into(userImage)
             } else {
@@ -80,8 +74,6 @@ class ProfileFragment : Fragment() {
             userName.text = user.username
             userStatus.text = user.status
         }
-
-        userGetter.start(userId!!)
         
         EventGetter { events ->
             val upcomingEvents = emptyList<ProfileEventItem>().toMutableList()

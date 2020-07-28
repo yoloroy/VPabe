@@ -14,9 +14,9 @@ import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
+import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.web.apiClient
-import yoloyoj.pub.web.handlers.UserGetter
 import yoloyoj.pub.web.handlers.UserUpdater
 import yoloyoj.pub.web.utils.CODE_GET_PICTURE
 import yoloyoj.pub.web.utils.chooseImage
@@ -38,7 +38,7 @@ class EditProfileFragment: Fragment() {
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
         }
-        UserGetter { user ->
+        Storage.getUser(userid = userId!!) { user ->
             if (user!!.avatar!!.isNotBlank())
                 Picasso.get().load(user.avatar).into(editUserImage)
             editUserName.setText(user.username)
@@ -60,7 +60,7 @@ class EditProfileFragment: Fragment() {
                     }
                 )
             }
-        }.start(userId!!)
+        }
 
         setNewImageButton.setOnClickListener { chooseImage() }
     }

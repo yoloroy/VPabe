@@ -19,13 +19,11 @@ import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
 import yoloyoj.pub.models.User
+import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.registration.RegistrationActivity
 import yoloyoj.pub.web.apiClient
-import yoloyoj.pub.web.handlers.UserGetter
 
 class LoginActivity : AppCompatActivity() {
-
-    private lateinit var userGetter: UserGetter
 
     private lateinit var auth: FirebaseAuth
 
@@ -36,27 +34,18 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
     }
 
-    override fun onStart() {
-        userGetter = UserGetter  {
-            if (it != null) {
-                apiClient.checkMe(editTextPhone.text.toString())!!.enqueue(object : Callback<String?> {
-                    override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
-
-                    override fun onResponse(call: Call<String?>, response: Response<String?>) = checkCode(response.body()!!, it)
-                })
-            } else
-                showWrongInputMessage()
-        }
-
-        super.onStart()
-    }
-
     public fun onClickRegister(view: View) {
         startActivity(Intent(this@LoginActivity, RegistrationActivity::class.java))
     }
 
     public fun onClickLogin(view: View) {
-        userGetter.start(telephone = editTextPhone.text.toString())
+        Storage.getUser(phone = editTextPhone.text.toString()) {
+            apiClient.checkMe(editTextPhone.text.toString())!!.enqueue(object : Callback<String?> {
+                override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
+
+                override fun onResponse(call: Call<String?>, response: Response<String?>) = checkCode(response.body()!!, it)
+            })
+        }
     }
 
     fun checkCode(code: String, user: User) {
