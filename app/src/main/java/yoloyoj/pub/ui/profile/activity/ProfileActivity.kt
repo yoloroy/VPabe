@@ -45,8 +45,8 @@ class ProfileActivity: AppCompatActivity() {
 
         lateinit var userGetter: UserGetter
 
-        userGetter = UserGetter (applicationContext) {user ->
-            if (user == null){
+        userGetter = UserGetter { user ->
+            if (user == null) {
                 userGetter.start(profileUserId)
                 return@UserGetter
             }

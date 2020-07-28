@@ -81,7 +81,7 @@ class EventActivity : AppCompatActivity() {
                 }
                 lateinit var userGetter: UserGetter
 
-                userGetter = UserGetter (applicationContext) { author ->
+                userGetter = UserGetter { author ->
                     if (author == null) {
                         userGetter.start(it.authorid!!)
                         return@UserGetter

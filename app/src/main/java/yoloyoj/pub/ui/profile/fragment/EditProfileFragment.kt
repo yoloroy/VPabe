@@ -38,7 +38,7 @@ class EditProfileFragment: Fragment() {
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
         }
-        UserGetter (activity!!.applicationContext) { user ->
+        UserGetter { user ->
             if (user!!.avatar!!.isNotBlank())
                 Picasso.get().load(user.avatar).into(editUserImage)
             editUserName.setText(user.username)

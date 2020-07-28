@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        userGetter = UserGetter (applicationContext) {
+        userGetter = UserGetter  {
             if (it != null) {
                 apiClient.checkMe(editTextPhone.text.toString())!!.enqueue(object : Callback<String?> {
                     override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()

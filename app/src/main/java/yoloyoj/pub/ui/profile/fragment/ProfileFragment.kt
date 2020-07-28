@@ -66,7 +66,7 @@ class ProfileFragment : Fragment() {
 
         lateinit var userGetter: UserGetter
 
-        userGetter = UserGetter (activity!!.applicationContext) {user ->
+        userGetter = UserGetter {user ->
             if (user == null){
                 userGetter.start(userId!!)
                 return@UserGetter
