@@ -17,9 +17,17 @@
 * Ability to attach photos to events and messages in chats
 
 ## Examples
+Searching events by map | Searching events by words
+------------------------|---------------------------
+<img src="https://github.com/exsandebest/VPabe/blob/master/readme/searching_by_map.gif" height="450" width="215px"/> | <img src="https://github.com/exsandebest/VPabe/blob/master/readme/searching_by_word.gif" height="450" width="215px"/>
 
+Profile | Chat
+--------|-------
+<img src="https://github.com/exsandebest/VPabe/blob/master/readme/editing_profile.gif" height="450" width="215px"/> | <img src="https://github.com/exsandebest/VPabe/blob/master/readme/chat.gif" height="450" width="215px"/>
+    
 ## Links
 + [Presentation (RUS)](https://vk.cc/axqSOv)
++ [Gifs from README](https://github.com/exsandebest/VPabe/tree/master/readme)
 
 ## Creators
 * [yoloroy](https://github.com/yoloroy)
