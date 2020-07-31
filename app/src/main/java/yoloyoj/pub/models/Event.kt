@@ -18,7 +18,7 @@ class Event(
                 "place=${this.place},\n" +
                 "name=${this.name},\n" +
                 "description=${this.description},\n" +
-                "date=${this.date.toString().replace("\n", "\n\t")},\n" +
+                "date=${this.date!!.toJsonString().replace("\n", "\n\t")},\n" +
                 "like=${this.like.toString().replace("\n", "\n\t")},\n" +
                 "authorid=${this.authorid}\n" +
                 " }"

@@ -79,9 +79,7 @@ class EventEditActivity: AppCompatActivity() {
             apiClient.getSingleEvent(
                 eventId!!
             )?.enqueue(
-                SingleEventGetter(
-                    this
-                ) {
+                SingleEventGetter {
                     if (it == null) {
                         Toast.makeText(applicationContext, "Ошибка при получении данных", Toast.LENGTH_LONG).show()
                         finish()
