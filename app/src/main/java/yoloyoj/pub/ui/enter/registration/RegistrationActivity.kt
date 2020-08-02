@@ -19,18 +19,16 @@ import yoloyoj.pub.MainActivity
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
+import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.REGISTERED_FAIL
 import yoloyoj.pub.web.handlers.REGISTERED_FALSE
 import yoloyoj.pub.web.handlers.REGISTERED_TRUE
-import yoloyoj.pub.web.handlers.UserSender
 import yoloyoj.pub.web.utils.CODE_GET_PICTURE
 import yoloyoj.pub.web.utils.chooseImage
 import yoloyoj.pub.web.utils.putImage
 
 class RegistrationActivity : AppCompatActivity() {
-
-    lateinit var userSender: UserSender
 
     private val name: String
     get() = nameEdit.text.toString()
@@ -43,25 +41,6 @@ class RegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
-
-        userSender = UserSender { result, userid ->
-            when(result) {
-                REGISTERED_TRUE ->
-                    apiClient.checkMe(phoneEdit.text.toString())!!.enqueue(object :
-                        Callback<String?> {
-                        override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
-
-                        override fun onResponse(call: Call<String?>, response: Response<String?>) = checkCode(response.body()!!, userid!!)
-                    })
-
-                REGISTERED_FALSE ->
-                    registerFailBanner.visibility = View.VISIBLE
-
-                REGISTERED_FAIL ->
-                    Snackbar.make(registerButton, "Произошла ошибка, пожалуйста, повторите попытку позже", Snackbar.LENGTH_LONG)
-
-            }
-        }
     }
 
     @SuppressLint("ApplySharedPref")
@@ -79,7 +58,24 @@ class RegistrationActivity : AppCompatActivity() {
         if (name.isBlank() or phone.isBlank())
             registerFailBanner.visibility = View.VISIBLE
 
-        userSender.start(name, phone, avatar)
+        Storage.regUser(name, phone, avatar) { (result, userid) ->
+            when(result) {
+                REGISTERED_TRUE ->
+                    apiClient.checkMe(phoneEdit.text.toString())!!.enqueue(object :
+                        Callback<String?> {
+                        override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
+
+                        override fun onResponse(call: Call<String?>, response: Response<String?>) = checkCode(response.body()!!, userid!!)
+                    })
+
+                REGISTERED_FALSE ->
+                    registerFailBanner.visibility = View.VISIBLE
+
+                REGISTERED_FAIL ->
+                    Snackbar.make(registerButton, "Произошла ошибка, пожалуйста, повторите попытку позже", Snackbar.LENGTH_LONG)
+
+            }
+        }
     }
 
     public fun onClickBannerClose(view: View) {

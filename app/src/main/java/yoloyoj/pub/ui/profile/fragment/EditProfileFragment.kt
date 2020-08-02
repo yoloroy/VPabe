@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
@@ -16,8 +17,6 @@ import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
 import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.login.LoginActivity
-import yoloyoj.pub.web.apiClient
-import yoloyoj.pub.web.handlers.UserUpdater
 import yoloyoj.pub.web.utils.CODE_GET_PICTURE
 import yoloyoj.pub.web.utils.chooseImage
 import yoloyoj.pub.web.utils.putImage
@@ -39,7 +38,7 @@ class EditProfileFragment: Fragment() {
             activity?.finish()
         }
         Storage.getUser(userid = userId!!) { user ->
-            if (user!!.avatar!!.isNotBlank())
+            if (user.avatar!!.isNotBlank())
                 Picasso.get().load(user.avatar).into(editUserImage)
             editUserName.setText(user.username)
             editUserStatus.setText(user.status)
@@ -47,18 +46,21 @@ class EditProfileFragment: Fragment() {
             avatarLink = user.avatar!!
 
             saveProfileButton.setOnClickListener {
-                apiClient.updateUser(
-                    userId!!,
+                Storage.updateUser(
+                    userId,
                     editUserName.text.toString(),
                     editUserStatus.text.toString(),
                     avatarLink
-                )?.enqueue(
-                    UserUpdater(context!!) {
-                        val imm: InputMethodManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                ) {
+                    if (it) {
+                        val imm: InputMethodManager =
+                            activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                         imm.hideSoftInputFromWindow(getView()!!.windowToken, 0)
                         activity!!.supportFragmentManager.popBackStack()
+                    } else {
+                        Toast.makeText(context, "Ошибка при сохранении данных", Toast.LENGTH_LONG).show()
                     }
-                )
+                }
             }
         }
 

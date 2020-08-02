@@ -12,23 +12,57 @@ class Storage { // TODO: divide?
         const val USERS = "users"
         const val EVENTS = "events"
 
+        // region user
         fun getUser(
             phone: String = "",
             userid: Int = 0, // temporary
             handler: Handler<User>
         ) {
-            var userGetter: UserGetter? = null
-            userGetter = UserGetter {
-                if (it == null) {
-                    userGetter!!.start(telephone = phone, userid = userid)
-                    return@UserGetter
+            if ((userid != 0) or (phone != "")) {
+                var temp = phone
+                if (temp.startsWith('+')) {
+                    temp = "${temp[1].toString().toInt()+1}${temp.slice(2 until temp.length)}"
                 }
 
-                handler(it)
-            }
+                apiClient.getUser(userid, temp).enqueue(UserGetter {
+                    if (it == null) {
+                        getUser(temp, userid, handler)
+                        return@UserGetter
+                    }
 
-            userGetter.start(telephone = phone, userid = userid)
+                    handler(it)
+                })
+            }
         }
+
+        fun regUser(
+            name: String,
+            phone: String,
+            avatar: String,
+            handler: Handler<Pair<Boolean?, Int?>>
+        ) {
+            apiClient.regUser(name, phone, avatar).enqueue(UserSender {
+                regResult, userid -> handler(regResult to userid)
+            })
+        }
+
+        fun updateUser(
+            userid: Int,
+            name: String,
+            status: String,
+            avatarLink: String,
+            handler: Handler<Boolean>
+        ) {
+            apiClient.updateUser(
+                userid,
+                name,
+                status,
+                avatarLink
+            )?.enqueue(
+                UserUpdater(handler)
+            )
+        }
+        // endregion
 
         // region events
         fun observeAllEvents(handler: Handler<List<Event>>) {
