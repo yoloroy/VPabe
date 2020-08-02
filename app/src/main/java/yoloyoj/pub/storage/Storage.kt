@@ -145,20 +145,23 @@ class Storage { // TODO: divide?
             }
         }
 
-        fun observeChatList(userid: Int, handler: Handler<List<ChatView>>) {
-            var chatsCount: Int
-            var lastMessageSum = 0
-
-            var chatListGetter: ChatListGetter? = null
-            chatListGetter = ChatListGetter(userid) { chats ->
+        fun observeChatList(
+            userid: Int,
+            handler: Handler<List<ChatView>>,
+            chatsCount: Int = 0,
+            lastMessageSum: Int = 0
+        ) {
+            apiClient.getChats(
+                userid, chatsCount, lastMessageSum
+            )?.enqueue(ChatListGetter(userid) { chats ->
                 handler(chats)
 
-                chatsCount = chats.count()
-                lastMessageSum = tryDefault(lastMessageSum) { chats.sumBy { it.lastMessage!!._rowid_!! } }
-
-                chatListGetter!!.start(chatsCount, lastMessageSum)
-            }
-            chatListGetter.start()
+                observeChatList(
+                    userid, handler,
+                    chats.count(),
+                    tryDefault(lastMessageSum) { chats.sumBy { it.lastMessage!!._rowid_!! } }
+                )
+            })
         }
 
         fun getChatId(eventid: Int, handler: Handler<Int>) { // TODO: refactor to returning objects

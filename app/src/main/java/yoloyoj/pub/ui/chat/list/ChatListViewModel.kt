@@ -11,14 +11,14 @@ class ChatListViewModel : ViewModel() {
     }
 
     fun start(userid: Int) {
-        Storage.observeChatList(userid) { updChats ->
+        Storage.observeChatList(userid, handler = { updChats ->
             if (
                 (chats.value?.messagesSum() != updChats.messagesSum())
                 and
                 (updChats.isNotEmpty())
             )
                 chats.value = updChats
-        }
+        })
     }
 
     fun List<ChatView>.messagesSum(): String = joinToString { chat ->
