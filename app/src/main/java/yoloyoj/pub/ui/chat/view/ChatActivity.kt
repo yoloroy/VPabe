@@ -10,18 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_chat.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
 import yoloyoj.pub.models.Attachment
+import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.utils.attachment.preview.AttachmentPreviewAdapter
-import yoloyoj.pub.web.apiClient
-import yoloyoj.pub.web.handlers.MessageSender
 import yoloyoj.pub.web.utils.CODE_GET_PICTURE
 import yoloyoj.pub.web.utils.chooseImage
 import yoloyoj.pub.web.utils.putImage
-
-const val MY_USER_ID = 1
 
 const val EXTRA_CHATID = "chatid"
 
@@ -31,11 +29,11 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var messages: MessagesData
     private lateinit var attachments: MutableLiveData<MutableList<Attachment>>
 
-    private lateinit var messageSender: MessageSender
-
     private var chatid: Int? = null
-
     private var userid: Int = 0
+
+    private val currentMessage: String // TODO?: convert to Message
+        get() = editMessage.text.toString()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -64,9 +62,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        viewModel.messageGetter.start( chatid!!, 0)
-
-        messageSender = MessageSender(sendButton)
+        viewModel.startMessageObserving(chatid!!)
 
         messages.observeForever { loadAdapter() }
 
@@ -144,15 +140,19 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun sendMessage() {
-        apiClient.putMessage(
-            editMessage.text.toString(),
+        Storage.sendMessage(
+            currentMessage,
             userid,
             chatid!!,
-            attachments.value!!.map{ it.attachment_link }.joinToString(";")
-        )?.enqueue(messageSender)
-        editMessage.text.clear()
-
-        onImageSent()
+            attachments.value!!
+        ) {
+            if (it)
+                onImageSent()
+            else
+                Snackbar.make(sendButton, "Не удалось отправить сообщение...", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show()
+        }
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -170,6 +170,8 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun onImageSent() {
+        editMessage.text.clear()
+
         addAttachment.drawable.setTint(resources.getColor(R.color.colorAccent))
 
         attachments.value = mutableListOf()

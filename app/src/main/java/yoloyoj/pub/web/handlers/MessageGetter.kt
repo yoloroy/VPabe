@@ -5,19 +5,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import yoloyoj.pub.models.Message
+import yoloyoj.pub.storage.Handler
 import yoloyoj.pub.utils.tryDefault
-import yoloyoj.pub.web.apiClient
 
 class MessageGetter(
-    var messageUpdater: ((List<Message>) -> Unit)? = null
+    var messageUpdater: Handler<List<Message>>? = null
 ) : Callback<List<Message>?> {
-    fun start(
-        chatid: Int, after: Int
-    ) {
-        apiClient.getMessages(
-            chatid, after
-        )?.enqueue(this)
-    }
 
     override fun onFailure(call: Call<List<Message>?>, t: Throwable) {
         tryDefault(Unit) { Log.i("onFailure", t.localizedMessage) }

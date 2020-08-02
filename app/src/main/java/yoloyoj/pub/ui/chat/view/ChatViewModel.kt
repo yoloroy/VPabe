@@ -4,10 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import yoloyoj.pub.models.Attachment
 import yoloyoj.pub.models.Message
-import yoloyoj.pub.web.handlers.MessageGetter
+import yoloyoj.pub.storage.Storage
 
 class ChatViewModel : ViewModel() {
-    lateinit var messageGetter: MessageGetter
     var chatid: Int? = null
 
     var messages = MessagesData().apply {
@@ -18,31 +17,9 @@ class ChatViewModel : ViewModel() {
         value = mutableListOf()
     }
 
-    init {
-        loadHandlers()
-    }
-
-    private fun loadHandlers() {
-        messageGetter = MessageGetter { updMessages ->
-            if (updMessages.isNotEmpty()) {
-                if (messages.value.isNullOrEmpty())
-                    messages.value = updMessages
-                else if (updMessages.last()._rowid_!! > messages.value!!.last()._rowid_!!)
-                    messages.value = messages.value!! + updMessages
-
-                messageGetter.start(
-                    updMessages.last().chatid!!,
-                    updMessages.last()._rowid_!!
-                )
-            } else
-                messageGetter.start(
-                    chatid!!,
-                    when (messages.value) {
-                        mutableListOf<Attachment>() -> 0
-                        null -> 0
-                        else -> messages.value!!.last()._rowid_!!
-                    }
-                )
+    fun startMessageObserving(chatid: Int) {
+        Storage.observeNewMessages(chatid, 0) { newMessages ->
+            messages.value = messages.value!! + newMessages
         }
     }
 }

@@ -1,8 +1,6 @@
 package yoloyoj.pub.storage
 
-import yoloyoj.pub.models.ChatView
-import yoloyoj.pub.models.Event
-import yoloyoj.pub.models.User
+import yoloyoj.pub.models.*
 import yoloyoj.pub.utils.tryDefault
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.*
@@ -32,6 +30,7 @@ class Storage { // TODO: divide?
             userGetter.start(telephone = phone, userid = userid)
         }
 
+        // region events
         fun observeAllEvents(handler: Handler<List<Event>>) {
             var eventGetter: EventGetter? = null
 
@@ -146,5 +145,42 @@ class Storage { // TODO: divide?
                 userid = userid
             )?.enqueue(EventSubscriber { handler(Unit) })
         }
+        // endregion
+
+        // region chat
+        fun sendMessage(
+            text: String,
+            userid: Int,
+            chatid: Int,
+            attachments: List<Attachment>,
+            handler: Handler<Boolean>
+        ) {
+            apiClient.putMessage(
+                text,
+                userid,
+                chatid,
+                attachments.map{ it.attachment_link }.joinToString(";")
+            )?.enqueue(MessageSender(handler))
+        }
+
+        fun observeNewMessages(
+            chatid: Int, after: Int, handler: Handler<List<Message>>
+        ) {
+            apiClient.getMessages(
+                chatid, after
+            )?.enqueue(MessageGetter { newMessages ->
+                handler(newMessages)
+
+                observeNewMessages(
+                    chatid,
+                    when {
+                        newMessages.isNotEmpty() -> newMessages.last()._rowid_!!
+                        else -> after
+                    },
+                    handler
+                )
+            })
+        }
+        // endregion
     }
 }
