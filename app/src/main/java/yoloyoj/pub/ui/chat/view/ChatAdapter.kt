@@ -26,10 +26,10 @@ class ChatAdapter(
         holder.bind(
             items[position],
             tryDefault(true) {
-                items[position-1].sender != items[position].sender
+                items[position - 1].sender != items[position].sender
             },
             tryDefault(true) {
-                items[position].sender != items[position+1].sender
+                items[position].sender != items[position + 1].sender
             }
         )
     }

@@ -9,7 +9,7 @@ import yoloyoj.pub.R
 import yoloyoj.pub.models.Attachment
 import yoloyoj.pub.ui.utils.attachment.view.AttachmentViewHolder
 
-class AttachmentPreviewAdapter (
+class AttachmentPreviewAdapter(
     val recyclerView: RecyclerView,
     var items: MutableLiveData<MutableList<Attachment>>
 ) : RecyclerView.Adapter<AttachmentPreviewHolder>() {
@@ -28,12 +28,12 @@ class AttachmentPreviewAdapter (
         }
     }
 
-    override fun getItemCount(): Int = items.value!!.size
+    override fun getItemCount(): Int =
+        items.value!!.size
 
     override fun onBindViewHolder(holder: AttachmentPreviewHolder, position: Int) {
         holder.bind(items.value!![position], position)
     }
-
 }
 
 class AttachmentPreviewHolder(

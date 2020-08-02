@@ -7,9 +7,8 @@ class User {
     var avatar: String? = null
     var status: String? = null
 
-    fun hasNulls(): Boolean {
-        return listOf(
+    fun hasNulls(): Boolean =
+        listOf(
             userid, username, telephone, avatar, status
         ).any { it == null }
-    }
 }

@@ -9,7 +9,6 @@ class Message {
     var avatar: String? = null
     var attachments: List<Attachment>? = null
 
-    fun hasNulls(): Boolean {
-        return (text == null) or (sender == null)
-    }
+    fun hasNulls(): Boolean =
+        (text == null) or (sender == null)
 }

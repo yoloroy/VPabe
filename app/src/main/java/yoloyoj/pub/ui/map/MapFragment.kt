@@ -35,9 +35,9 @@ import yoloyoj.pub.ui.event.list.EventsListViewModel
 import yoloyoj.pub.ui.event.view.EventActivity
 import yoloyoj.pub.ui.event.view.EventEditActivity
 
-
 @Suppress("DEPRECATION")
-open class MapFragment : Fragment(),
+open class MapFragment :
+    Fragment(),
     OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener,
@@ -55,7 +55,8 @@ open class MapFragment : Fragment(),
     private lateinit var mLastLocation: Location
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
@@ -135,9 +136,9 @@ open class MapFragment : Fragment(),
         mLocationRequest.fastestInterval = 1000
         mLocationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
         if (ContextCompat.checkSelfPermission(
-                context!!,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
+            context!!,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
             == PackageManager.PERMISSION_GRANTED
         ) {
             LocationServices.FusedLocationApi.requestLocationUpdates(
@@ -155,7 +156,7 @@ open class MapFragment : Fragment(),
     override fun onLocationChanged(location: Location) {
         mLastLocation = location
         mCurrLocationMarker?.remove()
-        //Place current location marker
+        // Place current location marker
         val latLng =
             LatLng(
                 location.latitude,
@@ -166,7 +167,7 @@ open class MapFragment : Fragment(),
         markerOptions.title("Current Position")
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
         mCurrLocationMarker = googleMap.addMarker(markerOptions)
-        //move map camera
+        // move map camera
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
     }
 
@@ -176,9 +177,9 @@ open class MapFragment : Fragment(),
             != PackageManager.PERMISSION_GRANTED
         ) { // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    activity!!,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
+                activity!!,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
             ) {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
@@ -189,7 +190,7 @@ open class MapFragment : Fragment(),
                     .setPositiveButton(
                         "OK"
                     ) { _, _ ->
-                        //Prompt the user once explanation has been shown
+                        // Prompt the user once explanation has been shown
                         ActivityCompat.requestPermissions(
                             activity!!,
                             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -215,15 +216,15 @@ open class MapFragment : Fragment(),
         when (requestCode) {
             MY_PERMISSIONS_REQUEST_LOCATION -> {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.isNotEmpty()
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                if (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
                     // permission was granted, yay! Do the
                     // location-related task you need to do.
                     if (ContextCompat.checkSelfPermission(
-                            context!!,
-                            Manifest.permission.ACCESS_FINE_LOCATION
-                        )
+                        context!!,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    )
                         == PackageManager.PERMISSION_GRANTED
                     ) {
                         if (mGoogleApiClient == null) {
