@@ -65,15 +65,18 @@ class Storage { // TODO: divide?
         // endregion
 
         // region events
-        fun observeAllEvents(handler: Handler<List<Event>>) {
-            var eventGetter: EventGetter? = null
-
-            eventGetter = EventGetter { events ->
+        fun observeAllEvents(handler: Handler<List<Event>>, eventid: Int = 0) {
+            apiClient.getEvents(
+                ALL_EVENTS, eventid
+            )?.enqueue(EventGetter { events ->
                 handler(events)
-                eventGetter!!.start(eventid = events.map { it.eventid!! }.maxBy { it }!!)
-            }
 
-            eventGetter.start()
+                // recursion repeating
+                observeAllEvents(
+                    handler,
+                    events.map { it.eventid!! }.maxBy { it }!!
+                )
+            })
         }
 
         fun getEventsBySearch(query: String, handler: Handler<List<Event>>) {
@@ -83,9 +86,9 @@ class Storage { // TODO: divide?
         }
 
         fun getEventsForUser(userid: Int, handler: Handler<List<Event>>) {
-            EventGetter {
-                handler(it)
-            }.start(userid = userid)
+            apiClient.getEvents(
+                userid, 0
+            )?.enqueue(EventGetter { handler(it) })
         }
 
         fun getEvent(eventid: Int, handler: Handler<Event>) {

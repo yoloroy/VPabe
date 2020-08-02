@@ -14,10 +14,10 @@ class EventsListViewModel : ViewModel() {
     }
 
     private fun loadHandlers() {
-        Storage.observeAllEvents { updEvents ->
+        Storage.observeAllEvents(handler = { updEvents ->
                 if (updEvents.isNotEmpty()) {
                     events.value = updEvents
                 }
-        }
+        })
     }
 }
