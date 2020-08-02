@@ -5,12 +5,12 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event_edit.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
+import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.utils.loacation.getter.LocationGetterActivity
 import yoloyoj.pub.utils.dateToString
@@ -18,7 +18,6 @@ import yoloyoj.pub.utils.timeToString
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.handlers.EventSender
 import yoloyoj.pub.web.handlers.EventUpdater
-import yoloyoj.pub.web.handlers.SingleEventGetter
 import yoloyoj.pub.web.utils.CODE_GET_PICTURE
 import yoloyoj.pub.web.utils.chooseImage
 import yoloyoj.pub.web.utils.putImage
@@ -76,40 +75,32 @@ class EventEditActivity: AppCompatActivity() {
         eventId = intent?.getIntExtra("eventid", 0)
 
         if (eventId != null && eventId != 0){
-            apiClient.getSingleEvent(
-                eventId!!
-            )?.enqueue(
-                SingleEventGetter {
-                    if (it == null) {
-                        Toast.makeText(applicationContext, "Ошибка при получении данных", Toast.LENGTH_LONG).show()
-                        finish()
-                    }
-                    event_header_edit.setText(it?.name)
-                    event_describe_header_edit.setText(it?.description)
-                    eYear = it?.date?.year?:0
-                    eMonth = it?.date?.month?:0
-                    eDay = it?.date?.day?:0
-                    tvDate.text = dateToString(eDay, eMonth, eYear)
-                    eHour = it?.date?.hour?:0
-                    eMinute = it?.date?.minute?:0
-                    tvTime.text = timeToString(eHour, eMinute)
-                    tvEventPlace.text = it?.place
-                    if (it?.avatar.isNullOrEmpty()) {
-                        Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
-                        eventImageLink =
-                            STANDARD_EVENT_IMAGE
-                    } else {
-                        Picasso.get().load(it?.avatar).into(event_image)
-                        eventImageLink = it?.avatar!!
-                    }
-                    ePlace = it?.place?:""
-                    eLat = it?.lat?:0.0
-                    eLng = it?.lng?:0.0
-                    event_set_btn.text = getString(R.string.button_save_edit_profile)
-                    event_set_btn.setOnClickListener { updateEvent() }
-                    supportActionBar?.title = getString(R.string.title_edit_event)
+            Storage.getEvent(eventId!!) {
+                event_header_edit.setText(it.name)
+                event_describe_header_edit.setText(it.description)
+                eYear = it.date?.year?:0
+                eMonth = it.date?.month?:0
+                eDay = it.date?.day?:0
+                tvDate.text = dateToString(eDay, eMonth, eYear)
+                eHour = it.date?.hour?:0
+                eMinute = it.date?.minute?:0
+                tvTime.text = timeToString(eHour, eMinute)
+                tvEventPlace.text = it.place
+                if (it.avatar.isNullOrEmpty()) {
+                    Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
+                    eventImageLink =
+                        STANDARD_EVENT_IMAGE
+                } else {
+                    Picasso.get().load(it.avatar).into(event_image)
+                    eventImageLink = it.avatar!!
                 }
-            )
+                ePlace = it.place ?:""
+                eLat = it.lat ?:0.0
+                eLng = it.lng ?:0.0
+                event_set_btn.text = getString(R.string.button_save_edit_profile)
+                event_set_btn.setOnClickListener { updateEvent() }
+                supportActionBar?.title = getString(R.string.title_edit_event)
+            }
         } else {
             event_set_btn.setOnClickListener { sendEvent() }
             Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
