@@ -69,6 +69,48 @@ class Storage { // TODO: divide?
             )
         }
 
+        fun putEvent(event: Event, handler: Handler<Int?>) {
+            with(event) {
+                date!!.also { date ->
+                    apiClient.putEvent(
+                        name!!,
+                        description!!,
+                        date.year!!,
+                        date.month!!,
+                        date.day!!,
+                        date.hour!!,
+                        date.minute!!,
+                        place?:"",
+                        lat!!,
+                        lng!!,
+                        authorid!!,
+                        avatar!!
+                    )?.enqueue(EventSender(handler))
+                }
+            }
+        }
+
+        fun updateEvent(eventid: Int, event: Event, handler: Handler<Boolean>) {
+            with(event) {
+                date!!.also { date ->
+                    apiClient.updateEvent(
+                        eventid,
+                        name!!,
+                        description!!,
+                        date.year!!,
+                        date.month!!,
+                        date.day!!,
+                        date.hour!!,
+                        date.minute!!,
+                        place?:"",
+                        lat!!,
+                        lng!!,
+                        avatar!!
+                    )?.enqueue(EventUpdater(handler))
+                }
+            }
+        }
+
         fun observeChatList(userid: Int, handler: Handler<List<ChatView>>) {
             var chatsCount: Int
             var lastMessageSum = 0

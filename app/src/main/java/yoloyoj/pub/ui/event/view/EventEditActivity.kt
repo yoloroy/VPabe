@@ -5,19 +5,19 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event_edit.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
+import yoloyoj.pub.models.Date
+import yoloyoj.pub.models.Event
 import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.utils.loacation.getter.LocationGetterActivity
 import yoloyoj.pub.utils.dateToString
 import yoloyoj.pub.utils.timeToString
-import yoloyoj.pub.web.apiClient
-import yoloyoj.pub.web.handlers.EventSender
-import yoloyoj.pub.web.handlers.EventUpdater
 import yoloyoj.pub.web.utils.CODE_GET_PICTURE
 import yoloyoj.pub.web.utils.chooseImage
 import yoloyoj.pub.web.utils.putImage
@@ -38,6 +38,26 @@ class EventEditActivity: AppCompatActivity() {
     private var ePlace: String? = ""
     private var eLat: Double? = 0.0
     private var eLng: Double? = 0.0
+
+    private val event: Event
+        get() {
+            return Event(
+                name = event_header_edit.text.toString(),
+                description = event_describe_header_edit.text.toString(),
+                date = Date(
+                    eYear,
+                    eMonth,
+                    eDay,
+                    eHour,
+                    eMinute
+                ),
+                place = ePlace?:"",
+                lat = eLat!!,
+                lng = eLng!!,
+                authorid = userId!!,
+                avatar = eventImageLink
+            )
+        }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -152,46 +172,24 @@ class EventEditActivity: AppCompatActivity() {
     }
 
     private fun sendEvent() {
-       apiClient.putEvent(
-           name = event_header_edit.text.toString(),
-           description = event_describe_header_edit.text.toString(),
-           year = eYear,
-           month = eMonth,
-           day = eDay,
-           hour = eHour,
-           minute = eMinute,
-           place = ePlace?:"",
-           lat = eLat!!,
-           lng = eLng!!,
-           authorid = userId!!,
-           avatar = eventImageLink
-        )?.enqueue(EventSender(applicationContext) {
-           val intent = Intent(this, EventActivity::class.java)
-           intent.putExtra("eventid", it)
-           startActivity(intent)
-           finish()
-       })
+        Storage.putEvent(event) {
+            val intent = Intent(this, EventActivity::class.java)
+            intent.putExtra("eventid", it)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun updateEvent() {
-        apiClient.updateEvent(
-            eventid = eventId!!,
-            name = event_header_edit.text.toString(),
-            description = event_describe_header_edit.text.toString(),
-            year = eYear,
-            month = eMonth,
-            day = eDay,
-            hour = eHour,
-            minute = eMinute,
-            place = ePlace?:"",
-            lat = eLat!!,
-            lng = eLng!!,
-            avatar = eventImageLink
-        )?.enqueue(EventUpdater(applicationContext) {
-            val intent = Intent(this, EventActivity::class.java)
-            intent.putExtra("eventid", eventId!!)
-            startActivity(intent)
-            finish()
-        })
+        Storage.updateEvent(eventId!!, event) {
+            if (it) {
+                val intent = Intent(this, EventActivity::class.java)
+                intent.putExtra("eventid", eventId!!)
+                startActivity(intent)
+                finish()
+            } else {
+                Toast.makeText(applicationContext, "Ошибка при сохранении данных", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }
