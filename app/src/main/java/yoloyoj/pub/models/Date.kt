@@ -12,13 +12,13 @@ class Date(
     var minute: Int? = null
 ) {
     val time: String
-        get() = "$hour:$minute"
+        get() = timeToString(hour?:0, minute?:0)
 
     val date: String
-        get() = "$day.$month.$year"
+        get() = dateToString(day?:0, month?:0, year?:0)
 
     override fun toString(): String {
-        return "${dateToString(day?:0, month?:0, year?:0)} ${timeToString(hour?:0, minute?:0)}"
+        return "$date $time"
     }
 
     fun toJsonString(): String {
