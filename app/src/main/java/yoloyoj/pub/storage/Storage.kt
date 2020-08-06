@@ -41,7 +41,12 @@ class Storage { // TODO: divide?
             avatar: String,
             handler: Handler<Pair<Boolean?, String?>>
         ) {
-            apiClient.regUser(name, phone, avatar).enqueue(UserSender {
+            var temp = phone
+            if (temp.startsWith('+')) {
+                temp = "${temp[1].toString().toInt()+1}${temp.slice(2 until temp.length)}"
+            }
+
+            apiClient.regUser(name, temp, avatar).enqueue(UserSender {
                 regResult, userid -> handler(regResult to userid)
             })
         }
