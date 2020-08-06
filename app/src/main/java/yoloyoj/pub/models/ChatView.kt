@@ -1,8 +1,8 @@
 package yoloyoj.pub.models
 
 class ChatView (
-    val chatid: Int? = null,
-    val userid: Int? = null,
+    val chatid: String? = null,
+    val userid: String? = null,
     val chatAvatar: String? = null,
     val lastMessage: Message? = null,
     val chatName: String? = null

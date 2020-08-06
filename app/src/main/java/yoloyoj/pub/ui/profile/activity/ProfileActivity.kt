@@ -18,8 +18,8 @@ import yoloyoj.pub.ui.profile.fragment.STANDARD_PROFILE_IMAGE
 
 class ProfileActivity: AppCompatActivity() {
 
-    private var selfUserId: Int? = 0 // me
-    private var profileUserId: Int = 0 // other user
+    private var selfUserId: String? = "0" // me
+    private var profileUserId: String = "0" // other user
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,15 +29,15 @@ class ProfileActivity: AppCompatActivity() {
         recyclerVisitedEventsActivity.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
 
         selfUserId = getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
-            ?.getInt(PREFERENCES_USERID, 1)
-        if (selfUserId == null || selfUserId == 0){
+            ?.getString(PREFERENCES_USERID, "1")
+        if (selfUserId == null || selfUserId == "0"){
             startActivity(Intent(applicationContext, LoginActivity::class.java))
             finish()
             return
         }
 
-        profileUserId = intent.getIntExtra("userid", 0)
-        if (profileUserId == 0) {
+        profileUserId = intent.getStringExtra("userid")
+        if (profileUserId == "0") {
             finish()
             return
         }

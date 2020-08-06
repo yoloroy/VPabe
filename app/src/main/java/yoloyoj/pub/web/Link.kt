@@ -17,8 +17,8 @@ const val v = "v1"
     @GET("$v/putmessage")
     fun putMessage(
         @Query("text") text: String,
-        @Query("sender") sender: Int,
-        @Query("chatid") chatid: Int,
+        @Query("sender") sender: String,
+        @Query("chatid") chatid: String,
         @Query("attachment_link") attachmentLink: String
     ): Call<ResponseBody?>?
 
@@ -34,19 +34,19 @@ const val v = "v1"
         @Query("place") place: String,
         @Query("lat") lat: Double,
         @Query("lng") lng: Double,
-        @Query("authorid") authorid: Int,
+        @Query("authorid") authorid: String,
         @Query("avatar") avatar: String
-    ): Call<Int?>?
+    ): Call<String?>?
 
     @GET("$v/getmessages")
     fun getMessages(
-        @Query("chatid") chatid: Int,
+        @Query("chatid") chatid: String,
         @Query("after") after: Int
     ): Call<List<Message>?>?
 
     @GET("$v/getuser")
     fun getUser(
-        @Query("userid") userid: Int = 0,
+        @Query("userid") userid: String = "0",
         @Query("telephone") telephone: String = ""
     ): Call<User?>
 
@@ -55,27 +55,27 @@ const val v = "v1"
         @Query("username") name: String,
         @Query("telephone") telephone: String,
         @Query("avatar") avatar: String
-    ): Call<Int>
+    ): Call<String>
 
     @GET("$v/getaction")
     fun getAction(): Call<String?>?
 
     @GET("$v/getevents")
     fun getEvents(
-        @Query("userid") userid: Int = 0,
-        @Query("eventid") eventid: Int = 0
+        @Query("userid") userid: String = "0",
+        @Query("eventid") eventid: String = "0"
     ): Call<List<Event>?>?
 
     @GET("$v/getchats")
     fun getChats(
-        @Query("userid") userid: Int = 0,
+        @Query("userid") userid: String = "0",
         @Query("chatscount") chatsCount: Int = 0,
         @Query("lms") lastMessageSum: Int = 0
     ): Call<List<ChatView>?>?
 
     @GET("$v/upduser")
     fun updateUser(
-        @Query("userid") userid: Int,
+        @Query("userid") userid: String,
         @Query("username") username: String,
         @Query("status") status: String,
         @Query("avatar") avatar: String
@@ -94,12 +94,12 @@ const val v = "v1"
    
     @GET("$v/getevent")
     fun getSingleEvent(
-        @Query("eventid") eventid: Int = 1
+        @Query("eventid") eventid: String = "1"
     ): Call<Event?>?
 
     @GET("$v/updevent")
     fun updateEvent(
-        @Query("eventid") eventid: Int,
+        @Query("eventid") eventid: String,
         @Query("name") name: String,
         @Query("description") description: String,
         @Query("year") year: Int,
@@ -115,32 +115,32 @@ const val v = "v1"
 
     @GET("$v/dosubscribe")
     fun subscribeOnEvent(
-        @Query("eventid") eventid: Int,
-        @Query("userid") userid: Int,
+        @Query("eventid") eventid: String,
+        @Query("userid") userid: String,
         @Query("subscribe") subscribe: String = "true"
     ): Call<ResponseBody?>?
 
     @GET("$v/checksubscribe")
     fun checkSubscribe(
-        @Query("eventid") eventid: Int,
-        @Query("userid") userid: Int
+        @Query("eventid") eventid: String,
+        @Query("userid") userid: String
     ): Call<Boolean?>?
 
     @GET("$v/getchatbyevent")
     fun getChatByEvent(
-        @Query("eventid") eventid: Int
-    ): Call<Int?>?
+        @Query("eventid") eventid: String
+    ): Call<String?>?
 
     @GET("$v/addtochat")
     fun addUserToChat(
-        @Query("chatid") chatid: Int,
-        @Query("userid") userid: Int
+        @Query("chatid") chatid: String,
+        @Query("userid") userid: String
     ): Call<ResponseBody?>?
 
     @GET("$v/checkinchat")
     fun isUserInChat(
-        @Query("chatid") chatid: Int,
-        @Query("userid") userid: Int
+        @Query("chatid") chatid: String,
+        @Query("userid") userid: String
     ): Call<Boolean?>?
 
     @GET("$v/checkme")

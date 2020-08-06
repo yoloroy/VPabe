@@ -1,12 +1,12 @@
 package yoloyoj.pub.models
 
 class Event(
-    var eventid: Int? = null,
+    var eventid: String? = null,
     var name: String? = null,
     var description: String? = null,
     var date: Date? = null,
     var like: Like? = null,
-    var authorid: Int? = null,
+    var authorid: String? = null,
     var place: String? = null,
     var lat: Double? = null,
     var lng: Double? = null,

@@ -57,8 +57,8 @@ class ProfileFragment : Fragment() {
 
         val userId = activity
             ?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
-            ?.getInt(PREFERENCES_USERID, 1)
-        if (userId == null || userId == 0){
+            ?.getString(PREFERENCES_USERID, "1")
+        if (userId == null || userId == "0"){
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
         }

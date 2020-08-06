@@ -6,14 +6,14 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ChatGetter(
-    var callback: (Int?) -> Unit
-) : Callback<Int?> {
+    var callback: (String?) -> Unit
+) : Callback<String?> {
 
-    override fun onFailure(call: Call<Int?>, t: Throwable) {
+    override fun onFailure(call: Call<String?>, t: Throwable) {
         callback(null)
     }
 
-    override fun onResponse(call: Call<Int?>, response: Response<Int?>) {
+    override fun onResponse(call: Call<String?>, response: Response<String?>) {
         Log.d("ChatId", response.body().toString())
         callback(response.body())
     }

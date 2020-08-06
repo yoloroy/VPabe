@@ -5,14 +5,14 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class EventSender(
-    var eventHandler: (Int?) -> Unit
-    ) : Callback<Int?> {
+    var eventHandler: (String?) -> Unit
+    ) : Callback<String?> {
 
-    override fun onFailure(call: Call<Int?>, t: Throwable) {
+    override fun onFailure(call: Call<String?>, t: Throwable) {
         eventHandler(null)
     }
 
-    override fun onResponse(call: Call<Int?>, response: Response<Int?>) {
+    override fun onResponse(call: Call<String?>, response: Response<String?>) {
         eventHandler(response.body())
     }
 }

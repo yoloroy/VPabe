@@ -7,7 +7,7 @@ import yoloyoj.pub.models.Message
 import yoloyoj.pub.storage.Storage
 
 class ChatViewModel : ViewModel() {
-    var chatid: Int? = null
+    var chatid: String? = null
 
     var messages = MessagesData().apply {
         value = emptyList()
@@ -17,7 +17,7 @@ class ChatViewModel : ViewModel() {
         value = mutableListOf()
     }
 
-    fun startMessageObserving(chatid: Int) {
+    fun startMessageObserving(chatid: String) {
         Storage.observeNewMessages(chatid, 0) { newMessages ->
             messages.value = messages.value!! + newMessages
         }

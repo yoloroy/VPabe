@@ -10,7 +10,7 @@ class ChatListViewModel : ViewModel() {
         value = emptyList()
     }
 
-    fun start(userid: Int) {
+    fun start(userid: String) {
         Storage.observeChatList(userid, handler = { updChats ->
             if (
                 (chats.value?.messagesSum() != updChats.messagesSum())

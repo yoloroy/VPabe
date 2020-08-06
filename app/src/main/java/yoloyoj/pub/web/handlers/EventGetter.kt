@@ -7,7 +7,7 @@ import retrofit2.Response
 import yoloyoj.pub.models.Event
 import yoloyoj.pub.utils.tryDefault
 
-const val ALL_EVENTS = 0
+const val ALL_EVENTS = "0"
 
 class EventGetter(
     var eventListener: ((List<Event>) -> Unit)? = null

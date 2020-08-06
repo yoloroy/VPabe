@@ -44,9 +44,9 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     @SuppressLint("ApplySharedPref")
-    private fun register(userid: Int) {
+    private fun register(userid: String) {
         getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE).edit().apply {
-            putInt(PREFERENCES_USERID, userid)
+            putString(PREFERENCES_USERID, userid)
             commit()
         }
 
@@ -101,7 +101,7 @@ class RegistrationActivity : AppCompatActivity() {
             .into(avatarEdit)
     }
 
-    fun checkCode(code: String, userid: Int) {
+    fun checkCode(code: String, userid: String) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_enter_code, null)
         val input = dialogView.findViewById<EditText>(R.id.input)
         val builder = AlertDialog.Builder(this).apply {
@@ -118,7 +118,7 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     @SuppressLint("ApplySharedPref")
-    fun onRegisterSuccess(userid: Int) {
+    fun onRegisterSuccess(userid: String) {
         register(userid)
     }
 

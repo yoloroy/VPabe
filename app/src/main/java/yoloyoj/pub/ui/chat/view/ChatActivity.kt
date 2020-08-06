@@ -29,8 +29,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var messages: MessagesData
     private lateinit var attachments: MutableLiveData<MutableList<Attachment>>
 
-    private var chatid: Int? = null
-    private var userid: Int = 0
+    private var chatid: String? = null
+    private var userid: String = "0"
 
     private val currentMessage: String // TODO?: convert to Message
         get() = editMessage.text.toString()
@@ -48,10 +48,10 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        chatid = intent.getIntExtra(EXTRA_CHATID, 0)
+        chatid = intent.getStringExtra(EXTRA_CHATID)
 
         userid = getSharedPreferences(MainActivity.PREFERENCES_USER, Context.MODE_PRIVATE)
-            .getInt(MainActivity.PREFERENCES_USERID, 0)
+            .getString(MainActivity.PREFERENCES_USERID, "0")!!
 
         viewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
         viewModel.chatid = chatid

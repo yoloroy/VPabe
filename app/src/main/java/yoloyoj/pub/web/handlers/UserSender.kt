@@ -9,14 +9,14 @@ const val REGISTERED_FALSE = false
 val REGISTERED_FAIL = null
 
 class UserSender(
-    var userUpdater: (Boolean?, Int?) -> Unit
-) : Callback<Int?> {
+    var userUpdater: (Boolean?, String?) -> Unit
+) : Callback<String?> {
 
-    override fun onFailure(call: Call<Int?>, t: Throwable) {
+    override fun onFailure(call: Call<String?>, t: Throwable) {
         userUpdater(REGISTERED_FAIL, null)
     }
 
-    override fun onResponse(call: Call<Int?>, response: Response<Int?>) {
-        userUpdater(response.body()!! != 0, response.body()!!)
+    override fun onResponse(call: Call<String?>, response: Response<String?>) {
+        userUpdater(response.body()!! != "0", response.body()!!)
     }
 }

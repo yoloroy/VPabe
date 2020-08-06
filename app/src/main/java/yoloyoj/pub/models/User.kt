@@ -1,7 +1,7 @@
 package yoloyoj.pub.models
 
 class User {
-    var userid: Int? = null
+    var userid: String? = null
     var username: String? = null
     var telephone: String? = null
     var avatar: String? = null

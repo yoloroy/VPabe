@@ -19,7 +19,7 @@ class LoadingActivity : AppCompatActivity() {
         Handler().postDelayed({
             if (
                 getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
-                    .getInt(PREFERENCES_USERID, 0) == 0
+                    .getString(PREFERENCES_USERID, "0") == "0"
             ) {
                 startActivity(Intent(this@LoadingActivity, LoginActivity::class.java))
                 finish()

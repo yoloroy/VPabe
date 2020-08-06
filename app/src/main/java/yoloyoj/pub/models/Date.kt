@@ -4,13 +4,21 @@ import yoloyoj.pub.utils.dateToString
 import yoloyoj.pub.utils.timeToString
 
 class Date(
-    var dateid: Int? = null,
+    var dateid: String? = null,
     var year: Int? = null,
     var month: Int? = null,
     var day: Int? = null,
     var hour: Int? = null,
     var minute: Int? = null
 ) {
+    constructor(
+        year: Int? = null,
+        month: Int? = null,
+        day: Int? = null,
+        hour: Int? = null,
+        minute: Int? = null
+    ) : this(null, year, month, day, hour, minute)
+
     val time: String
         get() = timeToString(hour?:0, minute?:0)
 

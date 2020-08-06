@@ -8,7 +8,7 @@ import yoloyoj.pub.models.ChatView
 import yoloyoj.pub.utils.tryDefault
 
 class ChatListGetter(
-    private val userid: Int,
+    private val userid: String,
     var chatListener: ((List<ChatView>) -> Unit)? = null
 ) : Callback<List<ChatView>?> {
 

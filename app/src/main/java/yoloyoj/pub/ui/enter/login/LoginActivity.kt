@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
     fun onLoginSuccess(user: User) {
         getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
             .edit().apply {
-                putInt(PREFERENCES_USERID, user.userid!!)
+                putString(PREFERENCES_USERID, user.userid!!)
                 commit()
             }
 

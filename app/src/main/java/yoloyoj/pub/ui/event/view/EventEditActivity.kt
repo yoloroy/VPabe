@@ -33,8 +33,8 @@ class EventEditActivity: AppCompatActivity() {
     private var eDay: Int = 0
     private var eHour: Int = 0
     private var eMinute: Int = 0
-    private var userId: Int? = 0
-    private var eventId: Int? = 0
+    private var userId: String? = "0"
+    private var eventId: String? = "0"
     private var ePlace: String? = ""
     private var eLat: Double? = 0.0
     private var eLng: Double? = 0.0
@@ -86,15 +86,15 @@ class EventEditActivity: AppCompatActivity() {
         setContentView(R.layout.activity_event_edit)
 
         userId = getSharedPreferences(MainActivity.PREFERENCES_USER, Context.MODE_PRIVATE)
-            ?.getInt(MainActivity.PREFERENCES_USERID, 1)
-        if (userId == null || userId == 0){
+            ?.getString(MainActivity.PREFERENCES_USERID, "1")
+        if (userId == null || userId == "0"){
             startActivity(Intent(applicationContext, LoginActivity::class.java))
             finish()
         }
 
-        eventId = intent?.getIntExtra("eventid", 0)
+        eventId = intent?.getStringExtra("eventid")!!
 
-        if (eventId != null && eventId != 0){
+        if (eventId != null && eventId != "0"){
             Storage.getEvent(eventId!!) {
                 event_header_edit.setText(it.name)
                 event_describe_header_edit.setText(it.description)

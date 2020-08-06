@@ -15,10 +15,10 @@ class Storage { // TODO: divide?
         // region user
         fun getUser(
             phone: String = "",
-            userid: Int = 0, // temporary
+            userid: String = "0", // temporary
             handler: Handler<User>
         ) {
-            if ((userid != 0) or (phone != "")) {
+            if ((userid != "0") or (phone != "")) {
                 var temp = phone
                 if (temp.startsWith('+')) {
                     temp = "${temp[1].toString().toInt()+1}${temp.slice(2 until temp.length)}"
@@ -39,7 +39,7 @@ class Storage { // TODO: divide?
             name: String,
             phone: String,
             avatar: String,
-            handler: Handler<Pair<Boolean?, Int?>>
+            handler: Handler<Pair<Boolean?, String?>>
         ) {
             apiClient.regUser(name, phone, avatar).enqueue(UserSender {
                 regResult, userid -> handler(regResult to userid)
@@ -47,7 +47,7 @@ class Storage { // TODO: divide?
         }
 
         fun updateUser(
-            userid: Int,
+            userid: String,
             name: String,
             status: String,
             avatarLink: String,
@@ -65,7 +65,7 @@ class Storage { // TODO: divide?
         // endregion
 
         // region events
-        fun observeAllEvents(handler: Handler<List<Event>>, eventid: Int = 0) {
+        fun observeAllEvents(handler: Handler<List<Event>>, eventid: String = "0") {
             apiClient.getEvents(
                 ALL_EVENTS, eventid
             )?.enqueue(EventGetter { events ->
@@ -85,13 +85,13 @@ class Storage { // TODO: divide?
             })
         }
 
-        fun getEventsForUser(userid: Int, handler: Handler<List<Event>>) {
+        fun getEventsForUser(userid: String, handler: Handler<List<Event>>) {
             apiClient.getEvents(
-                userid, 0
+                userid, "0"
             )?.enqueue(EventGetter { handler(it) })
         }
 
-        fun getEvent(eventid: Int, handler: Handler<Event>) {
+        fun getEvent(eventid: String, handler: Handler<Event>) {
             apiClient.getSingleEvent(
                 eventid
             )?.enqueue(
@@ -106,7 +106,7 @@ class Storage { // TODO: divide?
             )
         }
 
-        fun putEvent(event: Event, handler: Handler<Int?>) {
+        fun putEvent(event: Event, handler: Handler<String?>) {
             with(event) {
                 date!!.also { date ->
                     apiClient.putEvent(
@@ -127,7 +127,7 @@ class Storage { // TODO: divide?
             }
         }
 
-        fun updateEvent(eventid: Int, event: Event, handler: Handler<Boolean>) {
+        fun updateEvent(eventid: String, event: Event, handler: Handler<Boolean>) {
             with(event) {
                 date!!.also { date ->
                     apiClient.updateEvent(
@@ -149,7 +149,7 @@ class Storage { // TODO: divide?
         }
 
         fun observeChatList(
-            userid: Int,
+            userid: String,
             handler: Handler<List<ChatView>>,
             chatsCount: Int = 0,
             lastMessageSum: Int = 0
@@ -167,7 +167,7 @@ class Storage { // TODO: divide?
             })
         }
 
-        fun getChatId(eventid: Int, handler: Handler<Int>) { // TODO: refactor to returning objects
+        fun getChatId(eventid: String, handler: Handler<String>) { // TODO: refactor to returning objects
             var chatGetter: ChatGetter? = null
 
             chatGetter = ChatGetter {
@@ -184,7 +184,7 @@ class Storage { // TODO: divide?
                 ?.enqueue(chatGetter)
         }
 
-        fun checkIsUserInChat(userid: Int, chatid: Int, handler: Handler<Boolean>) {
+        fun checkIsUserInChat(userid: String, chatid: String, handler: Handler<Boolean>) {
             apiClient.isUserInChat(
                 userid = userid,
                 chatid = chatid
@@ -193,7 +193,7 @@ class Storage { // TODO: divide?
             )
         }
 
-        fun checkIsUserSubscribed(userid: Int, eventid: Int, handler: Handler<Boolean>) {
+        fun checkIsUserSubscribed(userid: String, eventid: String, handler: Handler<Boolean>) {
             apiClient.checkSubscribe(
                 eventid = eventid,
                 userid = userid
@@ -209,7 +209,7 @@ class Storage { // TODO: divide?
             )
         }
 
-        fun addUserToChat(userid: Int, chatid: Int, handler: Handler<Unit>) {
+        fun addUserToChat(userid: String, chatid: String, handler: Handler<Unit>) {
             apiClient.addUserToChat(
                 chatid = chatid,
                 userid = userid
@@ -221,7 +221,7 @@ class Storage { // TODO: divide?
             )
         }
 
-        fun subscribe(userid: Int, eventid: Int, handler: Handler<Unit>) {
+        fun subscribe(userid: String, eventid: String, handler: Handler<Unit>) {
             apiClient.subscribeOnEvent(
                 eventid = eventid,
                 userid = userid
@@ -232,8 +232,8 @@ class Storage { // TODO: divide?
         // region chat
         fun sendMessage(
             text: String,
-            userid: Int,
-            chatid: Int,
+            userid: String,
+            chatid: String,
             attachments: List<Attachment>,
             handler: Handler<Boolean>
         ) {
@@ -246,7 +246,7 @@ class Storage { // TODO: divide?
         }
 
         fun observeNewMessages(
-            chatid: Int, after: Int, handler: Handler<List<Message>>
+            chatid: String, after: Int, handler: Handler<List<Message>>
         ) {
             apiClient.getMessages(
                 chatid, after

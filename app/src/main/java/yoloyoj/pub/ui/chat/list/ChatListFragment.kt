@@ -28,7 +28,7 @@ class ChatListFragment : Fragment() {
         chats = viewModel.chats
         viewModel.start(
             activity!!.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
-                .getInt(PREFERENCES_USERID, 0)
+                .getString(PREFERENCES_USERID, "0")!!
         )
 
         return inflater.inflate(R.layout.fragment_chat_list, container, false)
