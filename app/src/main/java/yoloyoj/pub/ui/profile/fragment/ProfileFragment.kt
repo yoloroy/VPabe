@@ -58,13 +58,16 @@ class ProfileFragment : Fragment() {
         val userId = activity
             ?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
             ?.getString(PREFERENCES_USERID, "1")
-        if (userId == null || userId == "0"){
-            startActivity(Intent(context, LoginActivity::class.java))
-            activity?.finish()
-        }
+        if (userId == null || userId == "0")
+            goLogin()
 
         userId!!
         Storage.getUser(userid = userId) { user ->
+            if (user == null) {
+                goLogin()
+                return@getUser
+            }
+
             if (user.avatar.isNullOrEmpty()) {
                 Picasso.get().load(STANDARD_PROFILE_IMAGE).into(userImage)
             } else {
@@ -118,5 +121,10 @@ class ProfileFragment : Fragment() {
                 )
         }
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    fun goLogin() {
+        startActivity(Intent(context, LoginActivity::class.java))
+        activity?.finish()
     }
 }

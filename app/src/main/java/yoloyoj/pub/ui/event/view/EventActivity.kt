@@ -79,7 +79,7 @@ class EventActivity : AppCompatActivity() {
         }
 
         Storage.getUser(userid = event.authorid!!) { author ->
-            eventAuthorName.text = getString(R.string.event_author_name, author.username)
+            eventAuthorName.text = getString(R.string.event_author_name, author!!.username)
         }
     }
 

@@ -2,6 +2,8 @@ package yoloyoj.pub.models
 
 import yoloyoj.pub.utils.dateToString
 import yoloyoj.pub.utils.timeToString
+import yoloyoj.pub.utils.tryDefault
+import java.util.Date as JDate
 
 class Date(
     var dateid: String? = null,
@@ -37,4 +39,9 @@ class Date(
                 "time=${this.time}\n" +
                 " }"
     }
+
+    val javaDate: JDate get() =
+        tryDefault(JDate()) {
+            JDate(year!!, month!!, day!!, hour!!, minute!!)
+        }
 }

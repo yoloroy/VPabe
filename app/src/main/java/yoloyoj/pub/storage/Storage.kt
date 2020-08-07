@@ -1,9 +1,17 @@
 package yoloyoj.pub.storage
 
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import yoloyoj.pub.models.*
-import yoloyoj.pub.utils.tryDefault
-import yoloyoj.pub.web.apiClient
-import yoloyoj.pub.web.handlers.*
+import yoloyoj.pub.models.firebase.Event.Companion.MESSAGES
+import yoloyoj.pub.models.firebase.Event.Companion.SUBSCRIBERS
+import java.util.Date
+import yoloyoj.pub.models.firebase.Attachment as FAttachment
+import yoloyoj.pub.models.firebase.Event as FEvent
+import yoloyoj.pub.models.firebase.Message as FMessage
+import yoloyoj.pub.models.firebase.User as FUser
 
 typealias Handler<T> = (T) -> Unit
 
@@ -12,26 +20,47 @@ class Storage { // TODO: divide?
         const val USERS = "users"
         const val EVENTS = "events"
 
+        private val db = FirebaseFirestore.getInstance()
+
+        val users: CollectionReference
+            get() = db.collection(USERS)
+
+        val events: CollectionReference
+            get() = db.collection(EVENTS)
+
         // region user
         fun getUser(
             phone: String = "",
             userid: String = "0", // temporary
-            handler: Handler<User>
-        ) {
+            handler: Handler<User?>
+        ) { // TODO: add failure handler
             if ((userid != "0") or (phone != "")) {
                 var temp = phone
                 if (temp.startsWith('+')) {
                     temp = "${temp[1].toString().toInt()+1}${temp.slice(2 until temp.length)}"
                 }
 
-                apiClient.getUser(userid, temp).enqueue(UserGetter {
-                    if (it == null) {
-                        getUser(temp, userid, handler)
-                        return@UserGetter
-                    }
-
-                    handler(it)
-                })
+                // TODO: divide?
+                if (userid != "0") {
+                    users.document(userid)
+                        .get()
+                        .addOnSuccessListener {
+                            handler(
+                                it.toObject(FUser::class.java)
+                                    ?.toApp(it.reference.id)
+                            )
+                        }
+                } else {
+                    users
+                        .whereEqualTo(FUser.PHONE, temp)
+                        .get()
+                        .addOnSuccessListener {
+                            handler(
+                                it.last().toObject(FUser::class.java)
+                                    .toApp(it.last().reference.id)
+                            )
+                        }
+                }
             }
         }
 
@@ -46,9 +75,21 @@ class Storage { // TODO: divide?
                 temp = "${temp[1].toString().toInt()+1}${temp.slice(2 until temp.length)}"
             }
 
-            apiClient.regUser(name, temp, avatar).enqueue(UserSender {
-                regResult, userid -> handler(regResult to userid)
-            })
+
+            val userMap: HashMap<String, Any> = FUser.run {
+                hashMapOf(
+                    NAME to name,
+                    PHONE to temp,
+                    AVATAR to avatar,
+                    STATUS to ""
+                )
+            }
+
+            users
+                .add(userMap)
+                .addOnCompleteListener {
+                    handler(it.isSuccessful to it.result?.id)
+                }
         }
 
         fun updateUser(
@@ -58,99 +99,103 @@ class Storage { // TODO: divide?
             avatarLink: String,
             handler: Handler<Boolean>
         ) {
-            apiClient.updateUser(
-                userid,
-                name,
-                status,
-                avatarLink
-            )?.enqueue(
-                UserUpdater(handler)
-            )
+            val userMap: HashMap<String, Any> = FUser.run {
+                hashMapOf(
+                    NAME to name,
+                    AVATAR to avatarLink,
+                    STATUS to status
+                )
+            }
+
+            users.document(userid)
+                .update(userMap)
+                .addOnCompleteListener { handler(it.isSuccessful) }
         }
         // endregion
 
         // region events
         fun observeAllEvents(handler: Handler<List<Event>>, eventid: String = "0") {
-            apiClient.getEvents(
-                ALL_EVENTS, eventid
-            )?.enqueue(EventGetter { events ->
-                handler(events)
-
-                // recursion repeating
-                observeAllEvents(
-                    handler,
-                    events.map { it.eventid!! }.maxBy { it }!!
-                )
-            })
+            events
+                .addSnapshotListener { value, _ ->
+                    handler(value!!.map {
+                        it.toObject(FEvent::class.java).toApp(it.id)
+                    })
+                }
         }
 
         fun getEventsBySearch(query: String, handler: Handler<List<Event>>) {
-            apiClient.getSearchedEvents(query)!!.enqueue(EventGetter {
-                handler(it)
-            })
+            // TODO: do search by Algolia
+            events
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    handler(
+                        snapshot
+                            .map {
+                                it.toObject(FEvent::class.java).toApp(it.id)
+                            }
+                            .filter {
+                                (query in it.name!!) or (query in (it.description?: ""))
+                            }
+                    )
+                }
         }
 
         fun getEventsForUser(userid: String, handler: Handler<List<Event>>) {
-            apiClient.getEvents(
-                userid, "0"
-            )?.enqueue(EventGetter { handler(it) })
+            events
+                .whereArrayContains(SUBSCRIBERS, users.document(userid))
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    handler(snapshot.map {
+                        it.toObject(FEvent::class.java).toApp(it.id)
+                    })
+                }
         }
 
         fun getEvent(eventid: String, handler: Handler<Event>) {
-            apiClient.getSingleEvent(
-                eventid
-            )?.enqueue(
-                SingleEventGetter {
-                    if (it == null) {
-                        getEvent(eventid, handler)
-                        return@SingleEventGetter
-                    }
-
-                    handler(it)
+            events.document(eventid)
+                .get()
+                .addOnSuccessListener {
+                    handler(it.toObject(FEvent::class.java)!!.toApp(it.id))
                 }
-            )
         }
 
         fun putEvent(event: Event, handler: Handler<String?>) {
             with(event) {
-                date!!.also { date ->
-                    apiClient.putEvent(
-                        name!!,
-                        description!!,
-                        date.year!!,
-                        date.month!!,
-                        date.day!!,
-                        date.hour!!,
-                        date.minute!!,
-                        place?:"",
-                        lat!!,
-                        lng!!,
-                        authorid!!,
-                        avatar!!
-                    )?.enqueue(EventSender(handler))
-                }
+                events
+                    .add(
+                        FEvent(
+                            author = users.document(authorid!!),
+                            avatar = avatar,
+                            name = name,
+                            description = description,
+                            likes = 0,
+                            messages = emptyList(),
+                            place = place,
+                            latlng = GeoPoint(lat!!, lng!!),
+                            date = Timestamp(date?.javaDate?: Date()),
+                            subscribers = emptyList()
+                        )
+                    )
+                    .addOnSuccessListener { handler(it.id) }
             }
         }
 
         fun updateEvent(eventid: String, event: Event, handler: Handler<Boolean>) {
+            with(FEvent) {
             with(event) {
-                date!!.also { date ->
-                    apiClient.updateEvent(
-                        eventid,
-                        name!!,
-                        description!!,
-                        date.year!!,
-                        date.month!!,
-                        date.day!!,
-                        date.hour!!,
-                        date.minute!!,
-                        place?:"",
-                        lat!!,
-                        lng!!,
-                        avatar!!
-                    )?.enqueue(EventUpdater(handler))
-                }
-            }
+                events.document(eventid)
+                    .update(
+                        hashMapOf<String, Any?>(
+                            AVATAR to avatar,
+                            NAME to name,
+                            DESCRIPTION to description,
+                            PLACE to place,
+                            LATLNG to GeoPoint(lat!!, lng!!),
+                            DATE to Timestamp(date?.javaDate?: Date())
+                        )
+                    )
+                    .addOnCompleteListener { handler(it.isSuccessful) }
+            }}
         }
 
         fun observeChatList(
@@ -159,82 +204,83 @@ class Storage { // TODO: divide?
             chatsCount: Int = 0,
             lastMessageSum: Int = 0
         ) {
-            apiClient.getChats(
-                userid, chatsCount, lastMessageSum
-            )?.enqueue(ChatListGetter(userid) { chats ->
-                handler(chats)
-
-                observeChatList(
-                    userid, handler,
-                    chats.count(),
-                    tryDefault(lastMessageSum) { chats.sumBy { it.lastMessage!!._rowid_!! } }
-                )
-            })
+            events
+                .whereArrayContains(SUBSCRIBERS, users.document(userid))
+                .addSnapshotListener { snapshot, error ->
+                    handler(
+                        snapshot!!
+                            .map {
+                                it.toObject(FEvent::class.java) to it.id
+                            }
+                            .mapIndexed { i, (event, id) ->
+                                ChatView(
+                                    id,
+                                    null,
+                                    event.avatar,
+                                    event.messages?.last()?.toApp(i, id),
+                                    event.name
+                                )
+                            }
+                    )
+                }
         }
 
         fun getChatId(eventid: String, handler: Handler<String>) { // TODO: refactor to returning objects
-            var chatGetter: ChatGetter? = null
-
-            chatGetter = ChatGetter {
-                if (it == null)
-                    apiClient
-                        .getChatByEvent(eventid)
-                        ?.enqueue(chatGetter!!)
-                else
-                    handler(it)
-            }
-
-            apiClient
-                .getChatByEvent(eventid)
-                ?.enqueue(chatGetter)
+            handler(eventid)
         }
 
-        fun checkIsUserInChat(userid: String, chatid: String, handler: Handler<Boolean>) {
-            apiClient.isUserInChat(
-                userid = userid,
-                chatid = chatid
-            )?.enqueue(
-                UserInChatChecker{ it?.let { it1 -> handler(it1) } }
-            )
-        }
+        fun checkIsUserInChat(userid: String, chatid: String, handler: Handler<Boolean>) =
+            checkIsUserSubscribed(userid, chatid, handler)
 
         fun checkIsUserSubscribed(userid: String, eventid: String, handler: Handler<Boolean>) {
-            apiClient.checkSubscribe(
-                eventid = eventid,
-                userid = userid
-            )?.enqueue(
-                EventRegistrationChecker {
-                    if (it == null) {
-                        checkIsUserSubscribed(userid, eventid, handler)
-                        return@EventRegistrationChecker
-                    }
-
-                    handler(it)
+            events.document(eventid)
+                .get()
+                .addOnSuccessListener {
+                    handler(
+                        users.document(userid) in it.toObject(FEvent::class.java)!!.subscribers?: emptyList()
+                    )
                 }
-            )
         }
 
         fun addUserToChat(userid: String, chatid: String, handler: Handler<Unit>) {
-            apiClient.addUserToChat(
-                chatid = chatid,
-                userid = userid
-            )?.enqueue(
-                AddToChatSender { isAdded ->
-                    if (isAdded) handler(Unit)
-                    // TODO: add error handler?
-                }
-            )
+            subscribe(userid, chatid, handler)
         }
 
         fun subscribe(userid: String, eventid: String, handler: Handler<Unit>) {
-            apiClient.subscribeOnEvent(
-                eventid = eventid,
-                userid = userid
-            )?.enqueue(EventSubscriber { handler(Unit) })
+            val eventRef = events.document(eventid)
+
+            eventRef.get()
+                .addOnSuccessListener {
+                    val event = it.toObject(FEvent::class.java)!!
+                    eventRef
+                        .update(SUBSCRIBERS, event.subscribers?.plus(users.document(userid)))
+                        .addOnSuccessListener {
+                            handler(Unit)
+                        }
+                }
         }
         // endregion
 
         // region chat
+        fun getMessages(chatid: String, handler: Handler<List<Message>>) {
+            getChatSubscribers(chatid) { subs ->
+                events.document(chatid)
+                    .get()
+                    .addOnSuccessListener { event ->
+                        handler(
+                            event.toObject(FEvent::class.java)!!
+                                .messages!!.mapIndexed { i, it ->
+                                it
+                                    .apply {
+                                        _sender = subs[it.sender!!.id]
+                                    }
+                                    .toApp(i, chatid)
+                            }
+                        )
+                    }
+            }
+        }
+
         fun sendMessage(
             text: String,
             userid: String,
@@ -242,32 +288,68 @@ class Storage { // TODO: divide?
             attachments: List<Attachment>,
             handler: Handler<Boolean>
         ) {
-            apiClient.putMessage(
-                text,
-                userid,
-                chatid,
-                attachments.map{ it.attachment_link }.joinToString(";")
-            )?.enqueue(MessageSender(handler))
+            val eventRef = events.document(chatid)
+
+            eventRef.get()
+                .addOnSuccessListener { snapshot ->
+                    val event = snapshot.toObject(FEvent::class.java)!!
+                    eventRef.update(
+                        MESSAGES,
+                        event.messages?.plus(
+                            FMessage(
+                                users.document(userid),
+                                text,
+                                attachments.map { FAttachment.fromApp(it) }
+                            ).apply {
+                                users.document(userid).get()
+                                    .addOnSuccessListener {
+                                        _sender = it.toObject(FUser::class.java)
+                                        handler(true)
+                                    }
+                            }
+                        )
+                    )
+                }
         }
 
         fun observeNewMessages(
             chatid: String, after: Int, handler: Handler<List<Message>>
         ) {
-            apiClient.getMessages(
-                chatid, after
-            )?.enqueue(MessageGetter { newMessages ->
-                handler(newMessages)
-
-                observeNewMessages(
-                    chatid,
-                    when {
-                        newMessages.isNotEmpty() -> newMessages.last()._rowid_!!
-                        else -> after
-                    },
-                    handler
-                )
-            })
+            getChatSubscribers(chatid) { subs ->
+                events.document(chatid).addSnapshotListener { snapshot, error ->
+                    val event = snapshot!!.toObject(FEvent::class.java)!!
+                    handler(event.messages!!
+                        .filterIndexed { index, _ -> index > after }
+                        .mapIndexed { i, it ->
+                            it
+                                .apply {
+                                    _sender = subs[it.sender!!.id]
+                                }
+                                .toApp(i, chatid)
+                        }
+                    )
+                }
+            }
         }
         // endregion
+
+        private fun getChatSubscribers(chatid: String, handler: Handler<Map<String, FUser>>) {
+            events.document(chatid)
+                .get()
+                .addOnSuccessListener {
+                    val subs = hashMapOf<String, FUser>()
+                    val subRefs = it.toObject(FEvent::class.java)!!.subscribers!!
+
+                    subRefs.mapIndexed { index, userRef ->
+                        userRef.get()
+                            .addOnSuccessListener { userSnap ->
+                                subs[userRef.id] = userSnap.toObject(FUser::class.java)!!
+
+                                if (index == subRefs.lastIndex)
+                                    handler(subs)
+                            }
+                    }
+                }
+        }
     }
 }

@@ -18,6 +18,10 @@ class ChatViewModel : ViewModel() {
     }
 
     fun startMessageObserving(chatid: String) {
+        Storage.getMessages(chatid) {
+            messages.value = it
+        }
+
         Storage.observeNewMessages(chatid, 0) { newMessages ->
             messages.value = messages.value!! + newMessages
         }

@@ -8,10 +8,21 @@ public class User (
     val phone: String? = null,
     val avatar: String? = null
 ) {
-    constructor() : this(null)
-    fun toApp(id: String): User {
-        return User(
-
-        )
+    companion object {
+        const val AVATAR = "avatar"
+        const val NAME = "name"
+        const val PHONE = "phone"
+        const val STATUS = "status"
     }
+
+    constructor() : this(null)
+
+    fun toApp(id: String): User = // :poop: temporary
+        User().apply {
+            userid = id
+            username = name
+            telephone = phone
+            avatar = this@User.avatar
+            status = this@User.status
+        }
 }

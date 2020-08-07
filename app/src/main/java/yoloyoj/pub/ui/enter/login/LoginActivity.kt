@@ -40,6 +40,11 @@ class LoginActivity : AppCompatActivity() {
 
     public fun onClickLogin(view: View) {
         Storage.getUser(phone = editTextPhone.text.toString()) {
+            if (it == null) {
+                showWrongInputMessage()
+
+                return@getUser
+            }
             apiClient.checkMe(editTextPhone.text.toString())!!.enqueue(object : Callback<String?> {
                 override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
 

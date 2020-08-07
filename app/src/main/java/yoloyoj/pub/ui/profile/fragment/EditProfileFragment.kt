@@ -38,6 +38,7 @@ class EditProfileFragment: Fragment() {
             activity?.finish()
         }
         Storage.getUser(userid = userId!!) { user ->
+            user!!
             if (user.avatar!!.isNotBlank())
                 Picasso.get().load(user.avatar).into(editUserImage)
             editUserName.setText(user.username)

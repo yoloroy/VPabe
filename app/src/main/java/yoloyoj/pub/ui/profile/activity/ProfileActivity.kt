@@ -43,6 +43,7 @@ class ProfileActivity: AppCompatActivity() {
         }
 
         Storage.getUser(userid = profileUserId) { user ->
+            user!!
             if (user.avatar.isNullOrEmpty()) {
                 Picasso.get().load(STANDARD_PROFILE_IMAGE).into(userImageActivity)
             } else {
