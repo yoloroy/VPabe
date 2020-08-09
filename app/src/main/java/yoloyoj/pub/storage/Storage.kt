@@ -46,8 +46,11 @@ class Storage { // TODO: divide?
                         .get()
                         .addOnSuccessListener {
                             handler(
-                                it.toObject(FUser::class.java)
-                                    ?.toApp(it.reference.id)
+                                it.toObject(FUser::class.java)!!
+                                    .apply {
+                                        id = it.reference.id
+                                    }
+                                    .toApp()
                             )
                         }
                 } else {
@@ -57,7 +60,10 @@ class Storage { // TODO: divide?
                         .addOnSuccessListener {
                             handler(
                                 it.last().toObject(FUser::class.java)
-                                    .toApp(it.last().reference.id)
+                                    .apply {
+                                        id = it.last().reference.id
+                                    }
+                                    .toApp()
                             )
                         }
                 }
@@ -114,11 +120,15 @@ class Storage { // TODO: divide?
         // endregion
 
         // region events
-        fun observeAllEvents(handler: Handler<List<Event>>, eventid: String = "0") {
+        fun observeAllEvents(handler: Handler<List<Event>>) {
             events
                 .addSnapshotListener { value, _ ->
                     handler(value!!.map {
-                        it.toObject(FEvent::class.java).toApp(it.id)
+                        it.toObject(FEvent::class.java)
+                            .apply {
+                                id = it.id
+                            }
+                            .toApp()
                     })
                 }
         }
@@ -131,7 +141,11 @@ class Storage { // TODO: divide?
                     handler(
                         snapshot
                             .map {
-                                it.toObject(FEvent::class.java).toApp(it.id)
+                                it.toObject(FEvent::class.java)
+                                    .apply {
+                                        id = it.id
+                                    }
+                                    .toApp()
                             }
                             .filter {
                                 (query in it.name!!) or (query in (it.description?: ""))
@@ -146,7 +160,11 @@ class Storage { // TODO: divide?
                 .get()
                 .addOnSuccessListener { snapshot ->
                     handler(snapshot.map {
-                        it.toObject(FEvent::class.java).toApp(it.id)
+                        it.toObject(FEvent::class.java)
+                            .apply {
+                                id = it.id
+                            }
+                            .toApp()
                     })
                 }
         }
@@ -155,7 +173,13 @@ class Storage { // TODO: divide?
             events.document(eventid)
                 .get()
                 .addOnSuccessListener {
-                    handler(it.toObject(FEvent::class.java)!!.toApp(it.id))
+                    handler(
+                        it.toObject(FEvent::class.java)!!
+                            .apply {
+                                id = it.id
+                            }
+                            .toApp()
+                    )
                 }
         }
 
@@ -200,13 +224,11 @@ class Storage { // TODO: divide?
 
         fun observeChatList(
             userid: String,
-            handler: Handler<List<ChatView>>,
-            chatsCount: Int = 0,
-            lastMessageSum: Int = 0
+            handler: Handler<List<ChatView>>
         ) {
             events
                 .whereArrayContains(SUBSCRIBERS, users.document(userid))
-                .addSnapshotListener { snapshot, error ->
+                .addSnapshotListener { snapshot, _ ->
                     handler(
                         snapshot!!
                             .map {

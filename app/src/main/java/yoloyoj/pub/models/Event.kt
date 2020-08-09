@@ -1,16 +1,16 @@
 package yoloyoj.pub.models
 
-class Event(
-    var eventid: String? = null,
-    var name: String? = null,
-    var description: String? = null,
-    var date: Date? = null,
-    var like: Like? = null,
-    var authorid: String? = null,
-    var place: String? = null,
-    var lat: Double? = null,
-    var lng: Double? = null,
-    var avatar: String? = null
+open class Event(
+    open val eventid: String? = null,
+    open val name: String? = null,
+    open val description: String? = null,
+    open val date: Date? = null,
+    open val like: Like? = null,
+    open val authorid: String? = null,
+    open val place: String? = null,
+    open val lat: Double? = null,
+    open val lng: Double? = null,
+    open val avatar: String? = null
 ) {
     override fun toString(): String {
         return "{ \n" +

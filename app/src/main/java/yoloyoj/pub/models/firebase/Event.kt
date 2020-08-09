@@ -21,8 +21,6 @@ public data class Event (
     val date: Timestamp? = null,
     val subscribers: List<DocumentReference>? = null
 ) {
-    val javaDate: java.util.Date? get() = date?.toDate()
-
     companion object {
         const val AUTHOR = "author"
         const val AVATAR = "avatar"
@@ -36,9 +34,12 @@ public data class Event (
         const val SUBSCRIBERS = "subscribers"
     }
 
+    val javaDate: java.util.Date? get() = date?.toDate()
+    lateinit var id: String
+
     constructor() : this(null)
 
-    fun toApp(id: String): Event =
+    fun toApp(): Event =
         Event(
             eventid = id,
             name = name,

@@ -15,9 +15,11 @@ public class User (
         const val STATUS = "status"
     }
 
+    lateinit var id: String
+
     constructor() : this(null)
 
-    fun toApp(id: String): User = // :poop: temporary
+    fun toApp(): User = // :poop: temporary
         User().apply {
             userid = id
             username = name
