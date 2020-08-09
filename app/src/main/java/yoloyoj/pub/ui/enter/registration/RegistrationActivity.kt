@@ -21,12 +21,13 @@ import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
 import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.web.apiClient
-import yoloyoj.pub.web.handlers.REGISTERED_FAIL
-import yoloyoj.pub.web.handlers.REGISTERED_FALSE
-import yoloyoj.pub.web.handlers.REGISTERED_TRUE
 import yoloyoj.pub.web.utils.CODE_GET_PICTURE
 import yoloyoj.pub.web.utils.chooseImage
 import yoloyoj.pub.web.utils.putImage
+
+const val REGISTERED_TRUE = true
+const val REGISTERED_FALSE = false
+val REGISTERED_FAIL = null
 
 class RegistrationActivity : AppCompatActivity() {
 
