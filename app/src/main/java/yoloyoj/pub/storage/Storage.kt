@@ -252,7 +252,7 @@ class Storage { // TODO: divide?
         }
 
         fun checkIsUserInChat(userid: String, chatid: String, handler: Handler<Boolean>) =
-            checkIsUserSubscribed(userid, chatid, handler)
+            checkIsUserSubscribed(userid, chatid, handler) // TODO
 
         fun checkIsUserSubscribed(userid: String, eventid: String, handler: Handler<Boolean>) {
             events.document(eventid)
