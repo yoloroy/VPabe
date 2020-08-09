@@ -1,5 +1,7 @@
 package yoloyoj.pub.models
 
+import yoloyoj.pub.models.firebase.Event
+
 open class Event(
     open val eventid: String? = null,
     open val name: String? = null,
@@ -10,7 +12,8 @@ open class Event(
     open val place: String? = null,
     open val lat: Double? = null,
     open val lng: Double? = null,
-    open val avatar: String? = null
+    open val avatar: String? = null,
+    open val origin: Event? = null
 ) {
     override fun toString(): String {
         return "{ \n" +

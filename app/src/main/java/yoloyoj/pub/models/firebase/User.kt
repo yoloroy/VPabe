@@ -26,5 +26,6 @@ public class User (
             telephone = phone
             avatar = this@User.avatar
             status = this@User.status
+            origin = this@User
         }
 }

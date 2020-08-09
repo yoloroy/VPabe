@@ -52,6 +52,7 @@ public data class Event (
             avatar = avatar,
             date = with(javaDate!!) {
                 Date(year, month, day, hours, minutes)
-            }
+            },
+            origin = this
         )
 }
