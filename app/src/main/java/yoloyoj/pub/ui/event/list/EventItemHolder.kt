@@ -8,26 +8,16 @@ import kotlinx.android.synthetic.main.item_events_list.view.*
 import yoloyoj.pub.models.Event
 import yoloyoj.pub.ui.event.view.EventActivity
 import yoloyoj.pub.ui.event.view.STANDARD_EVENT_IMAGE
-import yoloyoj.pub.utils.dateToString
-import yoloyoj.pub.utils.timeToString
 
 class EventItemHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        lateinit var eventItem: Event
         fun bind(eventItem: Event) {
-            view.apply {
-
+            with(view) {
                 event_name_header.text = eventItem.name
                 event_describe_header.text = eventItem.description
-                event_date_header.text = dateToString(
-                    eventItem.date?.day?:0,
-                    eventItem.date?.month?:0,
-                    eventItem.date?.year?:0
-                ) + " " + timeToString(
-                    eventItem.date?.hour?:0,
-                    eventItem.date?.minute?:0
-                ) // TODO: Replace with a resource string
+                event_date_header.text = eventItem.beautyDate
                 event_place_header.text = eventItem.place
+
                 if (eventItem.avatar.isNullOrEmpty()) {
                     Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
                 } else {
@@ -35,12 +25,10 @@ class EventItemHolder(val view: View) : RecyclerView.ViewHolder(view) {
                 }
                 setOnClickListener {
                     val intent = Intent(context,  EventActivity::class.java)
-                    intent.putExtra("eventid", eventItem.eventid)
+                    intent.putExtra("eventid", eventItem.id)
                     context.startActivity(intent)
                 }
             }
-
-            this.eventItem = eventItem
         }
     }
 

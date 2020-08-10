@@ -1,15 +1,13 @@
 package yoloyoj.pub.models
 
-class Message {
-    var _rowid_: Int? = null
-    var text: String? = null
-    var chatid: String? = null
-    var sender: String? = null
-    var senderId: String? = null
-    var avatar: String? = null
-    var attachments: List<Attachment>? = null
+import com.google.firebase.firestore.DocumentReference
 
-    fun hasNulls(): Boolean {
-        return (text == null) or (sender == null)
-    }
+public class Message (
+    val sender: DocumentReference? = null,
+    val text: String? = null,
+    val attachments: List<Attachment>? = null
+) {
+    var _sender: User? = null
+
+    constructor() : this(null)
 }

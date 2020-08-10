@@ -1,24 +1,20 @@
 package yoloyoj.pub.storage
 
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
-import yoloyoj.pub.models.*
-import yoloyoj.pub.models.firebase.Event.Companion.MESSAGES
-import yoloyoj.pub.models.firebase.Event.Companion.SUBSCRIBERS
-import java.util.Date
-import yoloyoj.pub.models.firebase.Attachment as FAttachment
-import yoloyoj.pub.models.firebase.Event as FEvent
-import yoloyoj.pub.models.firebase.Message as FMessage
-import yoloyoj.pub.models.firebase.User as FUser
+import yoloyoj.pub.models.Attachment
+import yoloyoj.pub.models.Event
+import yoloyoj.pub.models.Event.Companion.MESSAGES
+import yoloyoj.pub.models.Event.Companion.SUBSCRIBERS
+import yoloyoj.pub.models.Message
+import yoloyoj.pub.models.User
 
 typealias Handler<T> = (T) -> Unit
 
 class Storage { // TODO: divide?
     companion object {
-        const val USERS = "users"
-        const val EVENTS = "events"
+        private const val USERS = "users"
+        private const val EVENTS = "events"
 
         private val db = FirebaseFirestore.getInstance()
 
@@ -46,24 +42,22 @@ class Storage { // TODO: divide?
                         .get()
                         .addOnSuccessListener {
                             handler(
-                                it.toObject(FUser::class.java)!!
+                                it.toObject(User::class.java)!!
                                     .apply {
                                         id = it.reference.id
                                     }
-                                    .toApp()
                             )
                         }
                 } else {
                     users
-                        .whereEqualTo(FUser.PHONE, temp)
+                        .whereEqualTo(User.PHONE, temp)
                         .get()
                         .addOnSuccessListener {
                             handler(
-                                it.last().toObject(FUser::class.java)
+                                it.last().toObject(User::class.java)
                                     .apply {
                                         id = it.last().reference.id
                                     }
-                                    .toApp()
                             )
                         }
                 }
@@ -82,7 +76,7 @@ class Storage { // TODO: divide?
             }
 
 
-            val userMap: HashMap<String, Any> = FUser.run {
+            val userMap: HashMap<String, Any> = User.run {
                 hashMapOf(
                     NAME to name,
                     PHONE to temp,
@@ -105,7 +99,7 @@ class Storage { // TODO: divide?
             avatarLink: String,
             handler: Handler<Boolean>
         ) {
-            val userMap: HashMap<String, Any> = FUser.run {
+            val userMap: HashMap<String, Any> = User.run {
                 hashMapOf(
                     NAME to name,
                     AVATAR to avatarLink,
@@ -124,11 +118,10 @@ class Storage { // TODO: divide?
             events
                 .addSnapshotListener { value, _ ->
                     handler(value!!.map {
-                        it.toObject(FEvent::class.java)
+                        it.toObject(Event::class.java)
                             .apply {
                                 id = it.id
                             }
-                            .toApp()
                     })
                 }
         }
@@ -141,11 +134,10 @@ class Storage { // TODO: divide?
                     handler(
                         snapshot
                             .map {
-                                it.toObject(FEvent::class.java)
+                                it.toObject(Event::class.java)
                                     .apply {
                                         id = it.id
                                     }
-                                    .toApp()
                             }
                             .filter {
                                 (query in it.name!!) or (query in (it.description?: ""))
@@ -160,11 +152,10 @@ class Storage { // TODO: divide?
                 .get()
                 .addOnSuccessListener { snapshot ->
                     handler(snapshot.map {
-                        it.toObject(FEvent::class.java)
+                        it.toObject(Event::class.java)
                             .apply {
                                 id = it.id
                             }
-                            .toApp()
                     })
                 }
         }
@@ -174,11 +165,10 @@ class Storage { // TODO: divide?
                 .get()
                 .addOnSuccessListener {
                     handler(
-                        it.toObject(FEvent::class.java)!!
+                        it.toObject(Event::class.java)!!
                             .apply {
                                 id = it.id
                             }
-                            .toApp()
                     )
                 }
         }
@@ -187,16 +177,16 @@ class Storage { // TODO: divide?
             with(event) {
                 events
                     .add(
-                        FEvent(
-                            author = users.document(authorid!!),
+                        Event(
+                            author = author,
                             avatar = avatar,
                             name = name,
                             description = description,
                             likes = 0,
                             messages = emptyList(),
                             place = place,
-                            latlng = GeoPoint(lat!!, lng!!),
-                            date = Timestamp(date?.javaDate?: Date()),
+                            latlng = latlng,
+                            date = date,
                             subscribers = emptyList()
                         )
                     )
@@ -205,7 +195,7 @@ class Storage { // TODO: divide?
         }
 
         fun updateEvent(eventid: String, event: Event, handler: Handler<Boolean>) {
-            with(FEvent) {
+            with(Event) {
             with(event) {
                 events.document(eventid)
                     .update(
@@ -214,8 +204,8 @@ class Storage { // TODO: divide?
                             NAME to name,
                             DESCRIPTION to description,
                             PLACE to place,
-                            LATLNG to GeoPoint(lat!!, lng!!),
-                            DATE to Timestamp(date?.javaDate?: Date())
+                            LATLNG to latlng,
+                            DATE to date
                         )
                     )
                     .addOnCompleteListener { handler(it.isSuccessful) }
@@ -224,7 +214,7 @@ class Storage { // TODO: divide?
 
         fun observeChatList(
             userid: String,
-            handler: Handler<List<ChatView>>
+            handler: Handler<List<Event>>
         ) {
             events
                 .whereArrayContains(SUBSCRIBERS, users.document(userid))
@@ -232,16 +222,10 @@ class Storage { // TODO: divide?
                     handler(
                         snapshot!!
                             .map {
-                                it.toObject(FEvent::class.java) to it.id
+                                it.toObject(Event::class.java) to it.id
                             }
-                            .mapIndexed { i, (event, id) ->
-                                ChatView(
-                                    id,
-                                    null,
-                                    event.avatar,
-                                    event.messages?.last()?.toApp(i, id),
-                                    event.name
-                                )
+                            .mapIndexed { _, (event, id) ->
+                                event.apply { this.id = id }
                             }
                     )
                 }
@@ -259,7 +243,7 @@ class Storage { // TODO: divide?
                 .get()
                 .addOnSuccessListener {
                     handler(
-                        users.document(userid) in it.toObject(FEvent::class.java)!!.subscribers?: emptyList()
+                        users.document(userid) in it.toObject(Event::class.java)!!.subscribers?: emptyList()
                     )
                 }
         }
@@ -273,7 +257,7 @@ class Storage { // TODO: divide?
 
             eventRef.get()
                 .addOnSuccessListener {
-                    val event = it.toObject(FEvent::class.java)!!
+                    val event = it.toObject(Event::class.java)!!
                     eventRef
                         .update(SUBSCRIBERS, event.subscribers?.plus(users.document(userid)))
                         .addOnSuccessListener {
@@ -290,13 +274,11 @@ class Storage { // TODO: divide?
                     .get()
                     .addOnSuccessListener { event ->
                         handler(
-                            event.toObject(FEvent::class.java)!!
-                                .messages!!.mapIndexed { i, it ->
-                                it
-                                    .apply {
-                                        _sender = subs[it.sender!!.id]
-                                    }
-                                    .toApp(i, chatid)
+                            event.toObject(Event::class.java)!!
+                                .messages!!.map {
+                                it.apply {
+                                    _sender = subs[it.sender!!.id]
+                                }
                             }
                         )
                     }
@@ -314,18 +296,18 @@ class Storage { // TODO: divide?
 
             eventRef.get()
                 .addOnSuccessListener { snapshot ->
-                    val event = snapshot.toObject(FEvent::class.java)!!
+                    val event = snapshot.toObject(Event::class.java)!!
                     eventRef.update(
                         MESSAGES,
                         event.messages?.plus(
-                            FMessage(
+                            Message(
                                 users.document(userid),
                                 text,
-                                attachments.map { FAttachment.fromApp(it) }
+                                attachments
                             ).apply {
                                 users.document(userid).get()
                                     .addOnSuccessListener {
-                                        _sender = it.toObject(FUser::class.java)
+                                        _sender = it.toObject(User::class.java)
                                         handler(true)
                                     }
                             }
@@ -338,16 +320,15 @@ class Storage { // TODO: divide?
             chatid: String, after: Int, handler: Handler<List<Message>>
         ) {
             getChatSubscribers(chatid) { subs ->
-                events.document(chatid).addSnapshotListener { snapshot, error ->
-                    val event = snapshot!!.toObject(FEvent::class.java)!!
+                events.document(chatid).addSnapshotListener { snapshot, _ ->
+                    val event = snapshot!!.toObject(Event::class.java)!!
                     handler(event.messages!!
                         .filterIndexed { index, _ -> index > after }
-                        .mapIndexed { i, it ->
+                        .mapIndexed { _, it ->
                             it
                                 .apply {
                                     _sender = subs[it.sender!!.id]
                                 }
-                                .toApp(i, chatid)
                         }
                     )
                 }
@@ -355,17 +336,17 @@ class Storage { // TODO: divide?
         }
         // endregion
 
-        private fun getChatSubscribers(chatid: String, handler: Handler<Map<String, FUser>>) {
+        private fun getChatSubscribers(chatid: String, handler: Handler<Map<String, User>>) {
             events.document(chatid)
                 .get()
                 .addOnSuccessListener {
-                    val subs = hashMapOf<String, FUser>()
-                    val subRefs = it.toObject(FEvent::class.java)!!.subscribers!!
+                    val subs = hashMapOf<String, User>()
+                    val subRefs = it.toObject(Event::class.java)!!.subscribers!!
 
                     subRefs.mapIndexed { index, userRef ->
                         userRef.get()
                             .addOnSuccessListener { userSnap ->
-                                subs[userRef.id] = userSnap.toObject(FUser::class.java)!!
+                                subs[userRef.id] = userSnap.toObject(User::class.java)!!
 
                                 if (index == subRefs.lastIndex)
                                     handler(subs)

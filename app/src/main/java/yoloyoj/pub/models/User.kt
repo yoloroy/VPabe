@@ -1,18 +1,19 @@
 package yoloyoj.pub.models
 
-import yoloyoj.pub.models.firebase.User
-
-class User {
-    var userid: String? = null
-    var username: String? = null
-    var telephone: String? = null
-    var avatar: String? = null
-    var status: String? = null
-    var origin: User? = null
-
-    fun hasNulls(): Boolean {
-        return listOf(
-            userid, username, telephone, avatar, status
-        ).any { it == null }
+public class User (
+    val name: String? = null,
+    val status: String? = null,
+    val phone: String? = null,
+    val avatar: String? = null
+) {
+    companion object {
+        const val AVATAR = "avatar"
+        const val NAME = "name"
+        const val PHONE = "phone"
+        const val STATUS = "status"
     }
+
+    lateinit var id: String
+
+    constructor() : this(null)
 }

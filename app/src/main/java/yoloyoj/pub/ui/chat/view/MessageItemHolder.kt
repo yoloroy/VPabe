@@ -26,7 +26,7 @@ class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) 
 
         if (showUserName) {
             view.senderView.visibility = View.VISIBLE
-            view.senderView.text = message.sender
+            view.senderView.text = message._sender!!.name
         } else {
             view.senderView.visibility = View.GONE
         }
@@ -36,13 +36,13 @@ class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) 
 
             view.setOnClickListener {
                 val intent = Intent(it.context, ProfileActivity::class.java)
-                intent.putExtra("userid", message.senderId)
+                intent.putExtra("userid", message.sender!!.id)
                 (it.context as ChatActivity).startActivity(intent)
             }
 
-            if (message.avatar!!.isNotEmpty())
+            if (message._sender!!.avatar!!.isNotEmpty())
                 Picasso.get()
-                    .load(message.avatar)
+                    .load(message._sender!!.avatar)
                     .placeholder(R.drawable.ic_person)
                     .into(view.userView)
         } else {
@@ -50,10 +50,10 @@ class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) 
         }
 
         if (
-            message.attachments!!.all { !it.attachment_link.isNullOrBlank() } and // for compatibility
-            message.attachments!!.isNotEmpty()
+            message.attachments!!.all { !it.link.isNullOrBlank() } and // for compatibility
+            message.attachments.isNotEmpty()
         ) {
-            view.showAttachments(message.attachments!!)
+            view.showAttachments(message.attachments)
         } else {
             view.attachmentButton.visibility = View.GONE
         }
@@ -80,11 +80,11 @@ class MessageItemHolder(private val view: View) : RecyclerView.ViewHolder(view) 
             val intent = Intent(context, AttachmentsViewActivity::class.java)
             intent.putExtra(
                 ATTACHMENTS_TYPES,
-                attachments.map { it.attachment_type!! }.toTypedArray()
+                attachments.map { it.type!! }.toTypedArray()
             )
             intent.putExtra(
                 ATTACHMENTS_LINKS,
-                attachments.map { it.attachment_link!! }.toTypedArray()
+                attachments.map { it.link!! }.toTypedArray()
             )
 
             context.startActivity(intent)

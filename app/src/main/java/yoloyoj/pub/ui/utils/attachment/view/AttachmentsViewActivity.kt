@@ -20,7 +20,12 @@ class AttachmentsViewActivity : AppCompatActivity() {
         val links = intent.getStringArrayExtra(ATTACHMENTS_LINKS).asList()
 
         attachmentView.adapter = AttachmentViewAdapter(
-            types.product(links).map { Attachment(it.first, it.second) }
+            types.product(links).map {
+                Attachment(
+                    it.first,
+                    it.second
+                )
+            }
         )
     }
 

@@ -1,29 +1,48 @@
 package yoloyoj.pub.models
 
-import yoloyoj.pub.models.firebase.Event
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.GeoPoint
 
-open class Event(
-    open val eventid: String? = null,
-    open val name: String? = null,
-    open val description: String? = null,
-    open val date: Date? = null,
-    open val like: Like? = null,
-    open val authorid: String? = null,
-    open val place: String? = null,
-    open val lat: Double? = null,
-    open val lng: Double? = null,
-    open val avatar: String? = null,
-    open val origin: Event? = null
+public data class Event (
+    val author: DocumentReference? = null,
+    val avatar: String? = null,
+    val name: String? = null,
+    val description: String? = null,
+    val likes: Int? = 0,
+    val messages: List<Message>? = emptyList(),
+    val place: String? = null,
+    val latlng: GeoPoint? = null,
+    val date: Timestamp? = null,
+    val subscribers: List<DocumentReference>? = emptyList()
 ) {
-    override fun toString(): String {
-        return "{ \n" +
-                "eventid=${this.eventid},\n" +
-                "place=${this.place},\n" +
-                "name=${this.name},\n" +
-                "description=${this.description},\n" +
-                "date=${this.date!!.toJsonString().replace("\n", "\n\t")},\n" +
-                "like=${this.like.toString().replace("\n", "\n\t")},\n" +
-                "authorid=${this.authorid}\n" +
-                " }"
+    companion object {
+        const val AUTHOR = "author"
+        const val AVATAR = "avatar"
+        const val NAME = "name"
+        const val DESCRIPTION = "description"
+        const val LIKES = "likes"
+        const val MESSAGES = "messages"
+        const val PLACE = "place"
+        const val LATLNG = "latlng"
+        const val DATE = "date"
+        const val SUBSCRIBERS = "subscribers"
     }
+
+    lateinit var id: String
+
+    val sender: String
+        get() = "${messages!!.last()._sender?.name?: ""}: "
+
+    val lastMessage: Message
+        get() = messages!!.last()
+
+    val javaDate: java.util.Date? get() = date?.toDate()
+
+    val beautyDate: String get() =
+        with(javaDate!!) {
+            Date(year, month, day, hours, minutes).toString()
+        }
+
+    constructor() : this(null)
 }

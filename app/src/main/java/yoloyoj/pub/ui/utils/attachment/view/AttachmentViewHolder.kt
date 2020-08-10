@@ -20,7 +20,7 @@ import yoloyoj.pub.utils.tryDefault
 open class AttachmentViewHolder(open val view: ImageView) : RecyclerView.ViewHolder(view) {
 
     open fun bind(attachment: Attachment) {
-        when(attachment.attachment_type) {
+        when(attachment.type) {
             TYPE_IMAGE -> bindImage(attachment)
             else -> {
                 view.setOnClickListener { TODO("Download and open something") }
@@ -33,7 +33,7 @@ open class AttachmentViewHolder(open val view: ImageView) : RecyclerView.ViewHol
     private fun bindImage(attachment: Attachment) {
         view.setOnClickListener {
             val intent = Intent(view.context, ImageViewActivity::class.java)
-            intent.putExtra(EXTRA_IMAGE_LINK, attachment.attachment_link)
+            intent.putExtra(EXTRA_IMAGE_LINK, attachment.link)
 
             view.context.startActivity(intent)
         }
@@ -42,7 +42,7 @@ open class AttachmentViewHolder(open val view: ImageView) : RecyclerView.ViewHol
 
         tryDefault(Unit) {
             Picasso.get()
-                .load(attachment.attachment_link)
+                .load(attachment.link)
                 .noPlaceholder()
                 .into(view)
         }
@@ -66,11 +66,11 @@ open class AttachmentViewHolder(open val view: ImageView) : RecyclerView.ViewHol
         }
 
         Aria.download(this)
-            .load(attachment.attachment_link!!)
+            .load(attachment.link!!)
             .setDownloadPath(
                 root.absolutePath +
                         "/download/" +
-                        attachment.attachment_link!!.split("/").last() // file name
+                        attachment.link.split("/").last() // file name
             )
             .start()
     }

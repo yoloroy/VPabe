@@ -49,7 +49,7 @@ class ProfileActivity: AppCompatActivity() {
             } else {
                 Picasso.get().load(user.avatar).into(userImageActivity)
             }
-            userNameActivity.text = user.username
+            userNameActivity.text = user.name
             userStatusActivity.text = user.status
         }
 
@@ -58,22 +58,23 @@ class ProfileActivity: AppCompatActivity() {
             val visitedEvents = emptyList<ProfileEventItemActivity>().toMutableList()
             val curDate = DateTime.now().unixMillisLong
             for (e in events){
-                val eventDate = DateTime.createAdjusted(
-                    e.date!!.year!!,
-                    e.date!!.month!!,
-                    e.date!!.day!!,
-                    e.date!!.hour!!,
-                    e.date!!.minute!!
-                ).unixMillisLong
+                val eventDate = e.date!!.seconds/1000
                 var imageLink = STANDARD_EVENT_IMAGE
                 if (!e.avatar.isNullOrEmpty()) {
-                    imageLink = e.avatar!!
+                    imageLink = e.avatar
                 }
-                if (eventDate >= curDate){
-                    upcomingEvents.add(ProfileEventItemActivity(eventName = e.name!!, eventId = e.eventid!!, eventImageLink = imageLink))
-                } else {
-                    visitedEvents.add(ProfileEventItemActivity(eventName = e.name!!, eventId = e.eventid!!, eventImageLink = imageLink))
-                }
+
+                (if (eventDate >= curDate)
+                    upcomingEvents
+                else
+                    visitedEvents)
+                .add(
+                    ProfileEventItemActivity(
+                        eventName = e.name!!,
+                        eventId = e.id,
+                        eventImageLink = imageLink
+                    )
+                )
             }
             recyclerUpcomingEventsActivity.adapter = ProfileEventsAdapterActivity(
                 upcomingEvents.reversed()

@@ -41,10 +41,10 @@ class EditProfileFragment: Fragment() {
             user!!
             if (user.avatar!!.isNotBlank())
                 Picasso.get().load(user.avatar).into(editUserImage)
-            editUserName.setText(user.username)
+            editUserName.setText(user.name)
             editUserStatus.setText(user.status)
 
-            avatarLink = user.avatar!!
+            avatarLink = user.avatar
 
             saveProfileButton.setOnClickListener {
                 Storage.updateUser(

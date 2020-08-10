@@ -7,13 +7,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.GeoPoint
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event_edit.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
 import yoloyoj.pub.models.Date
-import yoloyoj.pub.models.Event
 import yoloyoj.pub.storage.Storage
+import yoloyoj.pub.storage.Storage.Companion.users
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.utils.loacation.getter.LocationGetterActivity
 import yoloyoj.pub.utils.dateToString
@@ -22,6 +24,7 @@ import yoloyoj.pub.web.utils.CODE_GET_PICTURE
 import yoloyoj.pub.web.utils.chooseImage
 import yoloyoj.pub.web.utils.putImage
 import java.util.*
+import yoloyoj.pub.models.Event as FEvent
 
 const val LOCATION_REQUEST_CODE = 127
 
@@ -39,25 +42,24 @@ class EventEditActivity: AppCompatActivity() {
     private var eLat: Double? = 0.0
     private var eLng: Double? = 0.0
 
-    private val event: Event
-        get() {
-            return Event(
-                name = event_header_edit.text.toString(),
-                description = event_describe_header_edit.text.toString(),
-                date = Date(
+    private val event: FEvent
+        get() = FEvent(
+            author = users.document(userId!!),
+            avatar = eventImageLink,
+            name = event_header_edit.text.toString(),
+            description = event_describe_header_edit.text.toString(),
+            place = ePlace?:"",
+            latlng = GeoPoint(eLat!!, eLng!!),
+            date = Timestamp(
+                Date(
                     eYear,
                     eMonth,
                     eDay,
                     eHour,
                     eMinute
-                ),
-                place = ePlace?:"",
-                lat = eLat!!,
-                lng = eLng!!,
-                authorid = userId!!,
-                avatar = eventImageLink
+                ).javaDate
             )
-        }
+        )
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -92,19 +94,21 @@ class EventEditActivity: AppCompatActivity() {
             finish()
         }
 
-        eventId = intent?.getStringExtra("eventid")!!
+        eventId = intent?.getStringExtra("eventid")
 
-        if (eventId != null && eventId != "0"){
+        if (eventId != null && eventId != "0") {
             Storage.getEvent(eventId!!) {
                 event_header_edit.setText(it.name)
                 event_describe_header_edit.setText(it.description)
-                eYear = it.date?.year?:0
-                eMonth = it.date?.month?:0
-                eDay = it.date?.day?:0
-                tvDate.text = dateToString(eDay, eMonth, eYear)
-                eHour = it.date?.hour?:0
-                eMinute = it.date?.minute?:0
-                tvTime.text = timeToString(eHour, eMinute)
+                with(it.javaDate?:java.util.Date()) {
+                    eYear = year
+                    eMonth = month
+                    eDay = day
+                    tvDate.text = dateToString(eDay, eMonth, eYear)
+                    eHour = hours
+                    eMinute = minutes
+                    tvTime.text = timeToString(eHour, eMinute)
+                }
                 tvEventPlace.text = it.place
                 if (it.avatar.isNullOrEmpty()) {
                     Picasso.get().load(STANDARD_EVENT_IMAGE).into(event_image)
@@ -112,11 +116,13 @@ class EventEditActivity: AppCompatActivity() {
                         STANDARD_EVENT_IMAGE
                 } else {
                     Picasso.get().load(it.avatar).into(event_image)
-                    eventImageLink = it.avatar!!
+                    eventImageLink = it.avatar
                 }
                 ePlace = it.place ?:""
-                eLat = it.lat ?:0.0
-                eLng = it.lng ?:0.0
+                with(it.latlng!!) {
+                    eLat = latitude
+                    eLng = longitude
+                }
                 event_set_btn.text = getString(R.string.button_save_edit_profile)
                 event_set_btn.setOnClickListener { updateEvent() }
                 supportActionBar?.title = getString(R.string.title_edit_event)

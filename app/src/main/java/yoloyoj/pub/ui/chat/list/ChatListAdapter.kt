@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_chat.view.*
 import yoloyoj.pub.R
-import yoloyoj.pub.models.ChatView
+import yoloyoj.pub.models.Event
 import yoloyoj.pub.ui.chat.view.ChatActivity
 import yoloyoj.pub.ui.chat.view.EXTRA_CHATID
 import yoloyoj.pub.ui.event.view.STANDARD_EVENT_IMAGE
 import yoloyoj.pub.utils.tryDefault
 
 class ChatListAdapter(
-    private val items: List<ChatView>
+    private val items: List<Event>
 ) : RecyclerView.Adapter<ChatViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -37,29 +37,28 @@ class ChatListAdapter(
 }
 
 class ChatViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-    fun bind(chatView: ChatView) {
-        if (chatView.chatAvatar.isNullOrEmpty()) {
+    fun bind(chatView: Event) {
+        if (chatView.avatar.isNullOrEmpty()) {
             tryDefault(true) {
                 Picasso.get().load(STANDARD_EVENT_IMAGE).into(view.chatAvatar)
             }
         } else {
             tryDefault(true) {
-                Picasso.get().load(chatView.chatAvatar).into(view.chatAvatar)
+                Picasso.get().load(chatView.avatar).into(view.chatAvatar)
             }
         }
 
         view.apply {
-            chatName.text = chatView.chatName
+            chatName.text = chatView.name
             lastSender.text = chatView.sender
-            lastMessage.text = chatView.text
+            lastMessage.text = chatView.lastMessage.text
 
             setOnClickListener {
                 val intent = Intent(context, ChatActivity::class.java)
                 intent.putExtra(
                     EXTRA_CHATID,
-                    chatView.chatid
+                    chatView.id
                 )
-
 
                 context.startActivity(intent)
             }

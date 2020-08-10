@@ -65,7 +65,7 @@ class EventActivity : AppCompatActivity() {
     private fun loadInfo(event: Event) {
         event_name_header.text = event.name
         event_describe_header.text = event.description
-        event_date_header.text = event.date.toString()
+        event_date_header.text = event.beautyDate
         event_place_header.text = event.place
 
         if (event.avatar.isNullOrEmpty()) {
@@ -74,12 +74,12 @@ class EventActivity : AppCompatActivity() {
             Picasso.get().load(event.avatar).into(event_image)
         }
 
-        if (userId == event.authorid) {
+        if (userId == event.id) {
             editMenu?.setGroupVisible(0, true)
         }
 
-        Storage.getUser(userid = event.authorid!!) { author ->
-            eventAuthorName.text = getString(R.string.event_author_name, author!!.username)
+        Storage.getUser(userid = event.author!!.id) { author ->
+            eventAuthorName.text = getString(R.string.event_author_name, author!!.name)
         }
     }
 

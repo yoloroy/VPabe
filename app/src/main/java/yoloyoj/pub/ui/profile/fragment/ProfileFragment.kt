@@ -73,7 +73,7 @@ class ProfileFragment : Fragment() {
             } else {
                 Picasso.get().load(user.avatar).into(userImage)
             }
-            userName.text = user.username
+            userName.text = user.name
             userStatus.text = user.status
         }
         
@@ -82,22 +82,16 @@ class ProfileFragment : Fragment() {
             val visitedEvents = emptyList<ProfileEventItem>().toMutableList()
             val curDate = DateTime.now().unixMillisLong
             for (e in events){
-                val eventDate = DateTime.createAdjusted(
-                    e.date!!.year!!,
-                    e.date!!.month!!,
-                    e.date!!.day!!,
-                    e.date!!.hour!!,
-                    e.date!!.minute!!
-                ).unixMillisLong
+                val eventDate = e.date!!.seconds/1000
                 var imageLink = STANDARD_EVENT_IMAGE
                 if (!e.avatar.isNullOrEmpty()) {
-                    imageLink = e.avatar!!
+                    imageLink = e.avatar
                 }
                 if (eventDate >= curDate){
                     upcomingEvents.add(
                         ProfileEventItem(
                             eventName = e.name!!,
-                            eventId = e.eventid!!,
+                            eventId = e.id,
                             eventImageLink = imageLink
                         )
                     )
@@ -105,7 +99,7 @@ class ProfileFragment : Fragment() {
                     visitedEvents.add(
                         ProfileEventItem(
                             eventName = e.name!!,
-                            eventId = e.eventid!!,
+                            eventId = e.id,
                             eventImageLink = imageLink
                         )
                     )

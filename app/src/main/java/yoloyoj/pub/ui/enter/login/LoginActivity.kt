@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this).apply {
             setView(dialogView)
             setCancelable(false)
-            setPositiveButton(getString(android.R.string.ok)) { dialog, id ->
+            setPositiveButton(getString(android.R.string.ok)) { _, _ ->
                 if (input.text.toString().isBlank() or (input.text.toString() == code))
                     onLoginSuccess(user)
                 else
@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
     fun onLoginSuccess(user: User) {
         getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
             .edit().apply {
-                putString(PREFERENCES_USERID, user.userid!!)
+                putString(PREFERENCES_USERID, user.id)
                 commit()
             }
 

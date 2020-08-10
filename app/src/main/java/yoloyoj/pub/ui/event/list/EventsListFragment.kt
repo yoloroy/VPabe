@@ -82,7 +82,9 @@ class EventsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fab.setOnClickListener {
-            startActivity(Intent(activity!!.applicationContext, EventEditActivity::class.java))
+            startActivity(
+                Intent(context, EventEditActivity::class.java)
+            )
         }
         super.onViewCreated(view, savedInstanceState)
     }

@@ -13,11 +13,11 @@ import kotlinx.android.synthetic.main.fragment_chat_list.*
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
-import yoloyoj.pub.models.ChatView
+import yoloyoj.pub.models.Event
 
 class ChatListFragment : Fragment() {
     private lateinit var viewModel: ChatListViewModel
-    private lateinit var chats: LiveData<List<ChatView>>
+    private lateinit var chats: LiveData<List<Event>>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

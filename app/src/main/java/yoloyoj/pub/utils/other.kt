@@ -15,5 +15,7 @@ fun timeToString(hour: Int, minute: Int): String {
 }
 
 fun dateToString(day: Int, month: Int, year: Int): String {
-    return "${if (day < 10) "0" else ""}${day}.${if (month < 10) "0" else ""}${month}.${if (year < 10) "0" else ""}${year}"
+    return "${if (day < 10) "0" else ""}${day}." +
+            "${if (month < 10) "0" else ""}${month}." +
+            "${if (year < 10) "0" else ""}${year}"
 }

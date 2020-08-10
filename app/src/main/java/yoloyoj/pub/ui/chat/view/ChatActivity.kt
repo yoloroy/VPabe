@@ -159,7 +159,10 @@ class ChatActivity : AppCompatActivity() {
     fun addAttachment(view: View) = chooseImage()
 
     private fun onImagePutted(link: String) {
-        attachments.value = (attachments.value!! + Attachment("image", link)).toMutableList()
+        attachments.value = (attachments.value!! + Attachment(
+            "image",
+            link
+        )).toMutableList()
 
         (attachmentsPreView.adapter as AttachmentPreviewAdapter).apply {
             items = attachments // temporary

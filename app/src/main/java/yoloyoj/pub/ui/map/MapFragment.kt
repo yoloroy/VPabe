@@ -94,22 +94,25 @@ open class MapFragment : Fragment(),
         val map = mutableMapOf<String, Event>()
         events.forEach { event ->
             if (
-                (event.lat != null) and
-                (event.lng != null) and
+                (event.latlng != null) and
                 !event.place.isNullOrBlank()
             ) {
-                map[event.eventid.toString()] = event
+                map[event.id] = event
                 event.apply {
                     googleMap.addMarker(
                         MarkerOptions()
-                            .position(LatLng(lat!!, lng!!))
-                            .title(eventid.toString())
+                            .position(
+                                with(latlng!!) {
+                                    LatLng(latitude, longitude)
+                                }
+                            )
+                            .title(id)
                     )
                     googleMap.setOnMarkerClickListener {
                         val currentEvent = map[it.title!!]!!
 
                         val intent = Intent(context, EventActivity::class.java)
-                        intent.putExtra("eventid", currentEvent.eventid)
+                        intent.putExtra("eventid", currentEvent.id)
                         context!!.startActivity(intent)
 
                         true
