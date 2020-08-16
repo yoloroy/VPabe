@@ -309,19 +309,18 @@ class Storage { // TODO: divide?
             ).addOnCompleteListener { handler(it.isSuccessful) }
         }
 
-        fun observeNewMessages(
+        fun observeMessages(
             chatid: String, after: Int, handler: Handler<List<Message>>
         ) {
+            // subscribers geting here use for not calling for them every message
             getChatSubscribers(chatid) { subs ->
                 events.document(chatid).addSnapshotListener { snapshot, _ ->
                     val event = snapshot!!.toObject(Event::class.java)!!
                     handler(event.messages!!
-                        .filterIndexed { index, _ -> index > after }
-                        .mapIndexed { _, it ->
-                            it
-                                .apply {
-                                    _sender = subs[it.sender!!.id]
-                                }
+                        .map {
+                            it.apply {
+                                _sender = subs[it.sender!!.id]
+                            }
                         }
                     )
                 }

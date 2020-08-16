@@ -22,8 +22,8 @@ class ChatViewModel : ViewModel() {
             messages.value = it
         }
 
-        Storage.observeNewMessages(chatid, 0) { newMessages ->
-            messages.value = messages.value!! + newMessages
+        Storage.observeMessages(chatid, 0) { snapshotMessages ->
+            messages.value = snapshotMessages
         }
     }
 }
