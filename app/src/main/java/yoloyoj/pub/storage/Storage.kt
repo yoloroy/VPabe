@@ -142,7 +142,8 @@ class Storage { // TODO: divide?
                                     }
                             }
                             .filter {
-                                (query in it.name!!) or (query in (it.description?: ""))
+                                (query.toLowerCase(Locale.ROOT) in it.name!!.toLowerCase(Locale.ROOT)) or
+                                (query.toLowerCase(Locale.ROOT) in (it.description?: "").toLowerCase(Locale.ROOT))
                             }
                     )
                 }
