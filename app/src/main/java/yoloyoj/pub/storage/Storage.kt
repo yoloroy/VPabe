@@ -1,7 +1,6 @@
 package yoloyoj.pub.storage
 
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import yoloyoj.pub.models.Attachment
 import yoloyoj.pub.models.Event
@@ -297,16 +296,26 @@ class Storage { // TODO: divide?
         ) {
             val eventRef = events.document(chatid)
 
-            eventRef.update(
-                MESSAGES,
-                FieldValue.arrayUnion(
-                    Message(
-                        users.document(userid),
-                        text,
-                        attachments
+            eventRef.get()
+                .addOnSuccessListener { snapshot ->
+                    val event = snapshot.toObject(Event::class.java)!!
+                    eventRef.update(
+                        MESSAGES,
+                        event.messages?.plus(
+                            Message(
+                                users.document(userid),
+                                text,
+                                attachments
+                            ).apply {
+                                users.document(userid).get()
+                                    .addOnSuccessListener {
+                                        _sender = it.toObject(User::class.java)
+                                        handler(true)
+                                    }
+                            }
+                        )
                     )
-                )
-            ).addOnCompleteListener { handler(it.isSuccessful) }
+                }
         }
 
         fun observeMessages(
