@@ -1,6 +1,7 @@
 package yoloyoj.pub.storage
 
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import yoloyoj.pub.models.Attachment
 import yoloyoj.pub.models.Event
@@ -8,6 +9,7 @@ import yoloyoj.pub.models.Event.Companion.MESSAGES
 import yoloyoj.pub.models.Event.Companion.SUBSCRIBERS
 import yoloyoj.pub.models.Message
 import yoloyoj.pub.models.User
+import java.util.*
 
 typealias Handler<T> = (T) -> Unit
 
@@ -294,26 +296,16 @@ class Storage { // TODO: divide?
         ) {
             val eventRef = events.document(chatid)
 
-            eventRef.get()
-                .addOnSuccessListener { snapshot ->
-                    val event = snapshot.toObject(Event::class.java)!!
-                    eventRef.update(
-                        MESSAGES,
-                        event.messages?.plus(
-                            Message(
-                                users.document(userid),
-                                text,
-                                attachments
-                            ).apply {
-                                users.document(userid).get()
-                                    .addOnSuccessListener {
-                                        _sender = it.toObject(User::class.java)
-                                        handler(true)
-                                    }
-                            }
-                        )
+            eventRef.update(
+                MESSAGES,
+                FieldValue.arrayUnion(
+                    Message(
+                        users.document(userid),
+                        text,
+                        attachments
                     )
-                }
+                )
+            ).addOnCompleteListener { handler(it.isSuccessful) }
         }
 
         fun observeNewMessages(
