@@ -50,7 +50,7 @@ class ChatViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         view.apply {
             chatName.text = chatView.name
-            lastSender.text = chatView.sender
+            chatView.callForLastSenderName { lastSender.text = "$it: " }
             lastMessage.text = chatView.lastMessage.text
 
             setOnClickListener {
