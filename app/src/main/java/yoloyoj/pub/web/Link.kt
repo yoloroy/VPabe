@@ -5,9 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-const val v = "v1"
-
-@Suppress("unused")
  interface Link {
 
     @GET("http://dev.virtualearth.net/REST/v1/Locations/{location}")
@@ -16,7 +13,7 @@ const val v = "v1"
         @Query("key") key: String
     ): Call<Map<String, Any>?>?
 
-    @GET("$v/checkme")
+    @GET("checkme.php")
     fun checkMe(
         @Query("phone") phone: String
     ): Call<String?>?
