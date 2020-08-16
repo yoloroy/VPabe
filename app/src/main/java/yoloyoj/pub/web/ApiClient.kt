@@ -12,16 +12,18 @@ val apiClient: Link
     get() {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(OkHttpClient.Builder()
-                .readTimeout(1, TimeUnit.MINUTES)
-                .connectTimeout(20, TimeUnit.SECONDS)
-                .build()
+            .client(
+                OkHttpClient.Builder()
+                    .readTimeout(1, TimeUnit.MINUTES)
+                    .connectTimeout(20, TimeUnit.SECONDS)
+                    .build()
             )
-            .addConverterFactory(GsonConverterFactory.create(
-                GsonBuilder()
-                    .setLenient()
-                    .create()
-            ))
+            .addConverterFactory(
+                GsonConverterFactory.create(
+                    GsonBuilder()
+                        .setLenient()
+                        .create()
+                )
+            )
             .build().create(Link::class.java)
-}
-
+    }

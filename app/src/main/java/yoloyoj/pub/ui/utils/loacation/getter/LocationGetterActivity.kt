@@ -66,13 +66,22 @@ class LocationGetterActivity : AppCompatActivity(), OnMapReadyCallback {
                     val intent = Intent().apply {
                         putExtra(LAT, it.latitude)
                         putExtra(LNG, it.longitude)
-                        putExtra(ADDRESS,
-                            ((((response.body()!!
-                                    ["resourceSets"] as List<*>)
-                                    [0] as Map<*, *>)
-                                    ["resources"] as List<*>)
-                                    [0] as Map<*, *>)
-                                    ["name"] as String
+                        putExtra(
+                            ADDRESS,
+                            (
+                                (
+                                    (
+                                        (
+                                            response.body()!!
+                                            ["resourceSets"] as List<*>
+                                            )
+                                        [0] as Map<*, *>
+                                        )
+                                    ["resources"] as List<*>
+                                    )
+                                [0] as Map<*, *>
+                                )
+                            ["name"] as String
                         )
                     }
 
@@ -97,9 +106,9 @@ class LocationGetterActivity : AppCompatActivity(), OnMapReadyCallback {
             != PackageManager.PERMISSION_GRANTED
         ) { // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
             ) {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
@@ -110,7 +119,7 @@ class LocationGetterActivity : AppCompatActivity(), OnMapReadyCallback {
                     .setPositiveButton(
                         "OK"
                     ) { _, _ ->
-                        //Prompt the user once explanation has been shown
+                        // Prompt the user once explanation has been shown
                         ActivityCompat.requestPermissions(
                             this,
                             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
