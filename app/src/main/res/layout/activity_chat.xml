@@ -103,7 +103,7 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_send_black_24dp"
                     android:theme="@style/regularFont"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@color/colorDarkDarkGray"
                     android:visibility="gone" />
 
 

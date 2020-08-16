@@ -16,7 +16,7 @@
     <item
         android:id="@+id/navigation_chats"
         android:enabled="true"
-        android:icon="@drawable/ic_chat_black_24dp"
+        android:icon="@drawable/ic_forum"
         android:title="@string/title_chats"
         android:visible="true" />
     <item

@@ -3,7 +3,11 @@ package yoloyoj.pub.ui.profile.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
+import yoloyoj.pub.models.Event
 import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.event.view.STANDARD_EVENT_IMAGE
@@ -76,48 +81,55 @@ class ProfileFragment : Fragment() {
             userName.text = user.name
             userStatus.text = user.status
         }
-        
-        Storage.getEventsForUser(userId) { events ->
-            val upcomingEvents = emptyList<ProfileEventItem>().toMutableList()
-            val visitedEvents = emptyList<ProfileEventItem>().toMutableList()
-            val curDate = DateTime.now().unixMillisLong
-            for (e in events){
-                val eventDate = e.date!!.seconds/1000
-                var imageLink = STANDARD_EVENT_IMAGE
-                if (!e.avatar.isNullOrEmpty()) {
-                    imageLink = e.avatar
-                }
-                if (eventDate >= curDate){
-                    upcomingEvents.add(
-                        ProfileEventItem(
-                            eventName = e.name!!,
-                            eventId = e.id,
-                            eventImageLink = imageLink
-                        )
-                    )
-                } else {
-                    visitedEvents.add(
-                        ProfileEventItem(
-                            eventName = e.name!!,
-                            eventId = e.id,
-                            eventImageLink = imageLink
-                        )
-                    )
-                }
-            }
-            recyclerUpcomingEvents.adapter =
-                ProfileEventsAdapter(
-                    upcomingEvents.reversed()
-                )
-            recyclerVisitedEvents.adapter =
-                ProfileEventsAdapter(
-                    visitedEvents.reversed()
-                )
-        }
+        loadEvents(userId)
+
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun goLogin() {
+    private fun loadEvents(userId: String) {
+        Storage.getEventsForUser(userId) { events ->
+            val curDate = DateTime.now().unixMillisLong
+
+            val (upcomingEvents, visitedEvents) = events.asReversed()
+                .partition { it.millisDate >= curDate }.toList()
+                .map { part ->
+                    part.map {
+                        ProfileEventItem(
+                            eventName = it.name!!,
+                            eventId = it.id,
+                            eventImageLink = fixImageLink(it.avatar)
+                        )
+                    }
+                }
+                .run { get(0) to get(1) }
+
+            userExp.text = "${events.size * 10} exp."
+
+            if (upcomingEvents.isNotEmpty())
+                recyclerUpcomingEvents.adapter = ProfileEventsAdapter(upcomingEvents)
+            else {
+                cardUpcomingEvents.visibility = View.GONE
+            }
+
+            if (visitedEvents.isNotEmpty())
+                recyclerVisitedEvents.adapter = ProfileEventsAdapter(visitedEvents)
+            else {
+                cardVisitedEvents.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun fixImageLink(imageLink: String?): String {
+        return if (imageLink.isNullOrEmpty())
+            STANDARD_EVENT_IMAGE
+        else
+            imageLink
+    }
+
+    val Event.millisDate: Long
+        get() = date!!.seconds/1000
+
+    private fun goLogin() {
         startActivity(Intent(context, LoginActivity::class.java))
         activity?.finish()
     }

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <color name="colorPrimary">#2F2F2F</color>
-        <color name="colorPrimaryDark">#292929</color>
-        <color name="colorAccent">#E74C3C</color>
+    <color name="colorPrimary">#45cc66</color>
+
+    <color name="colorAccent">#ff9918</color> <!-- orange juice -->
+    <color name="colorAccentDark">#ff7711</color>
     <color name="colorAccent2">#446EA6</color>
-    <color name="colorBackgroundFace">#E4E4E4</color>
-    <color name="colorBackgroundFaceDark">#D3BFBFBF</color>
+
+    <color name="colorBackgroundFace">#FFF</color>
     <color name="colorBackgroundBack">#F9F9F9</color>
+
+    <color name="colorGray">#3F3F3F</color>
+    <color name="colorDarkGray">#2F2F2F</color>
+    <color name="colorDarkDarkGray">#292929</color>
 </resources>

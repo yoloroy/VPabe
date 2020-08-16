@@ -185,7 +185,7 @@
                 android:minLines="2"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorDarkGray"
                 android:importantForAutofill="no" />
 
             <Button

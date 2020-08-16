@@ -67,4 +67,5 @@
     <string name="example_code">0z8kL</string>
     <string name="question">Вы ещё не зарегестрированы?</string>
     <string name="unexpected_fail">Что-то пошло не так</string>
+    <string name="experience">опыт:</string>
 </resources>

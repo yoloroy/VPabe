@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorBackgroundFace"
         app:itemIconTint="@color/activation_selector"
+        app:itemTextAppearanceActive="@style/TextAppearance.MaterialComponents.Subtitle1"
         app:itemTextColor="@color/activation_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

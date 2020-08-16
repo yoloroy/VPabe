@@ -18,7 +18,7 @@
         app:rippleColor="@color/colorBackgroundBack"
         app:backgroundTint="@color/colorAccent"
         android:contentDescription="@string/button_add_event_description"
-        android:src="@drawable/ic_baseline_add_24" />
+        android:src="@drawable/ic_add" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/events_container"

@@ -71,4 +71,5 @@
     <string name="date" translatable="false">%02d.%02d.%04d</string>
     <string name="time" translatable="false">%02d:%02d</string>
     <string name="date_time" translatable="false">%02d.%02d.%04d %02d:%02d</string>
+    <string name="experience">experience:</string>
 </resources>
