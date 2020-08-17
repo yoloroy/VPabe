@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.telephony.PhoneNumberUtils
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
@@ -27,6 +28,9 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
+    private val phone: String
+        get() = editTextPhone.text.toString()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -39,18 +43,26 @@ class LoginActivity : AppCompatActivity() {
     }
 
     public fun onClickLogin(view: View) {
-        Storage.getUser(phone = editTextPhone.text.toString()) {
+        if (!PhoneNumberUtils.isGlobalPhoneNumber(phone)) {
+            showWrongInputMessage()
+            return
+        }
+
+        Storage.getUser(phone = phone) {
             if (it == null) {
                 showWrongInputMessage()
-
                 return@getUser
             }
-            apiClient.checkMe(editTextPhone.text.toString())!!.enqueue(object : Callback<String?> {
-                override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
-
-                override fun onResponse(call: Call<String?>, response: Response<String?>) = checkCode(response.body()!!, it)
-            })
+            checkMe(it)
         }
+    }
+
+    private fun checkMe(user: User) {
+        apiClient.checkMe(phone)!!.enqueue(object : Callback<String?> {
+            override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
+
+            override fun onResponse(call: Call<String?>, response: Response<String?>) = checkCode(response.body()!!, user)
+        })
     }
 
     fun checkCode(code: String, user: User) {

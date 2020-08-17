@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.telephony.PhoneNumberUtils
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
@@ -56,27 +57,35 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     public fun onClickRegister(view: View) {
-        if (name.isBlank() or phone.isBlank())
-            registerFailBanner.visibility = View.VISIBLE
+        if (name.isBlank() or
+            phone.isBlank() or
+            !PhoneNumberUtils.isGlobalPhoneNumber(phone)) {
+            showWrongInputMessage()
+            return
+        }
 
         Storage.regUser(name, phone, avatar) { (result, userid) ->
             when(result) {
-                REGISTERED_TRUE ->
-                    apiClient.checkMe(phoneEdit.text.toString())!!.enqueue(object :
-                        Callback<String?> {
-                        override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
+                REGISTERED_TRUE -> checkMe(userid!!)
 
-                        override fun onResponse(call: Call<String?>, response: Response<String?>) = checkCode(response.body()!!, userid!!)
-                    })
+                REGISTERED_FALSE -> showWrongInputMessage()
 
-                REGISTERED_FALSE ->
-                    registerFailBanner.visibility = View.VISIBLE
-
-                REGISTERED_FAIL ->
-                    Snackbar.make(registerButton, "Произошла ошибка, пожалуйста, повторите попытку позже", Snackbar.LENGTH_LONG)
-
+                REGISTERED_FAIL -> showUnknownErrorMessage()
             }
         }
+    }
+
+    private fun checkMe(userid: String) {
+        apiClient.checkMe(phone)!!.enqueue(object :
+            Callback<String?> {
+            override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
+
+            override fun onResponse(call: Call<String?>, response: Response<String?>) = checkCode(response.body()!!, userid)
+        })
+    }
+
+    private fun showUnknownErrorMessage() {
+        Snackbar.make(registerButton, "Произошла ошибка, пожалуйста, повторите попытку позже", Snackbar.LENGTH_LONG)
     }
 
     public fun onClickBannerClose(view: View) {
@@ -125,5 +134,9 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun showVerificationFailMessage() {
         Snackbar.make(loginButton, "Ошибка верефикации", Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun showWrongInputMessage() {
+        registerFailBanner.visibility = View.VISIBLE
     }
 }
