@@ -48,7 +48,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="yoloyoj.pub.ui.utils.loacation.getter.LocationGetterActivity"
+            android:name="yoloyoj.pub.ui.utils.location.getter.LocationGetterActivity"
             android:label="@string/title_activity_location_getter" />
         <activity
             android:name="yoloyoj.pub.ui.enter.registration.RegistrationActivity"

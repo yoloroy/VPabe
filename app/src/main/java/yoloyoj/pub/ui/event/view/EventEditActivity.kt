@@ -17,7 +17,7 @@ import yoloyoj.pub.models.Date
 import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.storage.Storage.Companion.users
 import yoloyoj.pub.ui.enter.login.LoginActivity
-import yoloyoj.pub.ui.utils.loacation.getter.LocationGetterActivity
+import yoloyoj.pub.ui.utils.location.getter.LocationGetterActivity
 import yoloyoj.pub.utils.dateToString
 import yoloyoj.pub.utils.timeToString
 import yoloyoj.pub.web.utils.CODE_GET_PICTURE

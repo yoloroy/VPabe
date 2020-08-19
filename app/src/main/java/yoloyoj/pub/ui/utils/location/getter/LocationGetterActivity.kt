@@ -1,4 +1,4 @@
-package yoloyoj.pub.ui.utils.loacation.getter
+package yoloyoj.pub.ui.utils.location.getter
 
 import android.Manifest
 import android.content.Intent
