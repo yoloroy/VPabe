@@ -21,9 +21,7 @@ class EventsListViewModel : ViewModel() {
         Storage.observeEventsNearMutableLocation(
             location, LATLNG_DISTANCE
         ) { updEvents ->
-            if (updEvents.isNotEmpty()) {
-                events.value = updEvents
-            }
+            events.value = updEvents
         }
     }
 }
