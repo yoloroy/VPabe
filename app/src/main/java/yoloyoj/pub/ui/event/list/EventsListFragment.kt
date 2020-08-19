@@ -2,10 +2,13 @@ package yoloyoj.pub.ui.event.list
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.view.MenuItemCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_events_list.*
@@ -14,8 +17,14 @@ import yoloyoj.pub.models.Event
 import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.event.EventData
 import yoloyoj.pub.ui.event.view.EventEditActivity
+import yoloyoj.pub.ui.utils.location.LocationRequestingFragment
+import yoloyoj.pub.utils.tryDefault
 
-class EventsListFragment : Fragment() {
+class EventsListFragment : LocationRequestingFragment() {
+
+    companion object {
+        const val LATLNG_DISTANCE: Double = 5.0
+    }
 
     private lateinit var eventsListViewModel: EventsListViewModel
     private lateinit var events: EventData
@@ -24,6 +33,7 @@ class EventsListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
+
         super.onCreate(savedInstanceState)
     }
 
@@ -91,6 +101,12 @@ class EventsListFragment : Fragment() {
 
     override fun onStart() {
         events_container.layoutManager = LinearLayoutManager(context)
+
+        listenCurrentLocation = true
+        onCurrentLocationUpdated = {
+            if (tryDefault(eventsListViewModel.location.value == null) { it!!.distanceTo(eventsListViewModel.location.value) > 0.01 })
+                eventsListViewModel.location.value = it
+        }
 
         events.observeForever { if (!search) loadAdapter(events.value!!) }
 
