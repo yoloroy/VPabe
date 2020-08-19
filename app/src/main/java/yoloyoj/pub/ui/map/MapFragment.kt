@@ -34,6 +34,7 @@ import yoloyoj.pub.ui.event.EventData
 import yoloyoj.pub.ui.event.list.EventsListViewModel
 import yoloyoj.pub.ui.event.view.EventActivity
 import yoloyoj.pub.ui.event.view.EventEditActivity
+import yoloyoj.pub.utils.tryDefault
 
 @Suppress("DEPRECATION")
 open class MapFragment :
@@ -84,7 +85,6 @@ open class MapFragment :
         googleMap = gMap
 
         checkLocationPermission()
-        googleMap.isMyLocationEnabled = true
 
         events.observeForever { loadAdapter(events.value!!) }
     }
@@ -110,11 +110,13 @@ open class MapFragment :
                             .title(id)
                     )
                     googleMap.setOnMarkerClickListener {
-                        val currentEvent = map[it.title!!]!!
+                        tryDefault(Unit) {
+                            val currentEvent = map[it.title!!]!!
 
-                        val intent = Intent(context, EventActivity::class.java)
-                        intent.putExtra("eventid", currentEvent.id)
-                        context!!.startActivity(intent)
+                            val intent = Intent(context, EventActivity::class.java)
+                            intent.putExtra("eventid", currentEvent.id)
+                            context!!.startActivity(intent)
+                        }
 
                         true
                     }
@@ -176,13 +178,16 @@ open class MapFragment :
 
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
     private fun checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(
+                context!!,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
             != PackageManager.PERMISSION_GRANTED
         ) { // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(
-                activity!!,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
+                    activity!!,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
             ) {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
@@ -208,7 +213,16 @@ open class MapFragment :
                     MY_PERMISSIONS_REQUEST_LOCATION
                 )
             }
+        } else {
+            onLocationPermissionAllowed()
         }
+    }
+
+    private fun onLocationPermissionAllowed() {
+        if (mGoogleApiClient == null) {
+            buildGoogleApiClient()
+        }
+        googleMap.isMyLocationEnabled = true
     }
 
     override fun onRequestPermissionsResult(
@@ -230,10 +244,7 @@ open class MapFragment :
                     )
                         == PackageManager.PERMISSION_GRANTED
                     ) {
-                        if (mGoogleApiClient == null) {
-                            buildGoogleApiClient()
-                        }
-                        googleMap.isMyLocationEnabled = true
+                        onLocationPermissionAllowed()
                     }
                 } else {
                     // permission denied, boo! Disable the
