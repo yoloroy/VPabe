@@ -42,7 +42,7 @@ open class MapFragment :
     OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener,
-    LocationListener {
+    LocationListener { // TODO: Refactor
 
     private lateinit var eventsListViewModel: EventsListViewModel
     private lateinit var events: EventData
@@ -141,9 +141,9 @@ open class MapFragment :
         mLocationRequest.fastestInterval = 1000
         mLocationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
         if (ContextCompat.checkSelfPermission(
-            context!!,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        )
+                context!!,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
             == PackageManager.PERMISSION_GRANTED
         ) {
             LocationServices.FusedLocationApi.requestLocationUpdates(
@@ -158,6 +158,7 @@ open class MapFragment :
 
     override fun onConnectionFailed(p0: ConnectionResult) {}
 
+    var tempLocation: Location? = null
     override fun onLocationChanged(location: Location) {
         mLastLocation = location
         mCurrLocationMarker?.remove()
@@ -172,8 +173,19 @@ open class MapFragment :
         markerOptions.title("Current Position")
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
         mCurrLocationMarker = googleMap.addMarker(markerOptions)
-        // move map camera
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+
+        if ((tempLocation?.distanceTo(location)?: 10.1f) > 10) {
+            if (tempLocation == null) {// move camera only for first time
+                googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        latLng, 12.0f
+                    )
+                )
+            }
+
+            eventsListViewModel.location.value = location
+        } else
+            tempLocation = location
     }
 
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
@@ -239,9 +251,9 @@ open class MapFragment :
                     // permission was granted, yay! Do the
                     // location-related task you need to do.
                     if (ContextCompat.checkSelfPermission(
-                        context!!,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    )
+                            context!!,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        )
                         == PackageManager.PERMISSION_GRANTED
                     ) {
                         onLocationPermissionAllowed()
