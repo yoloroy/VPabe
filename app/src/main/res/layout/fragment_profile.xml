@@ -36,6 +36,8 @@
                     android:layout_marginTop="8dp"
                     android:background="@color/colorBackgroundFace"
                     android:scaleType="centerCrop"
+                    app:strokeWidth="0.5dp"
+                    app:strokeColor="@color/colorGray"
                     app:shapeAppearanceOverlay="@style/rounded" />
 
                 <LinearLayout
