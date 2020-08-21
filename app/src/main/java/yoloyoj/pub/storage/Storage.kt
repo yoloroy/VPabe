@@ -1,13 +1,13 @@
 package yoloyoj.pub.storage
 
 import android.location.Location
+import com.ckdroid.geofirequery.GeoQuery
+import com.ckdroid.geofirequery.model.Distance
+import com.ckdroid.geofirequery.setLocation
+import com.ckdroid.geofirequery.utils.BoundingBoxUtils
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
-import org.imperiumlabs.geofirestore.GeoFirestore
-import org.imperiumlabs.geofirestore.GeoQuery
-import org.imperiumlabs.geofirestore.GeoQueryDataEventListener
 import yoloyoj.pub.models.Attachment
 import yoloyoj.pub.models.Event
 import yoloyoj.pub.models.Event.Companion.MESSAGES
@@ -139,11 +139,10 @@ class Storage { // TODO: divide?
             distance: Double,
             handler: Handler<List<Event>>
         ) {
-            var geoQuery: GeoQuery? = null // TODO: redo this after accepting this: (https://github.com/imperiumlabs/GeoFirestore-Android/pull/49) (or problem in something other, i dunno)
             location.observeForever {
                 if (it == null) return@observeForever
 
-                geoQuery = observeEventsNearLocation(it, distance, handler)
+                observeEventsNearLocation(it, distance, handler)
             }
         }
 
@@ -151,49 +150,16 @@ class Storage { // TODO: divide?
             location: Location,
             distance: Double,
             handler: Handler<List<Event>>
-        ): GeoQuery {
-            val geoQuery = GeoFirestore(events)
-                .queryAtLocation(
-                    GeoPoint(location.latitude, location.longitude),
-                    distance
+        ) {
+            GeoQuery()
+                .collection(EVENTS)
+                .whereNearToLocation(
+                    location,
+                    Distance(distance, BoundingBoxUtils.DistanceUnit.KILOMETERS)
                 )
-
-            geoQuery.addGeoQueryDataEventListener(object : GeoQueryDataEventListener {
-                val events: MutableMap<String, Event> = mutableMapOf()
-
-                override fun onDocumentChanged(
-                    documentSnapshot: DocumentSnapshot,
-                    location: GeoPoint
-                ) {
-                    events[documentSnapshot.id] = documentSnapshot.toObject(Event::class.java)!!
-                    handler(events.values.toList())
+                .addSnapshotListener { _, value, _ ->
+                    handler(value.map { it.toEvent()!! })
                 }
-
-                override fun onDocumentEntered(
-                    documentSnapshot: DocumentSnapshot,
-                    location: GeoPoint
-                ) {
-                    events[documentSnapshot.id] = documentSnapshot.toEvent()!!
-                    handler(events.values.toList())
-                }
-
-                override fun onDocumentExited(documentSnapshot: DocumentSnapshot) {
-                    events.remove(documentSnapshot.id)
-                    handler(events.values.toList())
-                }
-
-                override fun onDocumentMoved(
-                    documentSnapshot: DocumentSnapshot,
-                    location: GeoPoint
-                ) {}
-
-                override fun onGeoQueryError(exception: Exception) {}
-
-                override fun onGeoQueryReady() {}
-
-            })
-
-            return geoQuery
         }
 
         fun getEventsBySearch(query: String, handler: Handler<List<Event>>) {
@@ -262,11 +228,13 @@ class Storage { // TODO: divide?
                         )
                     )
                     .addOnSuccessListener {
-                        handler(it.id)
-                        GeoFirestore(events).setLocation(
-                            it.id,
-                            latlng!!
+                        latlng!!
+                        it.setLocation(
+                            latlng.latitude,
+                            latlng.longitude
                         )
+
+                        handler(it.id)
                     }
             }
         }
@@ -274,6 +242,7 @@ class Storage { // TODO: divide?
         fun updateEvent(eventid: String, event: Event, handler: Handler<Boolean>) {
             with(Event) {
             with(event) {
+                latlng!!
                 events.document(eventid)
                     .update(
                         hashMapOf<String, Any?>(
@@ -287,11 +256,13 @@ class Storage { // TODO: divide?
                     )
                     .addOnCompleteListener {
                         handler(it.isSuccessful)
-                        GeoFirestore(events).setLocation(
-                            eventid,
-                            latlng!!
-                        )
+
                     }
+                events.document(eventid)
+                    .setLocation(
+                        latlng.latitude,
+                        latlng.longitude
+                    )
             }}
         }
 

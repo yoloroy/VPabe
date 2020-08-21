@@ -74,7 +74,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.2'
     implementation 'com.google.firebase:firebase-firestore:21.5.0'
     implementation 'com.firebaseui:firebase-ui-database:2.1.0'
-    implementation 'com.github.imperiumlabs:GeoFirestore-Android:v1.1.0'
+    implementation 'com.github.chintan369:Geo-FireStore-Query:1.1.0'
 
     implementation "com.soywiz.korlibs.klock:klock:1.7.3"
 

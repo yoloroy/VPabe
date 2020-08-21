@@ -5,6 +5,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.GeoPoint
 import yoloyoj.pub.storage.Handler
 import yoloyoj.pub.storage.Storage
+import yoloyoj.pub.utils.tryDefault
 
 public data class Event (
     val author: DocumentReference? = null,
@@ -31,7 +32,7 @@ public data class Event (
         const val SUBSCRIBERS = "subscribers"
     }
 
-    lateinit var id: String
+    var id: String = "event"
 
     fun callForLastSenderName(handler: Handler<String>) {
         Storage.getUser(userid = lastMessage.sender!!.id) {
@@ -40,7 +41,7 @@ public data class Event (
     }
 
     val lastMessage: Message
-        get() = messages!!.last()
+        get() = tryDefault(null) { messages?.last() }?: Message(author, description)
 
     val javaDate: java.util.Date? get() = date?.toDate()
 
