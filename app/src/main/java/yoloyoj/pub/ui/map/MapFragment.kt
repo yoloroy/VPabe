@@ -184,8 +184,8 @@ open class MapFragment :
             }
 
             eventsListViewModel.location.value = location
-        } else
             tempLocation = location
+        }
     }
 
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
