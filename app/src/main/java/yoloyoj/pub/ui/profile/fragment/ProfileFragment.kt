@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.soywiz.klock.DateTime
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
@@ -21,6 +20,7 @@ import yoloyoj.pub.models.Event
 import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.event.view.STANDARD_EVENT_IMAGE
+import java.util.*
 
 const val STANDARD_PROFILE_IMAGE = "https://alpinism-industrial.ru/wp-content/uploads/2019/09/kisspng-user-profile-computer-icons-clip-art-profile-5ac092f6f2d337.1560498715225699749946-300x300.jpg"
 
@@ -88,10 +88,8 @@ class ProfileFragment : Fragment() {
 
     private fun loadEvents(userId: String) {
         Storage.getEventsForUser(userId) { events ->
-            val curDate = DateTime.now().unixMillisLong
-
             val (upcomingEvents, visitedEvents) = events.asReversed()
-                .partition { it.millisDate >= curDate }.toList()
+                .partition { it.date!!.toDate().after(Date()) }.toList()
                 .map { part ->
                     part.map {
                         ProfileEventItem(
@@ -103,7 +101,7 @@ class ProfileFragment : Fragment() {
                 }
                 .run { get(0) to get(1) }
 
-            userExp.text = "${events.size * 10} exp."
+            userExp.text = "${visitedEvents.size * 10} exp."
 
             if (upcomingEvents.isNotEmpty())
                 recyclerUpcomingEvents.adapter = ProfileEventsAdapter(upcomingEvents)

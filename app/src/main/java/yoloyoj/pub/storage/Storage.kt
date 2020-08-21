@@ -158,7 +158,12 @@ class Storage { // TODO: divide?
                     Distance(distance, BoundingBoxUtils.DistanceUnit.KILOMETERS)
                 )
                 .addSnapshotListener { _, value, _ ->
-                    handler(value.map { it.toEvent()!! })
+                    handler(value.map {
+                        it.toEvent()!!
+                            .apply {
+                                id = it.id
+                            }
+                    })
                 }
         }
 
@@ -224,7 +229,7 @@ class Storage { // TODO: divide?
                             place = place,
                             latlng = latlng,
                             date = date,
-                            subscribers = emptyList()
+                            subscribers = listOf(author!!)
                         )
                     )
                     .addOnSuccessListener {
