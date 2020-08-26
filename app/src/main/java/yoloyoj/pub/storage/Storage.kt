@@ -251,6 +251,7 @@ class Storage { // TODO: divide?
                 events.document(eventid)
                     .update(
                         hashMapOf<String, Any?>(
+                            AUTHOR to author, // need to check possibility of update in firestore sec. rules
                             AVATAR to avatar,
                             NAME to name,
                             DESCRIPTION to description,
