@@ -15,6 +15,7 @@ import yoloyoj.pub.models.Event.Companion.SUBSCRIBERS
 import yoloyoj.pub.models.Message
 import yoloyoj.pub.models.User
 import yoloyoj.pub.ui.event.MutableLocation
+import yoloyoj.pub.utils.tryDefault
 import java.util.*
 
 typealias Handler<T> = (T) -> Unit
@@ -62,10 +63,13 @@ class Storage { // TODO: divide?
                         .get()
                         .addOnSuccessListener {
                             handler(
-                                it.last().toObject(User::class.java)
-                                    .apply {
-                                        id = it.last().reference.id
-                                    }
+                                tryDefault(null) {
+                                    it.last()
+                                        .toObject(User::class.java)
+                                        .apply {
+                                            id = it.last().reference.id
+                                        }
+                                }
                             )
                         }
                 }
