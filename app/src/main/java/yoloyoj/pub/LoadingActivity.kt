@@ -11,6 +11,10 @@ import yoloyoj.pub.ui.enter.login.LoginActivity
 
 class LoadingActivity : AppCompatActivity() {
 
+    companion object {
+        const val TIME_MILLIS_SHOW_LOADING: Long = 1000
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,6 +31,6 @@ class LoadingActivity : AppCompatActivity() {
                 startActivity(Intent(this@LoadingActivity, MainActivity::class.java))
                 finish()
             }
-        }, 1000)
+        }, TIME_MILLIS_SHOW_LOADING)
     }
 }
