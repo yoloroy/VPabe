@@ -51,9 +51,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:fontFamily="@font/big"
+                        android:text="@string/placeholder_user_name"
                         android:textAlignment="center"
-                        android:textColor="@color/colorDarkGray"
 
+                        android:textColor="@color/colorDarkGray"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:theme="@style/regularFont"

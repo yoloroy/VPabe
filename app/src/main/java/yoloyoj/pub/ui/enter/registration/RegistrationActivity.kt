@@ -3,6 +3,7 @@ package yoloyoj.pub.ui.enter.registration
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
 import android.view.View
@@ -10,6 +11,13 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firestore.v1.UpdateDocumentRequest
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registration.*
@@ -21,10 +29,12 @@ import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
 import yoloyoj.pub.storage.Storage
+import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.web.apiClient
 import yoloyoj.pub.web.utils.CODE_GET_PICTURE
 import yoloyoj.pub.web.utils.chooseImage
 import yoloyoj.pub.web.utils.putImage
+import java.util.concurrent.TimeUnit
 
 const val REGISTERED_TRUE = true
 const val REGISTERED_FALSE = false
@@ -38,11 +48,22 @@ class RegistrationActivity : AppCompatActivity() {
     private val phone: String
     get() = phoneEdit.text.toString()
 
+    private val email: String
+    get() = emailEdit.text.toString()
+
+    private val password: String
+    get() = passwordEdit.text.toString()
+
     private var avatar: String = ""
+
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
+
+        auth = FirebaseAuth.getInstance()
+        PhoneCheckCallback.registrationActivity = this
     }
 
     @SuppressLint("ApplySharedPref")
@@ -57,35 +78,42 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     public fun onClickRegister(view: View) {
-        if (name.isBlank() or
+        if (
+            name.isBlank() or
             phone.isBlank() or
-            !PhoneNumberUtils.isGlobalPhoneNumber(phone)) {
+            !PhoneNumberUtils.isGlobalPhoneNumber(phone)
+        ) {
             showWrongInputMessage()
             return
         }
 
-        Storage.regUser(name, phone, avatar) { (result, userid) ->
-            when(result) {
-                REGISTERED_TRUE -> checkMe(userid!!)
+        auth
+            .createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    PhoneCheckCallback.otherCredentialUserUpdates = {
+                        val credential = it.result!!.credential
+                        val user = auth.currentUser
 
-                REGISTERED_FALSE -> showWrongInputMessage()
+                        val profileUpdates = UserProfileChangeRequest.Builder().apply {
+                            displayName = name
+                            photoUri = Uri.parse(avatar)
 
-                REGISTERED_FAIL -> showUnknownErrorMessage()
+                        }
+                        user!!
+                    }
+
+                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                        phone,
+                        60,
+                        TimeUnit.SECONDS,
+                        this,
+                        PhoneCheckCallback
+                    )
+                } else {
+                    showWrongInputMessage()
+                }
             }
-        }
-    }
-
-    private fun checkMe(userid: String) {
-        apiClient.checkMe(phone)!!.enqueue(object :
-            Callback<String?> {
-            override fun onFailure(call: Call<String?>, t: Throwable) = showVerificationFailMessage()
-
-            override fun onResponse(call: Call<String?>, response: Response<String?>) = checkCode(response.body()!!, userid)
-        })
-    }
-
-    private fun showUnknownErrorMessage() {
-        Snackbar.make(registerButton, "Произошла ошибка, пожалуйста, повторите попытку позже", Snackbar.LENGTH_LONG)
     }
 
     public fun onClickBannerClose(view: View) {
@@ -133,10 +161,40 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun showVerificationFailMessage() {
-        Snackbar.make(loginButton, "Ошибка верефикации", Snackbar.LENGTH_LONG).show()
+        Snackbar.make(findViewById(android.R.id.content), "Ошибка верефикации", Snackbar.LENGTH_LONG).show()
     }
 
     private fun showWrongInputMessage() {
         registerFailBanner.visibility = View.VISIBLE
+    }
+
+    object PhoneCheckCallback : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+        lateinit var registrationActivity: RegistrationActivity
+        lateinit var otherCredentialUserUpdates: () -> FirebaseUser
+
+        override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+            registrationActivity.auth.signInWithCredential(credential)
+                .addOnSuccessListener {
+                    otherCredentialUserUpdates().also { user ->
+                        user.updatePhoneNumber(credential)
+                    }
+                }
+            Storage.regUser(
+                name = registrationActivity.name,
+                phone = registrationActivity.phone,
+                avatar = registrationActivity.avatar
+            ) { (success, id) ->
+                if (success)
+                    registrationActivity.onRegisterSuccess(id!!)
+                else
+                    onVerificationFailed(FirebaseException("Storage registration fail"))
+            }
+        }
+
+        override fun onVerificationFailed(exception: FirebaseException) {
+            registrationActivity.showVerificationFailMessage()
+        }
+
     }
 }

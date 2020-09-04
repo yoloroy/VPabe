@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_chat.*
 import yoloyoj.pub.MainActivity
 import yoloyoj.pub.R
 import yoloyoj.pub.models.Attachment
+import yoloyoj.pub.models.User.Companion.ID_ANONYMOUS_USER
 import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.utils.attachment.preview.AttachmentPreviewAdapter
 import yoloyoj.pub.web.utils.CODE_GET_PICTURE
@@ -52,6 +53,11 @@ class ChatActivity : AppCompatActivity() {
 
         userid = getSharedPreferences(MainActivity.PREFERENCES_USER, Context.MODE_PRIVATE)
             .getString(MainActivity.PREFERENCES_USERID, "0")!!
+
+        if (userid == ID_ANONYMOUS_USER) {
+            //messageSendingLayout.visibility = View.GONE
+            // return  // TODO: return returning
+        }
 
         viewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
         viewModel.chatid = chatid

@@ -17,14 +17,18 @@ import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USER
 import yoloyoj.pub.MainActivity.Companion.PREFERENCES_USERID
 import yoloyoj.pub.R
 import yoloyoj.pub.models.Event
+import yoloyoj.pub.models.User.Companion.ID_ANONYMOUS_USER
 import yoloyoj.pub.storage.Storage
 import yoloyoj.pub.ui.enter.login.LoginActivity
 import yoloyoj.pub.ui.event.view.STANDARD_EVENT_IMAGE
 import java.util.*
 
 const val STANDARD_PROFILE_IMAGE = "https://alpinism-industrial.ru/wp-content/uploads/2019/09/kisspng-user-profile-computer-icons-clip-art-profile-5ac092f6f2d337.1560498715225699749946-300x300.jpg"
+const val ANONYMOUS_PROFILE_IMAGE = "https://i.ytimg.com/vi/F4rv4gNoaEk/sddefault.jpg"
 
 class ProfileFragment : Fragment() {
+
+    private var userid: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
@@ -35,8 +39,12 @@ class ProfileFragment : Fragment() {
         menu.clear()
         inflater.inflate(R.menu.profile_edit_menu, menu)
         menu.getItem(0).setOnMenuItemClickListener {
-            findNavController().navigate(R.id.editProfileFragment)
-            true
+            if (userid != null) {
+                findNavController().navigate(R.id.editProfileFragment)
+                true
+            } else {
+                false
+            }
         }
         menu.getItem(1).setOnMenuItemClickListener {
             activity!!.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
@@ -60,28 +68,31 @@ class ProfileFragment : Fragment() {
         recyclerUpcomingEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerVisitedEvents.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        val userId = activity
+        userid = activity
             ?.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE)
             ?.getString(PREFERENCES_USERID, "1")
-        if (userId == null || userId == "0")
+        if (userid == null || userid == "0")
             goLogin()
 
-        userId!!
-        Storage.getUser(userid = userId) { user ->
-            if (user == null) {
-                goLogin()
-                return@getUser
-            }
+        if (userid == ID_ANONYMOUS_USER) {
+            Storage.getUser(userid = userid!!) { user ->
+                if (user == null) {
+                    goLogin()
+                    return@getUser
+                }
 
-            if (user.avatar.isNullOrEmpty()) {
-                Picasso.get().load(STANDARD_PROFILE_IMAGE).into(userImage)
-            } else {
-                Picasso.get().load(user.avatar).into(userImage)
+                if (user.avatar.isNullOrEmpty()) {
+                    Picasso.get().load(STANDARD_PROFILE_IMAGE).into(userImage)
+                } else {
+                    Picasso.get().load(user.avatar).into(userImage)
+                }
+                userName.text = user.name
+                userStatus.text = user.status
             }
-            userName.text = user.name
-            userStatus.text = user.status
+            loadEvents(userid!!)
+        } else {
+            Picasso.get().load(ANONYMOUS_PROFILE_IMAGE)
         }
-        loadEvents(userId)
 
         super.onViewCreated(view, savedInstanceState)
     }

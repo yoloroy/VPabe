@@ -72,4 +72,7 @@
     <string name="time" translatable="false">%02d:%02d</string>
     <string name="date_time" translatable="false">%02d.%02d.%04d %02d:%02d</string>
     <string name="experience">experience:</string>
+    <string name="hint_email_example">example@email.com</string>
+    <string name="hint_passowrd">BigAndStr0ngPa55w0rd</string>
+    <string name="placeholder_user_name">Someone</string>
 </resources>

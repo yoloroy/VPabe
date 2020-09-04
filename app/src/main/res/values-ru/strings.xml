@@ -68,4 +68,7 @@
     <string name="question">Вы ещё не зарегестрированы?</string>
     <string name="unexpected_fail">Что-то пошло не так</string>
     <string name="experience">опыт:</string>
+    <string name="hint_email_example">example@email.com</string>
+    <string name="hint_passowrd">BigAndStr0ngPa55w0rd</string>
+    <string name="placeholder_user_name">Someone</string>
 </resources>

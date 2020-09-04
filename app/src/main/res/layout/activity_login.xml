@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,27 +11,48 @@
     android:paddingRight="16dp"
     android:paddingBottom="16dp">
 
-    <Button
-        android:id="@+id/loginButton"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="190dp"
-        android:layout_height="57dp"
-        android:layout_gravity="start"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:background="@color/colorAccent"
-        android:elevation="3dp"
-        android:enabled="true"
-        android:onClick="onClickLogin"
-        android:text="@string/button_start"
-        android:textColor="@color/colorBackgroundFace"
-        android:textSize="18sp"
-        android:theme="@style/regularFont"
-        app:backgroundTint="@color/colorAccent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nonRegisteredButton" />
+        app:layout_constraintTop_toBottomOf="@+id/nonRegisteredButton"
+        tools:layout_editor_absoluteX="16dp">
+
+        <Button
+            android:id="@+id/loginButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="190dp"
+            android:layout_height="57dp"
+            android:layout_margin="8dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@color/colorAccent"
+            android:elevation="3dp"
+            android:enabled="true"
+            android:onClick="onClickLogin"
+            android:text="@string/button_start"
+            android:textColor="@color/colorBackgroundFace"
+            android:textSize="18sp"
+            android:theme="@style/regularFont"
+            app:backgroundTint="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/anonymusEnter"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
+            android:layout_marginTop="16dp"
+            android:onClick="onClickAnonymousLogon"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:text="Anonymous logon"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/editTextPhone"
@@ -81,10 +103,13 @@
         android:layout_height="48dp"
         android:gravity="top"
         android:onClick="onClickRegister"
+        android:paddingStart="16dp"
         android:paddingTop="6dp"
+        android:paddingEnd="16dp"
         android:text="@string/question"
-        android:theme="@style/regularFont"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/colorAccent"
+        android:theme="@style/regularFont"
         app:layout_constraintEnd_toEndOf="@+id/editTextPhone"
         app:layout_constraintStart_toStartOf="@+id/editTextPhone"
         app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />

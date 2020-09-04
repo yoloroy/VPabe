@@ -12,6 +12,8 @@ public class User (
         const val NAME = "name"
         const val PHONE = "phone"
         const val STATUS = "status"
+
+        const val ID_ANONYMOUS_USER = "anonymous"
     }
 
     lateinit var id: String

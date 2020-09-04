@@ -80,7 +80,7 @@ class Storage { // TODO: divide?
             name: String,
             phone: String,
             avatar: String,
-            handler: Handler<Pair<Boolean?, String?>>
+            handler: Handler<Pair<Boolean, String?>>
         ) {
             var temp = phone
             if (temp.startsWith('+')) {

@@ -103,25 +103,55 @@
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:hint="@string/hint_edit_profile_name"
-                android:theme="@style/regularFont"
-
                 android:inputType="textPersonName"
+
                 android:minEms="12"
+                android:singleLine="true"
                 android:textAlignment="center"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:theme="@style/regularFont" />
 
             <EditText
                 android:id="@+id/phoneEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/user_number_hint"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:minEms="12"
-                android:theme="@style/regularFont"
 
+                android:singleLine="true"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                android:importantForAutofill="no" />
+                android:theme="@style/regularFont" />
+
+            <EditText
+                android:id="@+id/emailEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/hint_email_example"
+
+                android:inputType="none|textWebEmailAddress"
+                android:minEms="12"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:theme="@style/regularFont" />
+
+            <EditText
+                android:id="@+id/passwordEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/hint_passowrd"
+                android:inputType="textPersonName"
+
+                android:minEms="12"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:theme="@style/regularFont" />
 
         </LinearLayout>
 
