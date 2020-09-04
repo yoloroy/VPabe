@@ -74,7 +74,7 @@ class EventActivity : AppCompatActivity() {
             Picasso.get().load(event.avatar).into(event_image)
         }
 
-        if (userId == event.id) {
+        if (userId == event.author?.id) {
             editMenu?.setGroupVisible(0, true)
         }
 
